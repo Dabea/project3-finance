@@ -1,0 +1,19 @@
+{
+  "name": "project3-finance",
+  "version": "1.0.0",
+  "description": "A Finace Budgeting app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dabea/project3-finance.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dabea/project3-finance/issues"
+  },
+  "homepage": "https://github.com/Dabea/project3-finance#readme"
+}
