@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var productSchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
-    Product: {
+    product: {
 		productName: {
 			type: String,
 			required: true
@@ -16,7 +16,7 @@ var productSchema = mongoose.Schema({
 
         
 	},
-	Transaction:{
+	transaction:{
         transactionDate:{
             type: Date,
             default: Date.now

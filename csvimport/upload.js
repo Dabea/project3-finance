@@ -17,7 +17,7 @@ exports.post = function (req, res) {
  
     // authors array that will be populated as the CSV file is parsed.
     // This array will be used to save the data to the database.
-    var products = [];
+    var productsArray = [];
          
     // The fast-csv library is now called by leveraging the fromString function
     // This function accepts the CSV file as a string
@@ -29,13 +29,13 @@ exports.post = function (req, res) {
      .on("data", function(data){
          data['_id'] = new mongoose.Types.ObjectId();
           
-         products.push(data);
+         productsArray.push(data);
      })
      .on("end", function(){
-         Product.create(products, function(err, documents) {
+         Product.create(productsArray, function(err, documents) {
             if (err) throw err;
          });
           
-         res.send(products.length + ' Product have been successfully uploaded.');
+         res.send(productsArray.length + ' Product have been successfully uploaded.');
      });
 };
