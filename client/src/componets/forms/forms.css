@@ -1,0 +1,6 @@
+form {
+    width:40%;
+    height:600px;
+    background: linear-gradient(135deg, #3b8686 0%, #79bd9a 100%);
+    border:1px solid black;
+}

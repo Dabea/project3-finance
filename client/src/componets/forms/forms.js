@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import './forms.css'
 
 class Forms extends Component {
     render(){
         return (
-            <div>
+            <div className="form">
                 <div>
                     <label>Product </label>
                     <input name="product" type="input" />
@@ -15,7 +16,7 @@ class Forms extends Component {
                 <div>
                     <label>Quanity</label>
                     <input name="quanity" type="input" />
-                </div>
+                </div> 
                 <div>
                     <label>cost</label>
                     <input name="cost" type="input" />
