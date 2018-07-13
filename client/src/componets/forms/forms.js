@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../forms/forms.css';
 import axios from 'axios';
+import { Button, Icon} from 'react-materialize'
 
 class Forms extends Component {
 
@@ -29,13 +30,13 @@ class Forms extends Component {
     render(){
 
         return (
-            <div className="backdrop" class="backdrop" >
+            <div className="backdrop1"  >
                 <div className="form" >
                     <div className="input-field" >
                         <label  className="input-area-label" >Product </label>
                         <input  onChange={this.handelChangeEvent} value={this.state.product} name="product" type="input" />
                     </div>
-                    <div className="input-field" >
+                    <div className="input-field card-panel teal lighten-2" >
                         <label  className="input-area-label" >Date</label>
                         <input  onChange={this.handelChangeEvent} value={this.state.date} name="date" type="date" />
                     </div>
@@ -51,7 +52,9 @@ class Forms extends Component {
                         <label  className="input-area-label" >Department</label>
                         <input  onChange={this.handelChangeEvent} value={this.state.department} name="department" type="input" />
                     </div>
-                    <button onClick={this.addRecept} > Submit </button>
+                          <Button waves='light'>
+                            <Icon>thumb_up</Icon>
+                         </Button>
                </div>
             </div>    
         )
