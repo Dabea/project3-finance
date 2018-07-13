@@ -2,7 +2,7 @@
 var csv = require('fast-csv');
 
 var mongoose = require('mongoose');
-var Product = require('./product');
+var Product = require('./models/Product');
  
 //  the post function is defined and exported for use by the index.js file
 
