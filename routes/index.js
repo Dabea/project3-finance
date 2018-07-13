@@ -7,12 +7,13 @@ const apiRoutes = require('./api');
 // API Routes 
 router.use('/api', apiRoutes);
 
+
 // Catch all for anything that isn't an API route
 
-router.use('/api/*', function(req,res){
-    //this will reject any /api/nonexistant routes
-    res.send(500).end();
-})
+// router.use('/api/*', function(req,res){
+//     //this will reject any /api/nonexistant routes
+//     res.send(500).end();
+// })
 
 // Send the React app
 router.use(function(req,res){
