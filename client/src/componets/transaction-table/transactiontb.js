@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { debug } from 'util';
+import {Row, Icon} from 'react-materialize'
 
 class TransactionTable extends Component {
     render(){
@@ -10,28 +11,31 @@ class TransactionTable extends Component {
         ];
 
         return(
-            <table className="striped">
-                <thead>
-                    <tr>
-                        <th> Date  </th>
-                        <th> Description  </th>
-                        <th> category  </th>
-                        <th> Cost  </th>
-                    </tr>
-                </thead>
-                <tbody>
-                {sampleData.map( (tranaction) => 
-                 
-                        <tr>
-                            <td> {tranaction.date} </td>
-                            <td>  {tranaction.description} </td>
-                            <td>  {tranaction.category} </td>
-                            <td>  {tranaction.cost} </td>
-                        </tr>  
-                     
-                )}
-                 </tbody>   
-            </table> 
+            <div className="row">
+                <div className="col s8 offset-s2">
+                    <table className="striped s6 offset-s6">
+                        <thead>
+                            <tr>
+                                <th> Date  </th>
+                                <th> Description  </th>
+                                <th> category  </th>
+                                <th> Cost  </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {sampleData.map( (tranaction) => 
+                            <tr>
+                                <td> {tranaction.date} </td>
+                                <td>  {tranaction.description} </td>
+                                <td className="borders">  {tranaction.category} </td>
+                                <td>  {tranaction.cost} </td>
+                            </tr>  
+                        )}
+                        </tbody>   
+                    </table> 
+            </div>
+            </div>
+       
         )
     }
 }
