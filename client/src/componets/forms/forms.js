@@ -6,7 +6,7 @@ import axios from 'axios';
 class Forms extends Component {
 
     state = {
-        product: 'abc',
+        product: '',
         date: '',
         quanity: '1',
         cost: '',
@@ -31,29 +31,37 @@ class Forms extends Component {
 
         return (
             <div className="backdrop1"  >
+            
                 <div className="form" >
-                    <div className="input-field" >
-                        <label  className="input-area-label" > </label>
-                        <input  onChange={this.handelChangeEvent} value={this.state.product} name="product" type="input" />
+                    <div className="model-header">
+                      <span className="model-header-title" >Item Info </span>  
                     </div>
-                    <div className="input-field " >
-                        <label  className="input-area-label" ></label>
-                        <input  onChange={this.handelChangeEvent} value={this.state.date} name="date" type="date" />
-                    </div>
-                    <div className="input-field" >
-                        <label  className="input-area-label" ></label>
-                        <input  onChange={this.handelChangeEvent} value={this.state.quanity} name="quanity" type="input" />
-                    </div> 
-                    <div className="input-field" >
-                        <label  className="input-area-label" ></label>
-                        <input  onChange={this.handelChangeEvent} value={this.state.cost} name="cost" type="input" />
-                    </div>
-                    <div className="input-field" >
-                        <label  className="input-area-label" ></label>
-                        <input  onChange={this.handelChangeEvent} value={this.state.department} name="department" type="input" />
-                    </div>
-                          <button  onClick={this.addRecept} >Submit </button>
-               </div>
+                    <div className="model-body"> 
+                        <div className="input-field" >
+                            <input className="input-field"  onChange={this.handelChangeEvent} value={this.state.product} name="product" type="text" />
+                            <label  for="products"  >Product </label>
+                        </div>
+                        <div className="input-field " >
+                            <label  className="input-area-label" >  </label>
+                            <input  onChange={this.handelChangeEvent} value={this.state.date} name="date" type="date" />
+                        </div>
+                        <div className="input-field" >
+                            <label  className="input-area-label" > Quanity </label>
+                            <input  onChange={this.handelChangeEvent} value={this.state.quanity} name="quanity" type="text" />
+                        </div> 
+                        <div className="input-field" >
+                            <label  className="input-area-label" > Cost </label>
+                            <input  onChange={this.handelChangeEvent} value={this.state.cost} name="cost" type="text" />
+                        </div>
+                        <div className="input-field" >
+                            <label  className="input-area-label" > Department </label>
+                            <input  onChange={this.handelChangeEvent} value={this.state.department} name="department" type="text" />
+                        </div>
+                            <button  onClick={this.addRecept} >Submit </button>
+                         </div>
+                    </div>    
+                  
+                   
             </div>    
         )
     }
