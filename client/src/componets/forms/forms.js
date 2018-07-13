@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import '../forms/forms.css';
 import axios from 'axios';
-import { Button, Icon} from 'react-materialize'
+
 
 class Forms extends Component {
 
     state = {
-        product: '',
+        product: 'abc',
         date: '',
         quanity: '1',
         cost: '',
@@ -33,28 +33,26 @@ class Forms extends Component {
             <div className="backdrop1"  >
                 <div className="form" >
                     <div className="input-field" >
-                        <label  className="input-area-label" >Product </label>
+                        <label  className="input-area-label" > </label>
                         <input  onChange={this.handelChangeEvent} value={this.state.product} name="product" type="input" />
                     </div>
-                    <div className="input-field card-panel teal lighten-2" >
-                        <label  className="input-area-label" >Date</label>
+                    <div className="input-field " >
+                        <label  className="input-area-label" ></label>
                         <input  onChange={this.handelChangeEvent} value={this.state.date} name="date" type="date" />
                     </div>
                     <div className="input-field" >
-                        <label  className="input-area-label" >Quanity</label>
+                        <label  className="input-area-label" ></label>
                         <input  onChange={this.handelChangeEvent} value={this.state.quanity} name="quanity" type="input" />
                     </div> 
                     <div className="input-field" >
-                        <label  className="input-area-label" >cost</label>
+                        <label  className="input-area-label" ></label>
                         <input  onChange={this.handelChangeEvent} value={this.state.cost} name="cost" type="input" />
                     </div>
                     <div className="input-field" >
-                        <label  className="input-area-label" >Department</label>
+                        <label  className="input-area-label" ></label>
                         <input  onChange={this.handelChangeEvent} value={this.state.department} name="department" type="input" />
                     </div>
-                          <Button waves='light'>
-                            <Icon>thumb_up</Icon>
-                         </Button>
+                          <button  onClick={this.addRecept} >Submit </button>
                </div>
             </div>    
         )
