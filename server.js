@@ -10,7 +10,7 @@ app.use(fileUpload());
 // Require authors schema
 // var db = require('./author')
 
-var databaseURL = 'products';
+var databaseURL = 'models/products';
 var collections = ['products']
 
 var db = mongojs(databaseURL,collections)
