@@ -1,42 +1,56 @@
+
+
+const routes = require ("./routes");
 var app = require('express')();
 var fileUpload = require('express-fileupload');
 var mongoose = require('mongoose');
 var mongojs = require('mongojs')
 
+
+//serving routes
+
+app.use(routes)
+
+
 // var server = require('http').Server(app);
 
-app.use(fileUpload());
+// app.use(fileUpload());
 
 // Require authors schema
 // var db = require('./author')
 
+<<<<<<< HEAD
 var databaseURL = 'models/products';
 var collections = ['products']
+=======
+// var databaseURL = 'products';
+// var collections = ['products']
+>>>>>>> 50c78308a262c4bbb50dcd2fc96ef4cbf35de382
 
-var db = mongojs(databaseURL,collections)
+// var db = mongojs(databaseURL,collections)
 
 // server.listen(8080);
 
 mongoose.connect('mongodb://localhost/products');
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
-});
+// app.get('/', function (req, res) {
+//   res.sendFile(__dirname + '/index.html');
+// });
 
-app.get('/example', function(req,res){
-  // Query: In our database, go to the transaction collection, then "find" everything,
-  db.products.find({}, function(error, found) {
-    // Log any errors if the server encounters one
-    if (error) {
-      console.log(error);
-    }
-    // Otherwise, send the result of this query to the browser
-    else {
-      res.json(found);
-    }
-  });
+// app.get('/example', function(req,res){
+//   // Query: In our database, go to the transaction collection, then "find" everything,
+//   db.products.find({}, function(error, found) {
+//     // Log any errors if the server encounters one
+//     if (error) {
+//       console.log(error);
+//     }
+//     // Otherwise, send the result of this query to the browser
+//     else {
+//       res.json(found);
+//     }
+//   });
 
-});
+// });
 
 
 var upload = require('./upload.js');
