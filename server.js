@@ -19,13 +19,8 @@ app.use(routes)
 // Require authors schema
 // var db = require('./author')
 
-<<<<<<< HEAD
 var databaseURL = 'models/products';
 var collections = ['products']
-=======
-// var databaseURL = 'products';
-// var collections = ['products']
->>>>>>> 50c78308a262c4bbb50dcd2fc96ef4cbf35de382
 
 // var db = mongojs(databaseURL,collections)
 
