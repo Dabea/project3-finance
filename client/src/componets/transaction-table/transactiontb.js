@@ -64,9 +64,15 @@ class TransactionTable extends Component {
                     <tbody>
                     {this.state.data.map(tranaction => (
                         <tr key={tranaction._id}  className={ tranaction.isEditing ? 'background-active' : 'test'} >
-                            <td>  <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} /> {tranaction.transaction.transactionDate}</td>
+                            <td> 
+                                 {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
+                                 {tranaction.transaction.transactionDate}</td>
                             <td>  {tranaction.product.productName} </td>
-                            <td className="borders"> <input className="input-bottom" type="text" value={tranaction.category} /> {tranaction.product.productDepartment} </td>
+                            <td className="borders"> 
+                            
+                            {/* <input className="input-bottom" type="text" value={tranaction.category} />  */}
+                            
+                            {tranaction.product.productDepartment} </td>
                             <td> ${tranaction.transaction.transactionTotal} </td>
                         </tr>  
                     ))}
