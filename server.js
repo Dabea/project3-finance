@@ -28,7 +28,7 @@ var collections = ['products']
 
 mongoose.connect('mongodb://localhost/products');
 
-// app.get('/', function (req, res) {
+// app.get('/upload', function (req, res) {
 //   res.sendFile(__dirname + '/index.html');
 // });
 
