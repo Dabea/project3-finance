@@ -1,0 +1,40 @@
+.input-bottom {
+    border-bottom: none;
+    outline: none;
+}
+
+textarea:focus {
+    border-bottom: none!important;
+    box-shadow: none!important;
+  }
+
+  input[type="text"] {
+    border: 1px solid #999999;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 0 #0C8CF6;
+
+  }
+
+  input[type=text] {
+    border-bottom: none;
+    outline: none;
+}
+
+  input:focus {
+    border-bottom: none;
+    outline: none;
+  }
+
+  input[type=text]:focus:not([readonly]) {
+    border: 1px solid #999999;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 0 #0C8CF6;
+
+  }
+
+
+table.striped > tbody > tr.background-active{
+    background: #666666;
+    color: white;
+
+}  
