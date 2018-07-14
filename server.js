@@ -8,6 +8,11 @@ var mongojs = require('mongojs')
 
 
 //serving routes
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.use(routes)
 
@@ -19,8 +24,8 @@ app.use(routes)
 // Require authors schema
 // var db = require('./author')
 
-var databaseURL = 'models/products';
-var collections = ['products']
+// var databaseURL = 'models/products';
+// var collections = ['products']
 
 // var db = mongojs(databaseURL,collections)
 

@@ -20,10 +20,10 @@ class App extends Component {
     
     this.state = {
       data:[],
-      date: '',
-      description: '',
-      category: '',
-      cost: ''
+      // date: '',
+      // description: '',
+      // category: '',
+      // cost: ''
     };
   }
 
