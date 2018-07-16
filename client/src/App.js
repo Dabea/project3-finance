@@ -6,7 +6,9 @@ import Form from './componets/forms/forms'
 import '../node_modules/react-vis/dist/style.css';
 import {XYPlot, LineSeries ,VerticalGridLines ,HorizontalGridLines ,XAxis, YAxis } from 'react-vis';
 import TransactionTable from './componets/transaction-table'
+import Chart from "./componets/chart/chart"
 import axios from 'axios';
+import Forms from "./componets/forms/forms"
 // import uploadFIle from '../../upload';
 
 
@@ -69,7 +71,7 @@ const App = () => (
 
 <div>
 
-
+<Route exact path="/forms" component={Forms} />
 <Route exact path="/transactions" component={TransactionTable} />
 
 
