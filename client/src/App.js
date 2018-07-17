@@ -8,6 +8,7 @@ import {XYPlot, LineSeries ,VerticalGridLines ,HorizontalGridLines ,XAxis, YAxis
 import TransactionTable from './componets/transaction-table/transactiontb'
 import axios from 'axios';
 // import uploadFIle from '../../upload';
+import Chart from './componets/chart/chart'
 
 
 const API_URL = 'http://localhost:8080/api';
@@ -19,7 +20,7 @@ class App extends Component {
     super(props);
     
     this.state = {
-      data:[],
+      data:[]
       // date: '',
       // description: '',
       // category: '',
@@ -34,8 +35,8 @@ class App extends Component {
           this.setState({
             data: response.data
           });
-          console.log(response.data)
-
+          
+          console.log(this.state.data);
       })
       .catch((err)=> {
         console.log(err)
@@ -43,18 +44,13 @@ class App extends Component {
   }
   render() {
     return (
+      
       <div className="App">
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p> */}
-        <TransactionTable 
+    
+        <Chart data ={this.state.data} > </Chart>
+        {/* <TransactionTable 
           data = {this.state.data}
-        />
-        {/* <Form  /> */}
+        /> */}
 
       </div>
     );
