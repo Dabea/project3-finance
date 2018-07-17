@@ -29,18 +29,18 @@ class App extends Component {
   }
 
   componentDidMount(){
-    axios
-      .get(API_URL)
-      .then(response => {
-          this.setState({
-            data: response.data
-          });
+    // axios
+    //   .get(API_URL)
+    //   .then(response => {
+    //       this.setState({
+    //         data: response.data
+    //       });
           
-          console.log(this.state.data);
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
+    //       console.log(this.state.data);
+    //   })
+    //   .catch((err)=> {
+    //     console.log(err)
+    //   })
   }
   render() {
     return (

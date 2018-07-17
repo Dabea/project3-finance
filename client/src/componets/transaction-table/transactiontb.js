@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { debug } from 'util';
-import {Row, Icon} from 'react-materialize'
 import './transaction.css'
 import TableInput from './tableInput/tableinput'
 
