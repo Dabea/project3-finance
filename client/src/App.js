@@ -9,7 +9,7 @@ import TransactionTable from './componets/transaction-table'
 import Chart from "./componets/chart/chart"
 import axios from 'axios';
 import Forms from "./componets/forms/forms"
-// import uploadFIle from '../../upload';
+import UploadData from './componets/upload/uploaddata';
 
 
 const API_URL = 'http://localhost:8080/api';
@@ -73,6 +73,8 @@ const App = () => (
 
 <Route exact path="/forms" component={Forms} />
 <Route exact path="/transactions" component={TransactionTable} />
+<Route exact path="/upload" component={UploadData} />
+
 
 
 </div>
