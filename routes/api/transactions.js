@@ -3,7 +3,8 @@ const transactionsController = require("../../controllers/transactionsController
 
 // Matches with "/api/books"
 router.route("/")
-  .get(transactionsController.findAll)
+  // .get(transactionsController.findAll)
+  .get(transactionsController.findFive)
   .post(transactionsController.create);
 
 // Matches with "/api/books/:id"

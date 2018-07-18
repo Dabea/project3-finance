@@ -13,8 +13,8 @@ class Forms extends Component {
         department: ''
     }
 
-    addRecept = () =>  {
-       axios.post('/api/recept', this.state)
+    addreceipt = () =>  {
+       axios.post('/api/receipt', this.state)
             .then(
                 console.log('the Receipt has been added')
             )
@@ -57,7 +57,7 @@ class Forms extends Component {
                             <label  className="input-area-label" > Department </label>
                             <input  onChange={this.handelChangeEvent} value={this.state.department} name="department" type="text" />
                         </div>
-                            <button  onClick={this.addRecept} >Submit </button>
+                            <button  onClick={this.addreceipt} >Submit </button>
                          </div>
                     </div>    
                   
