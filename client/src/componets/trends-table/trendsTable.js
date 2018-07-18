@@ -104,11 +104,11 @@ class TrendsTable extends Component {
                                     <td> 
                                         {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
                                             
-                                       {  moment( tranaction.transaction.transactionDate).format('MMMM Do YYYY, h:mm:ss a')   }</td>
+                                       {  moment( tranaction.transaction.transactionDate).format('L')   }</td>
                                         
                         </tr>  
                      ))}
-                    </tbody>   
+                    </tbody>    
                 </table> 
             </div>
         </div>
