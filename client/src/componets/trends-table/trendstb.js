@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { debug } from 'util';
 import {Row, Icon} from 'react-materialize'
-import './transaction.css'
+import './trends.css'
 import TableInput from './tableInput/tableinput'
 
 import axios from 'axios';
-
 import moment from 'moment';
 
-const API_URL = 'http://localhost:8080/api/transactions';
 
-class TransactionTable extends Component {
+
+const API_URL = 'http://localhost:8080/api/trends';
+
+class TrendsTable extends Component {
     
        
 
@@ -28,6 +29,7 @@ class TransactionTable extends Component {
     this.state = {
       data:[],
      
+    
     };
   };
 
@@ -46,17 +48,35 @@ class TransactionTable extends Component {
         })
     };
 
+
+
+
+   
     // const data = (props) => {
        
     render(){
     return(
         <div className="row">
             <div className="col s8 offset-s2">
+
+            
+
+<ul class="pagination">
+    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    <li class="active"><a href="/day">Day</a></li>
+    <li class="waves-effect"><a href="/week">Week</a></li>
+    <li class="waves-effect"><a href="/month">Month</a></li>
+    <li class="waves-effect"><a href="/quarter">Quarter</a></li>
+    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+  </ul>
+
+
                 <table className="striped s6 offset-s6">
                     <thead>
                         <tr>
                             <th> Item  </th>
                             <th> Group  </th>
+                            <th> Quantity  </th>
                             <th> Price  </th>
                             <th> Date  </th>
                         </tr>
@@ -75,13 +95,16 @@ class TransactionTable extends Component {
                                     {tranaction.product.productDepartment} </td>
 
                                 {/* PRICE */}
+                                <td> {tranaction.transaction.transactionQuantity} </td>
+
+                                {/* PRICE */}
                                     <td> ${tranaction.transaction.transactionTotal} </td>
 
                                 {/* DATE */}
                                     <td> 
                                         {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
                                             
-                                    { moment( tranaction.transaction.transactionDate).format('MMMM Do YYYY, h:mm:ss a') }</td>
+                                       {  moment( tranaction.transaction.transactionDate).format('MMMM Do YYYY, h:mm:ss a')   }</td>
                                         
                         </tr>  
                      ))}
@@ -99,4 +122,4 @@ class TransactionTable extends Component {
 //     }
 // }
 
-export default TransactionTable;
+export default TrendsTable;

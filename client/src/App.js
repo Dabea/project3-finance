@@ -5,8 +5,11 @@ import './App.css';
 import Form from './componets/forms/forms'
 import '../node_modules/react-vis/dist/style.css';
 import {XYPlot, LineSeries ,VerticalGridLines ,HorizontalGridLines ,XAxis, YAxis } from 'react-vis';
-import TransactionTable from './componets/transaction-table'
+import TransactionTable from './componets/transaction-table';
+import TrendsTable from './componets/trends-table';
+import DailyTrendsTable from './componets/trends-table';
 import axios from 'axios';
+
 // import uploadFIle from '../../upload';
 
 
@@ -71,6 +74,8 @@ const App = () => (
 
 
 <Route exact path="/transactions" component={TransactionTable} />
+<Route exact path="/trends" component={TrendsTable} />
+<Route exact path="/trends/day" component={ DailyTrendsTable} />
 
 
 </div>

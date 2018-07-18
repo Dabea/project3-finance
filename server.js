@@ -57,5 +57,5 @@ var upload = require('./upload.js');
 app.post('/', upload.post);
 
 app.listen(8080, function() {
-  console.log("App running on port " + 8080 + "!");
+  console.log("API " + 8080 + "!");
 });
