@@ -1,1 +1,1 @@
-export {default} from "./transactiontb"
+export {default} from "./transactionTable"
