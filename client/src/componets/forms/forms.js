@@ -3,21 +3,29 @@ import '../forms/forms.css';
 import axios from 'axios';
 
 
+const API_URL = 'http://localhost:3001/api';
+
 class Forms extends Component {
 
     state = {
-        product: '',
+        item: [{
+            name: '',
+            quantity: '',
+            cost: '',
+            category: '',
+        }],
+        items: this.item,
         date: '',
-        quanity: '1',
-        cost: '',
-        department: ''
+        store: '',
+        total: ''
     }
 
     addreceipt = () =>  {
-       axios.post('/api/receipt', this.state)
-            .then(
+       axios.post(API_URL, this.state)
+            .then( response => {
+                console.log(response)
                 console.log('the Receipt has been added')
-            )
+            })
     
     }
 
