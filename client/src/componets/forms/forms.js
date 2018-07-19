@@ -46,20 +46,20 @@ class Forms extends Component {
                     </div>
                     <div className="model-body"> 
                         <div className="input-field" >
-                            <input className="input-field"  onChange={this.handelChangeEvent} value={this.state.items.item.name} name="name" type="text" />
+                            <input className="input-field"  onChange={this.handelChangeEvent} value={this.state.item.name} name="name" type="text" />
                             <label  htmlFor="products"  >Product Name </label>
                         </div>
                         <div className="input-field" >
                             <label  className="input-area-label" > Quantity </label>
-                            <input  onChange={this.handelChangeEvent} value={this.state.items.quantity} name="quanity" type="text" />
+                            <input  onChange={this.handelChangeEvent} value={this.state.item.quantity} name="quanity" type="text" />
                         </div> 
                         <div className="input-field" >
                             <label  className="input-area-label" > Cost </label>
-                            <input  onChange={this.handelChangeEvent} value={this.state.items.cost} name="cost" type="text" />
+                            <input  onChange={this.handelChangeEvent} value={this.state.item.cost} name="cost" type="text" />
                         </div>
                         <div className="input-field" >
                             <label  className="input-area-label" > Category </label>
-                            <input  onChange={this.handelChangeEvent} value={this.state.items.category} name="category" type="text" />
+                            <input  onChange={this.handelChangeEvent} value={this.state.item.category} name="category" type="text" />
                         </div>
 
                         <div className="input-field " >
