@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 // import logo from './logo.svg';
 import './App.css';
-import Form from './componets/forms/forms'
+import Form from './components/forms/forms'
 import '../node_modules/react-vis/dist/style.css';
 import {XYPlot, LineSeries ,VerticalGridLines ,HorizontalGridLines ,XAxis, YAxis } from 'react-vis';
-import TransactionTable from './componets/transaction-table';
-import TrendsTable from './componets/trends-table';
-import DailyTrendsTable from './componets/trends-table';
+import TransactionTable from './components/transaction-table';
+import TrendsTable from './components/trends-table';
+import DailyTrendsTable from './components/trends-table/daily-trends';
+import WeeklyTrendsTable from './components/trends-table/weekly-trends';
+import MonthlyTrendsTable from './components/trends-table/monthly-trends';
+import QuarterTrendsTable from './components/trends-table/quarter-trends';
 import axios from 'axios';
 
 // import uploadFIle from '../../upload';
@@ -75,7 +78,10 @@ const App = () => (
 
 <Route exact path="/transactions" component={TransactionTable} />
 <Route exact path="/trends" component={TrendsTable} />
-<Route exact path="/trends/day" component={ DailyTrendsTable} />
+<Route exact path="/trends/daily" component={ DailyTrendsTable} />
+<Route exact path="/trends/weekly" component={ WeeklyTrendsTable} />
+<Route exact path="/trends/monthly" component={ MonthlyTrendsTable} />
+<Route exact path="/trends/quarter" component={ QuarterTrendsTable} />
 
 
 </div>

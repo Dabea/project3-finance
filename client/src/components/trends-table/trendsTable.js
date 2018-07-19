@@ -2,14 +2,16 @@ import React, { Component } from 'react'
 import { debug } from 'util';
 import {Row, Icon} from 'react-materialize'
 import './trends.css'
+import TableInput from './tableInput/tableinput'
 
 import axios from 'axios';
+import moment from 'moment';
 
 
 
 const API_URL = 'http://localhost:8080/api/trends';
 
-class DailyTrendsTable extends Component {
+class TrendsTable extends Component {
     
        
 
@@ -27,6 +29,7 @@ class DailyTrendsTable extends Component {
     this.state = {
       data:[],
      
+    
     };
   };
 
@@ -45,6 +48,10 @@ class DailyTrendsTable extends Component {
         })
     };
 
+
+
+
+   
     // const data = (props) => {
        
     render(){
@@ -56,13 +63,13 @@ class DailyTrendsTable extends Component {
 
 <ul class="pagination">
     <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-    <li class="active"><a href="#!">Overview</a></li>
-    <li class="waves-effect"><a href="/day">Day</a></li>
-    <li class="waves-effect"><a href="/week">Week</a></li>
-    <li class="waves-effect"><a href="/month">Month</a></li>
-    <li class="waves-effect"><a href="/quarter">Quarter</a></li>
-    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    <li class="active"><a href="#!">Day</a></li>
+    <li class="waves-effect"><a href="/trends/weekly">Week</a></li>
+    <li class="waves-effect"><a href="/trends/monthly">Month</a></li>
+    <li class="waves-effect"><a href="/trends/quarter">Quarter</a></li>
+    <li class="waves-effect"><a href="/trends/weekly"><i class="material-icons">chevron_right</i></a></li>
   </ul>
+
 
 
                 <table className="striped s6 offset-s6">
@@ -70,6 +77,7 @@ class DailyTrendsTable extends Component {
                         <tr>
                             <th> Item  </th>
                             <th> Group  </th>
+                            <th> Quantity  </th>
                             <th> Price  </th>
                             <th> Date  </th>
                         </tr>
@@ -88,17 +96,20 @@ class DailyTrendsTable extends Component {
                                     {tranaction.product.productDepartment} </td>
 
                                 {/* PRICE */}
+                                <td> {tranaction.transaction.transactionQuantity} </td>
+
+                                {/* PRICE */}
                                     <td> ${tranaction.transaction.transactionTotal} </td>
 
                                 {/* DATE */}
                                     <td> 
                                         {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
                                             
-                                        {tranaction.transaction.transactionDate}</td>
+                                       {  moment( tranaction.transaction.transactionDate).format('L')   }</td>
                                         
                         </tr>  
                      ))}
-                    </tbody>   
+                    </tbody>    
                 </table> 
             </div>
         </div>
@@ -112,4 +123,4 @@ class DailyTrendsTable extends Component {
 //     }
 // }
 
-export default DailyTrendsTable;
+export default TrendsTable;
