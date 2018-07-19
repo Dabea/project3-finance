@@ -1,10 +1,15 @@
-
-
+const express = require("express");
 const routes = require ("./routes");
-var app = require('express')();
-var fileUpload = require('express-fileupload');
-var mongoose = require('mongoose');
-var mongojs = require('mongojs')
+const bodyParser = require("body-parser");
+const app = express();
+// var fileUpload = require('express-fileupload');
+const mongoose = require('mongoose');
+const PORT = process.env.PORT || 3001;
+
+// Define middleware here
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 
 
 //serving routes
@@ -14,7 +19,13 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(routes)
+
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+// Add routes, both API and view
+app.use(routes);
 
 
 // var server = require('http').Server(app);
@@ -31,7 +42,7 @@ app.use(routes)
 
 // server.listen(8080);
 
-mongoose.connect('mongodb://localhost/products');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/products');
 
 // app.get('/upload', function (req, res) {
 //   res.sendFile(__dirname + '/index.html');
@@ -53,9 +64,9 @@ mongoose.connect('mongodb://localhost/products');
 // });
 
 
-var upload = require('./upload.js');
-app.post('/', upload.post);
+// var upload = require('./upload.js');
+// app.post('/', upload.post);
 
-app.listen(8080, function() {
-  console.log("App running on port " + 8080 + "!");
+app.listen(PORT, function() {
+  console.log("App running on port " + PORT + "!");
 });

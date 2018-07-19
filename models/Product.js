@@ -1,80 +1,37 @@
 var mongoose = require('mongoose');
 
-var productSchema = mongoose.Schema({
-
-
-    Receipt: {
-        Items: [{
-            Product: {
-                
-                name: {
-                type: String,
-                required: true,
-                },
-                quantity: {
-                    type: String,
-                    required: true
-                },
-                cost: {
-                    type: String,
-                    required: true
-                },
-                category: {
-                    type: String,
-                    required: true
-                }
-        }
+var itemSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    quantity: {
+        type: String,
+        default: 1
+    },
+     cost: {
+        type: String,
+        required: true
+     },
+     category: {
+        type: String,
+        required: true
     }
-    ], 
+});
 
-    Date: {
+var productSchema = mongoose.Schema({
+    items: [itemSchema], 
+    date: {
         type: Date,
         default: Date.now
     },
-
-    Store: {
+    store: {
         type: String,
-        required: true
-
     },
-
-    Total: {
+    total: {
         type: String,
         required: true
-
     }, 
-
-
-
-
-
-    }
-    // product: {
-	// 	productName: {
-	// 		type: String,
-	// 		required: true
-    //     },
-    //     productStore: {
-    //         type: String,
-    //     },
-    //     productDepartment: { 
-    //         type: String
-    //     }
-
-        
-	// },
-	// transaction:{
-    //     transactionDate:{
-    //         type: Date,
-    //         default: Date.now
-    //     },
-    //     transactionQuantity: {
-    //         type: String
-    //     },
-    //     transactionTotal: {
-    //         type: String,
-    //     },
-    // }
 });
 
 var Product = mongoose.model('Product', productSchema);
