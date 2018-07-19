@@ -6,9 +6,9 @@ import TableInput from './tableInput/tableinput'
 
 import axios from 'axios';
 
+import moment from 'moment';
 
-
-const API_URL = 'http://localhost:8080/api';
+const API_URL = 'http://localhost:8080/api/transactions';
 
 class TransactionTable extends Component {
 
@@ -50,31 +50,42 @@ class TransactionTable extends Component {
                 <table className="striped s6 offset-s6">
                     <thead>
                         <tr>
+                            <th> Item  </th>
+                            <th> Group  </th>
+                            <th> Price  </th>
                             <th> Date  </th>
-                            <th> Description  </th>
-                            <th> category  </th>
-                            <th> Cost  </th>
                         </tr>
                     </thead>
                     <tbody>
-                    {this.state.data.map(tranaction => (
+                     {this.state.data.map(tranaction => (
                         <tr key={tranaction._id}  className={ tranaction.isEditing ? 'background-active' : 'test'} >
-                            <td> 
-                                 {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
-                                 {tranaction.transaction.transactionDate}</td>
-                            <td>  {tranaction.product.productName} </td>
-                            <td className="borders"> 
-                            
-                            {/* <input className="input-bottom" type="text" value={tranaction.category} />  */}
-                            
-                            {tranaction.product.productDepartment} </td>
-                            <td> ${tranaction.transaction.transactionTotal} </td>
+
+                                {/* PRODUCT */}
+                                    <td>  {tranaction.product.productName} </td>
+
+                                {/* GRUOP */}
+                                    <td className="borders">
+                                            {/* <input className="input-bottom" type="text" value={tranaction.category} />  */}
+
+                                    {tranaction.product.productDepartment} </td>
+
+                                {/* PRICE */}
+                                    <td> ${tranaction.transaction.transactionTotal} </td>
+
+                                {/* DATE */}
+                                    <td> 
+                                        {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
+                                            
+                                    { moment( tranaction.transaction.transactionDate).format('MMMM Do YYYY, h:mm:ss a') }</td>
+                                        
                         </tr>  
-                    ))}
+                     ))}
                     </tbody>   
                 </table> 
+            </div>
         </div>
-        </div>    
+    // }
+    
     )
 }
 }
