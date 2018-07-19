@@ -3,21 +3,29 @@ import '../forms/forms.css';
 import axios from 'axios';
 
 
+const API_URL = 'http://localhost:3001/api';
+
 class Forms extends Component {
 
     state = {
-        product: '',
+        item: [{
+            name: '',
+            quantity: '',
+            cost: '',
+            category: '',
+        }],
+        items: this.item,
         date: '',
-        quanity: '1',
-        cost: '',
-        department: ''
+        store: '',
+        total: ''
     }
 
-    addRecept = () =>  {
-       axios.post('/api/recept', this.state)
-            .then(
+    addreceipt = () =>  {
+       axios.post(API_URL, this.state)
+            .then( response => {
+                console.log(response)
                 console.log('the Receipt has been added')
-            )
+            })
     
     }
 
@@ -38,26 +46,36 @@ class Forms extends Component {
                     </div>
                     <div className="model-body"> 
                         <div className="input-field" >
-                            <input className="input-field"  onChange={this.handelChangeEvent} value={this.state.product} name="product" type="text" />
-                            <label  for="products"  >Product </label>
+                            <input className="input-field"  onChange={this.handelChangeEvent} value={this.state.item.name} name="name" type="text" />
+                            <label  htmlFor="products"  >Product Name </label>
                         </div>
+                        <div className="input-field" >
+                            <label  className="input-area-label" > Quantity </label>
+                            <input  onChange={this.handelChangeEvent} value={this.state.item.quantity} name="quanity" type="text" />
+                        </div> 
+                        <div className="input-field" >
+                            <label  className="input-area-label" > Cost </label>
+                            <input  onChange={this.handelChangeEvent} value={this.state.item.cost} name="cost" type="text" />
+                        </div>
+                        <div className="input-field" >
+                            <label  className="input-area-label" > Category </label>
+                            <input  onChange={this.handelChangeEvent} value={this.state.item.category} name="category" type="text" />
+                        </div>
+
                         <div className="input-field " >
                             <label  className="input-area-label" >  </label>
                             <input  onChange={this.handelChangeEvent} value={this.state.date} name="date" type="date" />
                         </div>
                         <div className="input-field" >
-                            <label  className="input-area-label" > Quanity </label>
-                            <input  onChange={this.handelChangeEvent} value={this.state.quanity} name="quanity" type="text" />
-                        </div> 
-                        <div className="input-field" >
-                            <label  className="input-area-label" > Cost </label>
-                            <input  onChange={this.handelChangeEvent} value={this.state.cost} name="cost" type="text" />
+                            <label  className="input-area-label" > Store </label>
+                            <input  onChange={this.handelChangeEvent} value={this.state.store} name="store" type="text" />
                         </div>
+
                         <div className="input-field" >
-                            <label  className="input-area-label" > Department </label>
-                            <input  onChange={this.handelChangeEvent} value={this.state.department} name="department" type="text" />
+                            <label  className="input-area-label" > Total </label>
+                            <input  onChange={this.handelChangeEvent} value={this.state.total} name="total" type="text" />
                         </div>
-                            <button  onClick={this.addRecept} >Submit </button>
+                            <button  onClick={this.addreceipt} >Submit </button>
                          </div>
                     </div>    
                   

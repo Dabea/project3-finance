@@ -1,9 +1,9 @@
 .form {
-    margin:20%;
+    margin:1.5%;
     margin-left: 30%;
     padding:0;
     width:40%;
-    height:550px;
+    height:620px;
     /* background: linear-gradient(135deg, #3b8686 0%, #79bd9a 100%); */
     background: white;
     border:1px solid black;
@@ -16,8 +16,8 @@
 }
 
 .model-header {
-    height:75px;
-    padding: 10px;
+    height:35px;
+    padding: 1px;
     width: 100%;
     background: linear-gradient(135deg, #3b8686 0%, #79bd9a 100%);
 }
