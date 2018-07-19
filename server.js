@@ -67,6 +67,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/products');
 // var upload = require('./upload.js');
 // app.post('/', upload.post);
 
-app.listen(8080, function() {
-  console.log("API " + 8080 + "!");
+app.listen(PORT, function() {
+  console.log("API " + PORT + "!");
 });
