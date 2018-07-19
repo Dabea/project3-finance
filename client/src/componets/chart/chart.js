@@ -2,222 +2,6 @@ import React, { Component } from 'react'
 import {XYPlot, XAxis,Hint,AreaSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
 import axios from 'axios';
 
-let testData = [
-    {
-    "product": {
-    "productName": "FRZN ICE",
-    "productStore": "",
-    "productDepartment": "GROCERY"
-    },
-    "transaction": {
-    "transactionDate": "2018-05-02T06:00:00.000Z",
-    "transactionQuantity": "1",
-    "transactionTotal": "1.39"
-    },
-    "_id": "5b47ea50588d901d9d241935",
-    "__v": 0
-    },
-    {
-    "product": {
-    "productName": "NO COMMODITY DESCRIPTION",
-    "productStore": "",
-    "productDepartment": "MISC. TRANS."
-    },
-    "transaction": {
-    "transactionDate": "2018-05-05T06:00:00.000Z",
-    "transactionQuantity": "1",
-    "transactionTotal": "0.82"
-    },
-    "_id": "5b47ea50588d901d9d241936",
-    "__v": 0
-    },
-    {
-    "product": {
-    "productName": "COOKIES/CONES",
-    "productStore": "",
-    "productDepartment": "GROCERY"
-    },
-    "transaction": {
-    "transactionDate": "2018-05-06T06:00:00.000Z",
-    "transactionQuantity": "1",
-    "transactionTotal": "1.5"
-    },
-    "_id": "5b47ea50588d901d9d241939",
-    "__v": 0
-    },
-    {
-    "product": {
-    "productName": "FRUIT - SHELF STABLE",
-    "productStore": "",
-    "productDepartment": "GROCERY"
-    },
-    "transaction": {
-    "transactionDate": "2018-06-01T06:00:00.000Z",
-    "transactionQuantity": "1",
-    "transactionTotal": "1.21"
-    },
-    "_id": "5b47ea50588d901d9d241938",
-    "__v": 0
-    },
-    {
-    "product": {
-    "productName": "BREAD",
-    "productStore": "",
-    "productDepartment": "PASTRY"
-    },
-    "transaction": {
-    "transactionDate": "2018-06-06T06:00:00.000Z",
-    "transactionQuantity": "1",
-    "transactionTotal": "0.99"
-    },
-    "_id": "5b47ea50588d901d9d241937",
-    "__v": 0
-    },
-    {
-    "product": {
-    "productName": "BREAKFAST SWEETS",
-    "productStore": "",
-    "productDepartment": "PASTRY"
-    },
-    "transaction": {
-    "transactionDate": "2018-06-20T06:00:00.000Z",
-    "transactionQuantity": "1",
-    "transactionTotal": "1.89"
-    },
-    "_id": "5b47ea50588d901d9d24193d",
-    "__v": 0
-    },
-    {
-    "product": {
-    "productName": "COOKIES/CONES",
-    "productStore": "",
-    "productDepartment": "GROCERY"
-    },
-    "transaction": {
-    "transactionDate": "2018-06-15T06:00:00.000Z",
-    "transactionQuantity": "1",
-    "transactionTotal": "1.57"
-    },
-    "_id": "5b47ea50588d901d9d24193b",
-    "__v": 0
-    },
-    {
-        "product": {
-        "productName": "FRZN ICE",
-        "productStore": "",
-        "productDepartment": "GROCERY"
-        },
-        "transaction": {
-        "transactionDate": "2018-06-02T06:00:00.000Z",
-        "transactionQuantity": "1",
-        "transactionTotal": "1.39"
-        },
-        "_id": "5b47ea50588d901d9d241935",
-        "__v": 0
-        },
-        {
-        "product": {
-        "productName": "Coke 12 Pack",
-        "productStore": "",
-        "productDepartment": "GROCERY"
-        },
-        "transaction": {
-        "transactionDate": "2018-07-03T06:00:00.000Z",
-        "transactionQuantity": "3",
-        "transactionTotal": "12.39"
-        },
-        "_id": "5b47ea50588d901d9d241935",
-        "__v": 0
-        },
-        {
-        "product": {
-        "productName": "Chicken Brest",
-        "productStore": "",
-        "productDepartment": "GROCERY"
-        },
-        "transaction": {
-        "transactionDate": "2018-07-03T06:00:00.000Z",
-        "transactionQuantity": "2lb",
-        "transactionTotal": "6.95"
-        },
-        "_id": "5b47ea50588d901d9d241935",
-        "__v": 0
-        },
-        
-        {
-        "product": {
-        "productName": "Ranch Dressing",
-        "productStore": "",
-        "productDepartment": "GROCERY"
-        },
-        "transaction": {
-        "transactionDate": "2018-07-03T06:00:00.000Z",
-        "transactionQuantity": "6lb",
-        "transactionTotal": "6.95"
-        },
-        "_id": "5b47ea50588d901d9d241935",
-        "__v": 0
-        },
-        
-        {
-        "product": {
-        "productName": "Chicken Brest",
-        "productStore": "",
-        "productDepartment": "GROCERY"
-        },
-        "transaction": {
-        "transactionDate": "2018-07-08T06:00:00.000Z",
-        "transactionQuantity": "2lb",
-        "transactionTotal": "6.95"
-        },
-        "_id": "5b47ea50588d901d9d241935",
-        "__v": 0
-        },
-        {
-                    "product": {
-        "productName": "Bread",
-        "productStore": "",
-        "productDepartment": "GROCERY"
-        },
-        "transaction": {
-        "transactionDate": "2018-07-08T06:00:00.000Z",
-        "transactionQuantity": "2lb",
-        "transactionTotal": "2.29"
-        },
-        "_id": "5b47ea50588d901d9d241935",
-        "__v": 0
-        },
-        {
-        "product": {
-        "productName": "eggs",
-        "productStore": "",
-        "productDepartment": "GROCERY"
-        },
-        "transaction": {
-        "transactionDate": "2018-07-08T06:00:00.000Z",
-        "transactionQuantity": "2lb",
-        "transactionTotal": "1.89"
-        },
-        "_id": "5b47ea50588d901d9d241935",
-        "__v": 0
-        },
-        {
-        "product": {
-        "productName": "coke",
-        "productStore": "",
-        "productDepartment": "GROCERY"
-        },
-        "transaction": {
-        "transactionDate": "2018-07-12T06:00:00.000Z",
-        "transactionQuantity": "12 Pack",
-        "transactionTotal": "4.89"
-        },
-        "_id": "5b47ea50588d901d9d241935",
-        "__v": 0
-        }
-
-];
-
 
 class Chart extends Component {
     constructor(props){
@@ -234,72 +18,76 @@ class Chart extends Component {
   
     componentDidMount() {
       
-        // axios.get('/api')
-        //     .then(response => {
-        //         this.setState({
-        //         data: response.data
-        //         });
-        
-        //     })
-        //     .catch((err)=> {
-        //         console.log(err)
-        //     })
+        axios.get("http://localhost:3001/api")
+            .then(response => {
+                this.setState({
+                data: response.data
+                });
+
+                console.log("state Data" ,this.state.data)
+                this.formatForChat();
+            })
+            .catch((err)=> {
+                console.log(err)
+            })
        
     }
 
-    componentWillReceiveProps(){
-        // console.log("all my data" ,this.state.data)
-        // this.setState({
-        //     propdata: this.props.data
-        // })
-        // console.log(this.props.data)
-        
+    componentWillReceiveProps(nextProps){
+        if(nextProps.data!==this.props.data){
+
+            console.log("nextProps" ,nextProps.data)
+            this.formatForChat();
+ 
+        this.setState({
+            propdata: nextProps.data
+        })
+       
+        } 
     }
 
     formatForChat = () => {
-        if(testData.length === this.state.testValue.length){
-            return;
-        }
-        testData.map(value =>
-            this.state.testValue.push(
-           { x: new Date(value.transaction.transactionDate).getTime() , y: value.transaction.transactionTotal }) 
-           )
+        let dataCopy = [...this.state.data];
+        dataCopy.map(value =>{
+            console.log(value.date)
+            value.items.forEach(
+                item => {
+                this.state.testValue.push({item:item.name, x:new Date(value.date).getTime() , y: item.cost } )
+                })} );
     }
 
     monthy = () => {
-       let modifieddata = [...this.state.testValue];
-        let reduceValue = modifieddata.reduce((acc, object) => {
-            let key = object['x'];
-            if (!acc[key]) {
-                acc[key] = [];
-                
-              }
-              acc[key].push(object);
-              return acc;
-        })
-
-        console.log("mysterly return" , reduceValue)
-
-
-    //    modifieddata = modifieddata.map( element =>   ( {'x':element.x ,'y':element.y * (Math.random() + .5) }))
-       this.setState({testValue: modifieddata})
-
-    }
+        let modifieddata = [...this.state.testValue];
+         let reduceValue = modifieddata.reduce((acc, object, currentIndex) => {
+             let key = object['x'];
+             if (!acc[key]) {
+                 acc[key] = [];
+                 acc[key].push(object);
+               return acc;
+               }else{
+                   acc[key].forEach(accData => {
+                     if(accData.x === object.x){ accData.y = parseFloat(object.y) + parseFloat(accData.y) }
+                   }) 
+                 return  acc;
+               }   
+         })
+     //    modifieddata = modifieddata.map( element =>   ( {'x':element.x ,'y':element.y * (Math.random() + .5) }))
+        this.setState({formatedData: reduceValue})
+ 
+     }
 
 
     render() {
        
+
        this.formatForChat();
-       
-       
+       console.log("test Valuies" ,this.state.testValue);
          
         return(  
             <div>
+                  {this.state.testValue}
                <button onClick={this.monthy} > Update </button>
-               {/* {this.state.testValue.map(data => <div> {data.x} | {data.y}</div>)} */}
-               {/* {this.state.testValue.forEach(data => console.log(data) )} */}
-               {/* {this.state.data.map(elem => <div>elem </div>)} */}
-              <XYPlot xType="time-utc"  height={800} width={800}>
+              <XYPlot  type="linear" height={800} width={800}>
               <XAxis title="X Axis" />
                 <YAxis title="Y Axis" />
                 <HorizontalGridLines />
@@ -310,10 +98,9 @@ class Chart extends Component {
                         <stop offset="100%" stopColor="blue" stopOpacity={0.3} />
                     </linearGradient>
                 </GradientDefs>
-                <VerticalBarSeries onValueMouseOver={(datapoint, event)=>{
-    console.log(datapoint)
-    this.setState({activePlot :datapoint})
-  }} color={'url(#CoolGradient)'} data={this.state.testValue} />
+                <VerticalBarSeries  onValueMouseOver={(datapoint, event)=>{
+                    this.setState({activePlot :datapoint})
+                }} color={'url(#CoolGradient)'} data={this.state.formatedData} />
                 <Hint  x={30} y={40} value={this.state.activePlot} />
               </XYPlot>
 

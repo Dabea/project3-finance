@@ -11,7 +11,7 @@ import Forms from "./componets/forms/forms"
 import UploadData from './componets/upload/uploaddata';
 
 
-const API_URL = 'http://localhost:8080/api';
+const API_URL = 'http://localhost:3001/api';
 
 
 // class App extends Component {
@@ -69,7 +69,7 @@ const App = () => (
 <Router>
 
 <div>
-
+<Route exact path="/chart" component={Chart} />
 <Route exact path="/forms" component={Forms} />
 <Route exact path="/transactions" component={TransactionTable} />
 <Route exact path="/upload" component={UploadData} />
