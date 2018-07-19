@@ -11,17 +11,14 @@ import moment from 'moment';
 const API_URL = 'http://localhost:8080/api/transactions';
 
 class TransactionTable extends Component {
-    
-       
 
-        // const sampleData = [
+    // const sampleData = [
         //     { date: '7/1/2018', description: 'Rent', category: 'Housing', cost: 1200.00  ,isEditing:false },
         //     { date: '7/1/2018', description: 'McDonalds',category: 'Fast Food',cost: 12.39 ,isEditing:false },
         //     { date: '7/1/2018', description: 'Target',category: 'Cleaning Suppys',cost: 41.47 ,isEditing:false }
         // ];
 
-
-        
+       
   constructor(props) {
     super(props);
     
@@ -45,8 +42,6 @@ class TransactionTable extends Component {
             console.log(err)
         })
     };
-
-    // const data = (props) => {
        
     render(){
     return(
@@ -94,9 +89,5 @@ class TransactionTable extends Component {
     )
 }
 }
-
-
-//     }
-// }
 
 export default TransactionTable;

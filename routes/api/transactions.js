@@ -5,6 +5,7 @@ const transactionsController = require("../../controllers/transactionsController
 router.route("/")
   // .get(transactionsController.findAll)
   .get(transactionsController.findAll)
+  .get(transactionsController.findFive)
   .post(transactionsController.create);
 router.route("/transactions")
   // .get(transactionsController.findAll)
