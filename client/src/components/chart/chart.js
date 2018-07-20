@@ -4,9 +4,7 @@ import axios from 'axios';
 
 
 class Chart extends Component {
-    constructor(props){
-        super(props)
-    }
+
     state = {
         testValue: [],
         formatedData: [],
@@ -24,8 +22,8 @@ class Chart extends Component {
                 data: response.data
                 });
 
-                console.log("state Data" ,this.state.data)
-                this.formatForChat();
+              
+                this.formatForChart();
             })
             .catch((err)=> {
                 console.log(err)
@@ -33,34 +31,46 @@ class Chart extends Component {
        
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.data!==this.props.data){
+    getData = () => {
+        axios.get("http://localhost:3001/api")
+        .then(response => {
+            this.setState({
+            data: response.data
+            });
 
-            console.log("nextProps" ,nextProps.data)
-            this.formatForChat();
- 
-        this.setState({
-            propdata: nextProps.data
+            console.log("state Data" ,this.state.data)
+            this.formatForChart();
         })
-       
-        } 
     }
 
-    formatForChat = () => {
+    // componentWillReceiveProps(nextProps){
+    //     if(nextProps.data!==this.props.data){
+
+    //         console.log("nextProps" ,nextProps.data)
+    //     this.setState({
+    //         propdata: nextProps.data
+    //     })
+       
+    //     } 
+    // }
+
+    formatForChart = () => {
+        console.log("!!!!!!!!!!!!!!!!!!! Data Formated !!!!!!!!!!!!!!")
         let dataCopy = [...this.state.data];
-        dataCopy.map(value =>{
+        dataCopy.forEach(value =>{
             console.log(value.date)
             value.items.forEach(
                 (item , index) => {
-                this.state.testValue.push({label: item.name, x:parseFloat(index) , y: parseFloat(item.cost) } )
+                this.state.formatedData.push({label: item.name, x:parseFloat(index) , y: parseFloat(item.cost) } )
                 })} );
     }
 
     monthy = () => {
         let myArray = [];
-        let modifieddata = [...this.state.testValue];
+        let modifieddata = [];
+        modifieddata =[...this.state.formatedData];
         console.log("Values Modified",modifieddata)
-         let reduceValue = modifieddata.reduce((acc, object, currentIndex) => {
+        modifieddata.reduce((acc, object, currentIndex) => {
              let key = object['x'];
              if (!acc[key]) {
                  acc[key] = [];
@@ -75,31 +85,40 @@ class Chart extends Component {
                  return  acc;
                }   
          })
-         console.log("MyArray End values",myArray)
-     //    modifieddata = modifieddata.map( element =>   ( {'x':element.x ,'y':element.y * (Math.random() + .5) }))
         this.setState({testValue: myArray})
- 
+     }
+
+     updateState =() => {
+        this.forceUpdate()
      }
 
      costyByItem = () => {
+       
        let costByItem = [];
-       let basedata = [...this.state.testValue];
+ 
+       const basedata = [...this.state.formatedData];
        basedata.forEach( item => {
-           
            let hasItem = costByItem.filter(newItem => newItem.label === item.label ) 
             if(hasItem.length === 0){
+                item.x=costByItem.length-1;
                 costByItem.push(item);
+                console.log("first time This Item apperas" , item.label)
             }else{
+                console.log("allread in costByItem", costByItem)
                 costByItem.forEach((foundItem , index) => {
+                    console.log(foundItem.label, item.label )
                     if(foundItem.label === item.label ){
+                        console.log("match")
+                        console.log("Peiced togaether", costByItem[index].y,  item.y, costByItem[index].y )
                         costByItem[index].y = item.y + costByItem[index].y;
+                        console.log("should be" , costByItem[index].y)
+                      
                     }
                 })
             }
        } )
-       
-        // this.setState({itemChart: costByItem})
-       console.log("final Dealio" , costByItem);
+        this.setState({testValue: costByItem})
+
      }
 
 
@@ -107,15 +126,15 @@ class Chart extends Component {
     render() {
        
 
-       this.formatForChat();
-       console.log("test Valuies" ,this.state.testValue);
+
          
         return(  
             <div>
                  
-               <button onClick={this.monthy} > Update </button>
+               <button onClick={this.monthy} > Month </button>
                <button onClick={this.costyByItem} > Costy By Item </button>
-              <XYPlot  type="linear" height={800} width={800}>
+               <button onClick={this.updateState} > Update State </button>
+              <XYPlot  type="ordinal" height={800} width={800}>
               <XAxis title="X Axis" />
                 <YAxis title="Y Axis" />
                 <HorizontalGridLines />
@@ -126,11 +145,11 @@ class Chart extends Component {
                     data={this.state.testValue} />
                 <GradientDefs>
                     <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stopColor="red" stopOpacity={0.4}/>
-                        <stop offset="100%" stopColor="blue" stopOpacity={0.3} />
+                        <stop offset="0%" stopColor="red" stopOpacity={0.5}/>
+                        <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
                     </linearGradient>
                 </GradientDefs>
-                <VerticalBarSeries width={10} color={'url(#CoolGradient)'} data={this.state.testValue} />
+                <VerticalBarSeries color={'url(#CoolGradient)'} data={this.state.testValue} />
                 <Hint  x={30} y={40} value={this.state.activePlot} />
               </XYPlot>
 

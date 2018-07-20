@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route , Switch } from "react-router-dom";
 import './App.css';
 import '../node_modules/react-vis/dist/style.css';
-import {XYPlot, LineSeries ,VerticalGridLines ,HorizontalGridLines ,XAxis, YAxis } from 'react-vis';
 import TrendsTable from './components/trends-table';
 import DailyTrendsTable from './components/trends-table/daily-trends/dailyTrendsTable';
 import WeeklyTrendsTable from './components/trends-table/weekly-trends/WeeklyTrendsTable';
@@ -11,7 +10,6 @@ import QuarterTrendsTable from './components/trends-table/quarter-trends/Quarter
 import Nav from "./components/Nav/Nav";
 import TransactionTable from './components/transaction-table/transactionTable';
 import Chart from "./components/chart/chart";
-import axios from 'axios';
 import Forms from "./components/forms/forms";
 import FormCarousel from './components/FormCarousel/FormCarousel'
 import Login from './components/login/login'

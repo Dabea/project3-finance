@@ -63,7 +63,7 @@ class FormCarousel extends React.Component {
 
 
    render(){
-        const { name, date, quantity, cost, category } = this.state;
+        // const { name, date, quantity, cost, category } = this.state;
         return (
         <div className="container">
                 {/* <form onSubmit={this.onSubmit}>

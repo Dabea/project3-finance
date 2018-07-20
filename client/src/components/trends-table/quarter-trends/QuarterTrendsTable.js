@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { debug } from 'util';
-import {Row, Icon} from 'react-materialize'
+
 import './trends.css'
 
 import axios from 'axios';
