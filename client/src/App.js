@@ -9,10 +9,10 @@ import WeeklyTrendsTable from './components/trends-table/weekly-trends/WeeklyTre
 import MonthlyTrendsTable from './components/trends-table/monthly-trends/monthlyTrendsTable';
 import QuarterTrendsTable from './components/trends-table/quarter-trends/QuarterTrendsTable';
 import Nav from "./components/Nav/Nav";
-import TransactionTable from './components/transaction-table/transactionTable'
+import TransactionTable from './components/transaction-table/transactionTable';
 import Chart from "./components/chart/chart";
 import axios from 'axios';
-import Forms from "./components/forms/forms"
+import Forms from "./components/forms/forms";
 import Login from './components/login/login'
 
 
