@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {XYPlot, XAxis,Hint,AreaSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
 import axios from 'axios';
+import moment from 'moment';
 
 
 class Chart extends Component {
@@ -10,6 +11,8 @@ class Chart extends Component {
         formatedData: [],
         data: [],
         propdata: [],
+        costByItem: [],
+        receiptsThisMonth: [],
         activePlot: {'x':0, 'y':0}
     }
 
@@ -31,14 +34,21 @@ class Chart extends Component {
        
     }
 
-    getData = () => {
-        axios.get("http://localhost:3001/api")
+    getThisMonthsdata = () => {
+        axios.get("http://localhost:3001/api/date")
         .then(response => {
+             const test = response.data.reduce( (receipts, current ) => {
+                 if( moment(current.date).isSame(new Date(), 'month')){
+                     console.log("is in the same month")
+                     return current
+                  }
+             })
+             console.log("data responce", test);
             this.setState({
-            data: response.data
+            receiptsThisMonth: response.data
             });
 
-            console.log("state Data" ,this.state.data)
+            console.log("state Data" ,this.state.receiptsThisMonth)
             this.formatForChart();
         })
     }
@@ -55,14 +65,14 @@ class Chart extends Component {
     // }
 
     formatForChart = () => {
-        console.log("!!!!!!!!!!!!!!!!!!! Data Formated !!!!!!!!!!!!!!")
+        let formattedData = []
         let dataCopy = [...this.state.data];
         dataCopy.forEach(value =>{
-            console.log(value.date)
             value.items.forEach(
                 (item , index) => {
-                this.state.formatedData.push({label: item.name, x:parseFloat(index) , y: parseFloat(item.cost) } )
-                })} );
+                    formattedData.push({label: item.name, x:parseFloat(index) , y: parseFloat(item.cost) } )
+                })},
+            this.setState({formatedData : formattedData}) );
     }
 
     monthy = () => {
@@ -93,9 +103,7 @@ class Chart extends Component {
      }
 
      costyByItem = () => {
-       
        let costByItem = [];
- 
        const basedata = [...this.state.formatedData];
        basedata.forEach( item => {
            let hasItem = costByItem.filter(newItem => newItem.label === item.label ) 
@@ -117,9 +125,11 @@ class Chart extends Component {
                 })
             }
        } )
-        this.setState({testValue: costByItem})
+        this.setState({costByItem: costByItem})
 
      }
+
+     
 
 
 
@@ -133,7 +143,7 @@ class Chart extends Component {
                  
                <button onClick={this.monthy} > Month </button>
                <button onClick={this.costyByItem} > Costy By Item </button>
-               <button onClick={this.updateState} > Update State </button>
+               <button onClick={this.getThisMonthsdata} > get This Month </button>
               <XYPlot  type="ordinal" height={800} width={800}>
               <XAxis title="X Axis" />
                 <YAxis title="Y Axis" />
