@@ -13,6 +13,7 @@ import TransactionTable from './components/transaction-table/transactionTable';
 import Chart from "./components/chart/chart";
 import axios from 'axios';
 import Forms from "./components/forms/forms";
+import FormCarousel from './components/FormCarousel/FormCarousel'
 import Login from './components/login/login'
 
 
@@ -21,8 +22,9 @@ class App extends Component {
     return (
 <Router>
   <div>
+    <Route exact path="/FormCarousel" component={FormCarousel} />/>
     <Nav/>
-    <Login/>
+    <Route exact path ='/' component={Login}/>
     <Route exact path="/forms" component={Forms} />
     <Route exact path="/transactions" component={TransactionTable} />
     <Switch> 
