@@ -23,40 +23,38 @@ class Chart extends Component {
                 this.setState({
                 data: response.data
                 });
-
+                console.log("original Data", this.state.data)
                 this.formatForChart();
                 this.costyByItem();
             })
             .catch((err)=> {
                 console.log(err)
             })
-       
     }
 
-    getThisMonthsdata = () => {
+    getThisdataByTime = (timeInterval) => {
         axios.get("http://localhost:3001/api/date")
         .then(response => {
-             const test = response.data.reduce( (receipts, current ) => {
-                 if( moment(current.date).isSame(new Date(), 'month')){
-                     console.log("is in the same month")
-                     return current
-                  }
-             })
-             console.log("data responce", test);
-            this.setState({
-            receiptsThisMonth: response.data
-            });
-
-            console.log("state Data" ,this.state.receiptsThisMonth)
-            this.formatForChart();
+            let receipts = [];
+            response.data.forEach(receipt => {
+                if(moment(receipt.date).isSame(new Date(), timeInterval)){
+                    receipts.push(receipt)
+                    console.log('found');
+                }
+            })
+           this.setState({data: receipts})
+           this.formatForChart()
+           console.log("new data" ,this.state.formatedData);
         })
     }
 
+    
 
 
+ // moment(current.date).isSame(new Date(), 'month')
     // componentWillReceiveProps(nextProps){
     //     if(nextProps.data!==this.props.data){
-
+       
     //         console.log("nextProps" ,nextProps.data)
     //     this.setState({
     //         propdata: nextProps.data
@@ -73,8 +71,12 @@ class Chart extends Component {
                 (item , index) => {
                     formattedData.push({label: item.name, x:parseFloat(index) , y: parseFloat(item.cost) } )
                 })},
-            this.setState({formatedData : formattedData}) );
+            this.setState({formatedData : formattedData},   console.log("FORMATED" , formattedData)) );
+          
     }
+    
+
+    
 
 
      updateState =() => {
@@ -119,7 +121,9 @@ class Chart extends Component {
                  
                <button onClick={this.monthy} > Month </button>
                <button onClick={this.costyByItem} > Costy By Item </button>
-               <button onClick={this.getThisMonthsdata} > get This Month </button>
+               <button onClick={() => this.getThisdataByTime('month')} > get This Month </button>
+               <button onClick={() => this.getThisdataByTime('day')} > get This day </button>
+               <button onClick={() => this.getThisdataByTime('week')} > get This Week </button>
               <XYPlot  type="ordinal" height={800} width={800}>
               <XAxis title="X Axis" />
                 <YAxis title="Y Axis" />
