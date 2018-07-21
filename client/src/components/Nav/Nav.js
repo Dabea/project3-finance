@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { Component } from "react";
 
 class Nav extends Component {
@@ -21,34 +20,13 @@ class Nav extends Component {
             <li class="tab"><a class="active" href="#test2">Test 2</a></li>
             <li class="tab"><a href="#test4">Test 4</a></li>
           </ul>
+          <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal">
+            <i class="material-icons">add</i>
+          </a>
         </div>
       </nav>
     );
   }
 }
-=======
-import React from "react";
-import './Nav.css';
-
-const Nav = () => (
-  <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a className="navbar-brand" href="/">
-      iFinance
-    </a>
-
-<a className="navbar-brand" href="/transactions">
-      Recent
-    </a>
-
-    <a className="navbar-brand" href="/trends">
-      Trends
-    </a>
-    
-    <a className="navbar-brand" href="/">
-      Insights
-    </a>
-  </nav>
-);
->>>>>>> 6a8490e2b44baf5d5f00d23e6875716c2bfd41ea
 
 export default Nav;
