@@ -2,7 +2,7 @@
   "name": "finance-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "ajv": "^6.5.2",
     "moment": "^2.22.2",
