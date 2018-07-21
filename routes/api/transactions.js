@@ -17,6 +17,11 @@ router.route("/trends")
   .get(transactionsController.sortQuantity)
   .post(transactionsController.create);
 
+
+  router.route("/date")
+    .get(transactionsController.findByDate);
+    
+
 // Matches with "/api/books/:id"
 router
   .route("/:id")
