@@ -17,16 +17,15 @@ class Chart extends Component {
     }
 
   
-    componentDidMount() {
-      
+    componentDidMount() {     
         axios.get("http://localhost:3001/api")
             .then(response => {
                 this.setState({
                 data: response.data
                 });
 
-              
                 this.formatForChart();
+                this.costyByItem();
             })
             .catch((err)=> {
                 console.log(err)
@@ -53,6 +52,8 @@ class Chart extends Component {
         })
     }
 
+
+
     // componentWillReceiveProps(nextProps){
     //     if(nextProps.data!==this.props.data){
 
@@ -75,28 +76,6 @@ class Chart extends Component {
             this.setState({formatedData : formattedData}) );
     }
 
-    monthy = () => {
-        let myArray = [];
-        let modifieddata = [];
-        modifieddata =[...this.state.formatedData];
-        console.log("Values Modified",modifieddata)
-        modifieddata.reduce((acc, object, currentIndex) => {
-             let key = object['x'];
-             if (!acc[key]) {
-                 acc[key] = [];
-                 acc[key].push(object);
-                 myArray.push(object)
-               return acc;
-               }else{
-                   acc[key].forEach(accData => {
-                     if(accData.x === object.x){ accData.y = (parseFloat(object.y) + parseFloat(accData.y)) }
-                   }) 
-                   acc[key].push(object);
-                 return  acc;
-               }   
-         })
-        this.setState({testValue: myArray})
-     }
 
      updateState =() => {
         this.forceUpdate()
@@ -105,28 +84,25 @@ class Chart extends Component {
      costyByItem = () => {
        let costByItem = [];
        const basedata = [...this.state.formatedData];
-       basedata.forEach( item => {
-           let hasItem = costByItem.filter(newItem => newItem.label === item.label ) 
-            if(hasItem.length === 0){
-                item.x=costByItem.length-1;
-                costByItem.push(item);
-                console.log("first time This Item apperas" , item.label)
-            }else{
-                console.log("allread in costByItem", costByItem)
-                costByItem.forEach((foundItem , index) => {
-                    console.log(foundItem.label, item.label )
-                    if(foundItem.label === item.label ){
-                        console.log("match")
-                        console.log("Peiced togaether", costByItem[index].y,  item.y, costByItem[index].y )
-                        costByItem[index].y = item.y + costByItem[index].y;
-                        console.log("should be" , costByItem[index].y)
-                      
-                    }
-                })
+       var totalPriceMap = {};
+       basedata.forEach(item => {
+            if(totalPriceMap[item.label]) {
+                totalPriceMap[item.label] += item.y;
+            } else {
+                totalPriceMap[item.label] = item.y;
             }
-       } )
-        this.setState({costByItem: costByItem})
+       });
 
+       let i = 0;
+       for(let item in totalPriceMap) {
+           costByItem.push({label: item, x: i, y: totalPriceMap[item]})
+           i++
+       }
+        this.setState({testValue: costByItem})
+     }
+
+     testFormatedData = () => {
+        return this.state.formatedData;
      }
 
      
