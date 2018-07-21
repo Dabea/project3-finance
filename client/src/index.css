@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -9,4 +9,6 @@ body {
   border-left: 1px solid #dedede;
   border-right: 1px solid #dedede;
   text-align: center;
-}
+} */
+
+div { border: 1px solid red}

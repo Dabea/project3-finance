@@ -22,7 +22,6 @@ class App extends Component {
 <Router>
   <div>
     <Nav/>
-    <Login/>
     <Route exact path="/forms" component={Forms} />
     <Route exact path="/transactions" component={TransactionTable} />
     <Switch> 
