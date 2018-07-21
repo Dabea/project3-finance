@@ -9,10 +9,14 @@ import MonthlyTrendsTable from './components/trends-table/monthly-trends/monthly
 import QuarterTrendsTable from './components/trends-table/quarter-trends/QuarterTrendsTable';
 import Nav from "./components/Nav/Nav";
 import TransactionTable from './components/transaction-table/transactionTable';
-import Chart from "./components/chart/chart";
-import Forms from "./components/forms/forms";
+// import Chart from "./components/chart/chart";
+import Forms from "./components/forms/forms"
+// import UploadData from './components/upload';
 import FormCarousel from './components/FormCarousel/FormCarousel'
 import Login from './components/login/login'
+
+
+
 
 
 class App extends Component {
@@ -26,7 +30,7 @@ class App extends Component {
     <Route exact path="/forms" component={Forms} />
     <Route exact path="/transactions" component={TransactionTable} />
     <Switch> 
-      <Route exact path="/chart" component={Chart} />
+      {/* <Route exact path="/chart" component={Chart} /> */}
       <Route exact path="/trends" component={TrendsTable} />
       <Route exact path="/trends/daily" component={ DailyTrendsTable} />
       <Route exact path="/trends/weekly" component={ WeeklyTrendsTable} />

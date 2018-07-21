@@ -1,13 +1,23 @@
 import React from "react";
-import "./Nav.css"
+import './Nav.css';
 
 const Nav = () => (
   <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div className="container">
-      <a className="navbar-brand" href="/">
-        iFinance
-      </a>
-    </div>
+    <a className="navbar-brand" href="/">
+      iFinance
+    </a>
+
+<a className="navbar-brand" href="/transactions">
+      Recent
+    </a>
+
+    <a className="navbar-brand" href="/trends">
+      Trends
+    </a>
+    
+    <a className="navbar-brand" href="/">
+      Insights
+    </a>
   </nav>
 );
 
