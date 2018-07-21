@@ -3,6 +3,7 @@ import axios from 'axios';
 import Form from "./Form"
 import "./style.css"
 
+const API_URL = 'http://localhost:3001/api';
 class FormCarousel extends React.Component {
 
 
@@ -15,43 +16,40 @@ class FormCarousel extends React.Component {
         quantity: '1',
         cost: '',
         category: '',
+        store: '',
+        total: '',
         count:0, 
     }; 
 
     onChange = (e) =>  {
         // Because we named the inputs to match their corresponding values in state, it's
         // super easy to update the state
-        this.setState({ [e.target.name]: e.target.value });
+        this.setState({  name: e.target.value });
     }
 
     onSubmit = (e) => {
         e.preventDefault();
         // get our form data out of state
-        const { name, date, quantity, cost, category} = this.state;
+        const newEntry = {
+             name: this.state.name,
+        };
 
-        axios.post('/', { name, date, quantity, cost, category})
-            .then((result) => {
-                //access the results here....
-                console.log(result)
-            });
-    }
 
-    componentDidMount(){
-    const API_URL = 'http://localhost:3001/api';
-    axios
-      .post(API_URL)
-      .then(response => {
-          this.setState({
-            data: response.data
-          });
-          console.log(response.data)
+        axios
+            .post(API_URL , {newEntry})
+            .then(response => {
+                console.log(response);
+                console.log(response.data)
+                })
+               
 
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
-    }
-  
+            .catch((err) => {
+                console.log(err)
+            })
+
+    };
+
+   
 
     increment = () => {
         this.setState({
@@ -63,7 +61,7 @@ class FormCarousel extends React.Component {
 
 
    render(){
-        const { name, date, quantity, cost, category } = this.state;
+    //    const { name, date, quantity, cost, category, store, total } = this.state;
         return (
         <div className="container">
                 {/* <form onSubmit={this.onSubmit}>
@@ -75,14 +73,19 @@ class FormCarousel extends React.Component {
                 
                 <div>{this.state.count}</div >
                 </form> */}
+
                 <div className="form-carousel">
-                    <Form onSubmit={this.onSubmit} onChange={this.onChange} data={this.state.data[this.state.count]} />
+                    <Form onSubmit={this.onSubmit} onChange={this.onChange} data={this.state.data[this.state.count]} increment={this.increment}/>
                 </div>
-                
-                <button >Previous</button>
-                <button >New</button>
-                <button onClick={this.increment}>Next</button>
+            
+
+
+                <div >
+                    <button onClick={this.onSubmit } >Submit </button>
+                </div >
         </div>
+
+        
     ) 
   }
 }
