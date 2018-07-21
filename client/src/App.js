@@ -17,7 +17,7 @@ import TransactionTable from './components/transaction-table'
 import Chart from "./components/chart/chart";
 import axios from 'axios';
 import Forms from "./components/forms/forms"
-import UploadData from './components/upload';
+// import UploadData from './components/upload';
 
 
 const API_URL = 'http://localhost:8080/api';
@@ -91,7 +91,7 @@ const App = () => (
 <Route exact path="/trends/quarter" component={ QuarterTrendsTable} />
 </Switch>
 
-<Route exact path="/upload" component={UploadData} />
+{/* <Route exact path="/upload" component={UploadData} /> */}
 
 
 

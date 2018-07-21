@@ -32,33 +32,10 @@ class TransactionTable extends Component {
         axios
             .get(API_URL)
             .then(response => {
-
-                let item = response.data.map( e =>  e.items  ) ;
-                let date = response.data.map( e =>  e.date  ) ;
-                let store = response.data.map( e =>  e.store  ) ;
-                let total = response.data.map( e =>  e.total  ) ;
-
-                this.setState({
-                    item: item ,
-                    date: date ,
-                    store: store ,
-                    total: total 
-                    });
-                    console.log(this.state.item)
-                    console.log(this.state.date)
-                    console.log(this.state.store)
-                    console.log(this.state.total)
-                    
-
-
-
-
                 this.setState({
                 data: response.data
-                
                 });
                 console.log(response.data)
-                
 
             })
             .catch((err)=> {
@@ -68,18 +45,7 @@ class TransactionTable extends Component {
        
     render(){
     return(
-
-
         <div className="row">
-
-
-        
-        <div className="row">  
-        <h2> About  </h2>
-         <h3> Each transaction you've made  </h3>
-         
-         </div>
-
             <div className="col s8 offset-s2">
 
     
@@ -87,9 +53,8 @@ class TransactionTable extends Component {
                     <thead>
                         
                         <tr>
-                            
-                            <th> Items </th>
-                            <th> Group   </th>
+                            <th> Item  </th>
+                            <th> Group  </th>
                             <th> Price  </th>
                             <th> Date  </th>
                         </tr>
@@ -98,13 +63,13 @@ class TransactionTable extends Component {
                      {this.state.data.map(transaction => (
                         <tr key={transaction._id} className={ transaction.isEditing ? 'background-active' : 'test'} >
 
-                                {/* Item */}
+                                {/* CATEGORY */}
                                 <td className="borders">
                                             {/* <input className="input-bottom" type="text" value={tranaction.category} />  */}
 
                                     {transaction.items.map(e => <div> {e.name} </div> )} </td>
 
-                                {/* Group */}
+                                {/* QUANTITY */}
                             
 
                                 <td className="borders"> 
@@ -112,8 +77,8 @@ class TransactionTable extends Component {
                                  {transaction.items.map(e => <div> {e.category} </div>)} </td>
 
 
-                                {/* Price */}
-                                    <td className="borders"> {transaction.items.map(e => <div> ${e.cost} </div>)} </td>
+                                {/* NAME */}
+                                    <td className="borders"> ${transaction.items.price} </td>
 
                                 {/* DATE */}
                                     <td className="borders"> 
