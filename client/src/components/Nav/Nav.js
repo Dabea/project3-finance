@@ -1,28 +1,27 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 
 class Nav extends Component {
   render() {
     return (
-      <nav class="nav-extended">
-        <div class="nav-wrapper black">
-          <a href="#" class="brand-logo">
+      <nav className="nav-extended">
+        <div className="nav-wrapper black">
+          <a href="#" className="brand-logo">
             iFinance
           </a>
-          <ul id="nav-mobile" class="right">
+          <ul id="nav-mobile" className="right">
             <li>
               <a href="">Log out</a>
             </li>
           </ul>
         </div>
-        <div class="nav-content grey darken-3">
-          <ul class="tabs tabs-transparent">
-            <li class="tab blue-text text-darken-2"><a href="#test1">Test 1</a></li>
-            <li class="tab"><a class="active" href="#test2">Test 2</a></li>
-            <li class="tab"><a href="#test4">Test 4</a></li>
+        <div className="nav-content grey darken-3">
+          <ul>
+            <li className="tab"><Link to="/transactions">Test 1</Link></li>
+            <li className="tab"><Link to="/trends">Test 2</Link></li>
+            <li className="tab disabled"><a href="#test3">Disabled Tab</a></li>
+            <li className="tab"><a href="#test4">Test 4</a></li>
           </ul>
-          <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal">
-            <i class="material-icons">add</i>
-          </a>
         </div>
       </nav>
     );
