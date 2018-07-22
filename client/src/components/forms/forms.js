@@ -39,13 +39,20 @@ class Forms extends Component {
 
         return (
 
+<div className="container">
+            
             <div className="backdrop1"  >
             
                 <div className="form" >
                     <div className="model-header">
-                      <span className="model-header-title" >Item Info </span>  
+                      <span className="model-header-title" >New Entry </span>  
                     </div>
                     <div className="model-body"> 
+
+{/* this is the information about the items from the transaction */}
+
+                        <span className="model-header-title" >Item Info </span>  
+
                         <div className="input-field" >
                             <input className="input-field"  onChange={this.handelChangeEvent} value={this.state.item.name} name="name" type="text" />
                             <label  htmlFor="products"  >Product Name </label>
@@ -54,6 +61,8 @@ class Forms extends Component {
                             <label  className="input-area-label" > Quantity </label>
                             <input  onChange={this.handelChangeEvent} value={this.state.item.quantity} name="quanity" type="text" />
                         </div> 
+
+
                         <div className="input-field" >
                             <label  className="input-area-label" > Cost </label>
                             <input  onChange={this.handelChangeEvent} value={this.state.item.cost} name="cost" type="text" />
@@ -63,10 +72,23 @@ class Forms extends Component {
                             <input  onChange={this.handelChangeEvent} value={this.state.item.category} name="category" type="text" />
                         </div>
 
-                        <div className="input-field " >
-                            <label  className="input-area-label" >  </label>
-                            <input  onChange={this.handelChangeEvent} value={this.state.date} name="date" type="date" />
-                        </div>
+                 
+
+              {/* here goes an add button that replecates the item form to add multiple items */}
+            
+                        <div>
+                        <button onClick={this.addreceipt} >Add more items </button>
+                    </div>
+
+         {/* this is the transaction information */}
+
+                            <span className="model-header-title" >Transaction Info </span>  
+
+                            <div className="input-field " >
+                                <label className="input-area-label" >  </label>
+                                <input onChange={this.handelChangeEvent} value={this.state.date} name="date" type="date" />
+                            </div>
+
                         <div className="input-field" >
                             <label  className="input-area-label" > Store </label>
                             <input  onChange={this.handelChangeEvent} value={this.state.store} name="store" type="text" />
@@ -82,6 +104,8 @@ class Forms extends Component {
                   
                    
             </div>    
+
+                </div>
         )
     }
 }
