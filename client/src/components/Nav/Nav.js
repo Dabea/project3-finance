@@ -15,12 +15,11 @@ class Nav extends Component {
             </li>
           </ul>
         </div>
-        <div className="nav-content grey darken-3">
+        <div>
           <ul>
-            <li className="tab"><Link to="/transactions">Test 1</Link></li>
-            <li className="tab"><Link to="/trends">Test 2</Link></li>
-            <li className="tab disabled"><a href="#test3">Disabled Tab</a></li>
-            <li className="tab"><a href="#test4">Test 4</a></li>
+            <li className="tab"><Link to="/transactions">Items</Link></li>
+            <li className="tab"><Link to="/trends">Trends</Link></li>
+            <li className="tab"><a href="/chart">Analysis</a></li>
           </ul>
         </div>
       </nav>
