@@ -14,7 +14,8 @@ class Chart extends Component {
         propdata: [],
         costByItem: [],
         receiptsThisMonth: [],
-        activePlot: {'x':0, 'y':0, 'Total': 0}
+        activePlot: {'x':0, 'y':0, 'Total': 0},
+        removedItems: []
     }
 
   
@@ -114,12 +115,31 @@ class Chart extends Component {
 
      removeItem = (item) => {
         let copiedData = [...this.state.testValue]
+        let removedItemList = [...this.state.removedItems]
         const index = this.state.testValue.map(item => item.label).indexOf(item);
+        removedItemList.push(this.state.testValue[index]);
         copiedData.splice(index, 1);
         this.setState({
+            removedItems: removedItemList,
             testValue: copiedData
         })
      }
+
+     addItemBackToList = (item) => {
+        let copiedData = [...this.state.testValue]
+        let removedItemList = [...this.state.removedItems]
+        const index = this.state.removedItems.map(item => item.label).indexOf(item);
+        console.log("the index" , index)
+        console.log("label",  )
+        copiedData.push(removedItemList[index])
+        removedItemList.splice(index, 1);
+        this.setState({
+            removedItems: removedItemList,
+            testValue: copiedData
+        })
+     }
+
+
      
 
 
@@ -131,30 +151,7 @@ class Chart extends Component {
          
         return(  
             <div>
-                <XYPlot  type="ordinal" height={800} width={800}>
-              <XAxis title="X Axis" />
-                <YAxis title="Y Axis" />
-                <HorizontalGridLines />
-                <VerticalGridLines />
-                <LabelSeries
-                    animation
-                    allowOffsetToBeReversed
-                    data={this.state.testValue} />
-                <GradientDefs>
-                    <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stopColor="red" stopOpacity={0.5}/>
-                        <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
-                    </linearGradient>
-                </GradientDefs>
-                <VerticalBarSeries onValueMouseOver={(datapoint, event)=>{
-                    datapoint.Total = this.getToalMoneySpent();
-                    this.setState({activePlot :datapoint})
-                }}  color={'url(#CoolGradient)'} data={this.state.testValue} />
-                <Hint  x={30} y={40} value={this.state.activePlot} />
-              </XYPlot>
-              <div className="padding" >
-                 {this.state.testValue.map(item => <div  key={item.label} className="pill" > {item.label} <span onClick={ () => this.removeItem(item.label)} className="delete">X </span> </div>) }
-              </div>
+               
                  
                <button onClick={this.monthy} > Month </button>
                <button onClick={this.costyByItem} > Costy By Item </button>
@@ -185,6 +182,9 @@ class Chart extends Component {
               <div className="padding" >
                  {this.state.testValue.map(item => <div  key={item.label} className="pill" > {item.label} <span onClick={ () => this.removeItem(item.label)} className="delete">X </span> </div>) }
               </div>
+              <div>
+              {this.state.removedItems.map(item => <div  key={item.label} className="pill" > {item.label} <span onClick={ () => this.addItemBackToList(item.label)} className="delete">+</span> </div>) }
+              </div>    
                
 
             </div>
