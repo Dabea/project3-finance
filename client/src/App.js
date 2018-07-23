@@ -14,6 +14,8 @@ import Forms from "./components/forms/forms"
 // import UploadData from './components/upload';
 import FormCarousel from './components/FormCarousel/FormCarousel'
 import Login from './components/login/login'
+import PiChart from './components/chart/piChartByCat'
+import ChartByDate from './components/chart/chartByDate'
 
 
 
@@ -32,6 +34,8 @@ class App extends Component {
     <Route exact path="/transactions" component={TransactionTable} />
     <Switch> 
       <Route exact path="/chart" component={Chart} />
+      <Route exact path="/pichart" component={PiChart} />
+      <Route exact path="/chart-date" component={ChartByDate} />
       <Route exact path="/trends" component={TrendsTable} />
       <Route exact path="/trends/daily" component={ DailyTrendsTable} />
       <Route exact path="/trends/weekly" component={ WeeklyTrendsTable} />
