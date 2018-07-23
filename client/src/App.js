@@ -24,7 +24,8 @@ class App extends Component {
     return (
 <Router>
   <div>
-    <Route exact path="/FormCarousel" component={FormCarousel} />/>
+    <Route exact path="/FormCarousel" component={FormCarousel} />
+    {/* <Route exact path="/FormCarousel" component={Form} /> */}
     <Nav/>
     <Route exact path ='/' component={Login}/>
     <Route exact path="/forms" component={Forms} />
