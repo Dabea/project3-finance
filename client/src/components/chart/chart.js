@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {XYPlot, XAxis,Hint,AreaSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
 import axios from 'axios';
 import moment from 'moment';
+import './chart.css';
 
 
 class Chart extends Component {
@@ -13,7 +14,7 @@ class Chart extends Component {
         propdata: [],
         costByItem: [],
         receiptsThisMonth: [],
-        activePlot: {'x':0, 'y':0}
+        activePlot: {'x':0, 'y':0, 'Total': 0}
     }
 
   
@@ -30,6 +31,8 @@ class Chart extends Component {
             .catch((err)=> {
                 console.log(err)
             })
+          
+
     }
 
     getThisdataByTime = (timeInterval) => {
@@ -48,21 +51,6 @@ class Chart extends Component {
         })
     }
 
-    
-
-
- // moment(current.date).isSame(new Date(), 'month')
-    // componentWillReceiveProps(nextProps){
-    //     if(nextProps.data!==this.props.data){
-       
-    //         console.log("nextProps" ,nextProps.data)
-    //     this.setState({
-    //         propdata: nextProps.data
-    //     })
-       
-    //     } 
-    // }
-
     formatForChart = () => {
         let formattedData = []
         let dataCopy = [...this.state.data];
@@ -71,11 +59,14 @@ class Chart extends Component {
                 (item , index) => {
                     formattedData.push({label: item.name, x:parseFloat(index) , y: parseFloat(item.cost) } )
                 })},
-            this.setState({formatedData : formattedData},   console.log("FORMATED" , formattedData)) );
-          
+            this.setState({formatedData : formattedData},   console.log("FORMATED" , formattedData)) ); 
     }
     
-
+    setTotal= () =>{
+        this.setState({
+            activePlot: {'x':0, 'y':0, 'Total':  this.getToalMoneySpent() }
+        })
+    }
     
 
 
@@ -100,13 +91,35 @@ class Chart extends Component {
            costByItem.push({label: item, x: i, y: totalPriceMap[item]})
            i++
        }
+       
         this.setState({testValue: costByItem})
+         this.setTotal();
      }
+
+  
 
      testFormatedData = () => {
         return this.state.formatedData;
      }
 
+     getToalMoneySpent= () => {
+        let total = 0;
+        const currentData = [...this.state.testValue];
+        console.log(currentData);
+        currentData.forEach((item) => total += item.y)
+        console.log("total" ,total);
+        return total
+     }
+
+
+     removeItem = (item) => {
+        let copiedData = [...this.state.testValue]
+        const index = this.state.testValue.map(item => item.label).indexOf(item);
+        copiedData.splice(index, 1);
+        this.setState({
+            testValue: copiedData
+        })
+     }
      
 
 
@@ -118,6 +131,30 @@ class Chart extends Component {
          
         return(  
             <div>
+                <XYPlot  type="ordinal" height={800} width={800}>
+              <XAxis title="X Axis" />
+                <YAxis title="Y Axis" />
+                <HorizontalGridLines />
+                <VerticalGridLines />
+                <LabelSeries
+                    animation
+                    allowOffsetToBeReversed
+                    data={this.state.testValue} />
+                <GradientDefs>
+                    <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stopColor="red" stopOpacity={0.5}/>
+                        <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
+                    </linearGradient>
+                </GradientDefs>
+                <VerticalBarSeries onValueMouseOver={(datapoint, event)=>{
+                    datapoint.Total = this.getToalMoneySpent();
+                    this.setState({activePlot :datapoint})
+                }}  color={'url(#CoolGradient)'} data={this.state.testValue} />
+                <Hint  x={30} y={40} value={this.state.activePlot} />
+              </XYPlot>
+              <div className="padding" >
+                 {this.state.testValue.map(item => <div  key={item.label} className="pill" > {item.label} <span onClick={ () => this.removeItem(item.label)} className="delete">X </span> </div>) }
+              </div>
                  
                <button onClick={this.monthy} > Month </button>
                <button onClick={this.costyByItem} > Costy By Item </button>
@@ -139,31 +176,17 @@ class Chart extends Component {
                         <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
                     </linearGradient>
                 </GradientDefs>
-                <VerticalBarSeries color={'url(#CoolGradient)'} data={this.state.testValue} />
+                <VerticalBarSeries onValueMouseOver={(datapoint, event)=>{
+                    datapoint.Total = this.getToalMoneySpent();
+                    this.setState({activePlot :datapoint})
+                }}  color={'url(#CoolGradient)'} data={this.state.testValue} />
                 <Hint  x={30} y={40} value={this.state.activePlot} />
               </XYPlot>
+              <div className="padding" >
+                 {this.state.testValue.map(item => <div  key={item.label} className="pill" > {item.label} <span onClick={ () => this.removeItem(item.label)} className="delete">X </span> </div>) }
+              </div>
+               
 
-
-              <XYPlot  height={400} width={400}>
-                <XAxis title="X Axis" />
-                <YAxis title="Y Axis" />
-                <LineSeries color={'url(#CoolGradient)'}  data={this.state.testValue} />
-              </XYPlot>
-
-              <XYPlot  height={400} width={400}>
-                <XAxis title="X Axis" />
-                <YAxis title="Y Axis" />
-                <AreaSeries color={'url(#CoolGradient)'}  data={this.state.testValue} />
-              </XYPlot>
-                    
-           
-
-
-              <XYPlot   height={400} width={400}>
-              <XAxis title="X Axis" />
-                <YAxis title="Y Axis" />
-                <MarkSeries color={'url(#CoolGradient)'}  data={this.state.testValue} />
-              </XYPlot>
             </div>
         )
     }
