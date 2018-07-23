@@ -1,6 +1,21 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 
+const links = [
+  {
+    path: '/transactions',
+    text: 'Items'
+  },
+  {
+    path: '/trends',
+    text: 'Trends'
+  },
+  {
+    path: '/chart',
+    text: 'Analysis'
+  }
+]
+
 class Nav extends Component {
   render() {
     return (
@@ -17,14 +32,25 @@ class Nav extends Component {
         </div>
         <div>
           <ul>
-            <li className="tab"><Link to="/transactions">Items</Link></li>
-            <li className="tab"><Link to="/trends">Trends</Link></li>
-            <li className="tab"><a href="/chart">Analysis</a></li>
+            {links.map(link => (
+              <li
+                className={buildTabClassNames(window.location.pathname, link.path)}
+                key={link.path}
+              >
+                <Link to={link.path}>
+                  {link.text}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </nav>
     );
   }
+}
+
+function buildTabClassNames(currentPath, destinationPath) {
+  return `tab${currentPath === destinationPath ? ' tab-active' : ''}`;
 }
 
 export default Nav;

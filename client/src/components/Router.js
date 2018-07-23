@@ -14,7 +14,7 @@ import Login from './login/login'
 const Router = () => (
   <BrowserRouter>
     <div>
-      <Route path ='/' component={Nav} />
+      <Nav />
       <Switch> 
         {/* <Route exact path='/' component={Login}/> */}
         {/* <Route exact path="/FormCarousel" component={FormCarousel} /> */}
