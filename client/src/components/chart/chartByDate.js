@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import  {XYPlot, XAxis,Hint,AreaSeries,VerticalRectSeries , LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
+import  {XYPlot, XAxis,Hint,VerticalRectSeries , LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
 import axios from 'axios'
 import xyPlot from 'react-vis/dist/plot/xy-plot';
+import moment from 'moment'
 
 
 
@@ -35,19 +36,23 @@ class ChartBydate extends Component {
         var totalPriceMap = {};
         console.log(basedata)
         basedata.forEach(item => {
-             if(totalPriceMap[item.x]) {
-                 totalPriceMap[item.x] += parseFloat(item.y);
+            const MonthName = moment(item.x).format('M')
+            console.log(moment(item.x).format('M'))
+             if(totalPriceMap[MonthName]) {
+                 totalPriceMap[MonthName] += parseFloat(item.y);
              } else {
-                 totalPriceMap[item.x] = parseFloat(item.y);
+                 totalPriceMap[MonthName] = parseFloat(item.y);
              }
         });
-        console.log(totalPriceMap)
+       
+
         let i = 0;
         for(let item in totalPriceMap) {
-            console.log(item)
-            costByDay.push({x: parseFloat(item) , x0: parseFloat(item) +86400000,  y: totalPriceMap[item]})
+ 
+            costByDay.push({x: parseFloat(item) , x0:parseFloat(item) -1,   y: totalPriceMap[item]})
             i++
         } 
+        console.log("cost By date" ,costByDay)
          this.setState({formatedData: costByDay})
        
       }
@@ -85,7 +90,7 @@ class ChartBydate extends Component {
                         <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
                     </linearGradient>
                     </GradientDefs>
-                    <XAxis  />
+                    <XAxis  tickLabelAngle={90}  tickSizeOuter={6} tickTotal={12}  tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
                     <YAxis />
                 </XYPlot>   
             </div>    
