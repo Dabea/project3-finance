@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import {XYPlot, XAxis,Hint,AreaSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
+import {XYPlot, XAxis,Hint,AreaSeries, VerticalRectSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
 import axios from 'axios';
 import moment from 'moment';
+import './chart.css';
 
 
 class Chart extends Component {
@@ -13,7 +14,8 @@ class Chart extends Component {
         propdata: [],
         costByItem: [],
         receiptsThisMonth: [],
-        activePlot: {'x':0, 'y':0}
+        activePlot: {'x':0, 'y':0, 'Total': 0},
+        removedItems: []
     }
 
   
@@ -23,47 +25,32 @@ class Chart extends Component {
                 this.setState({
                 data: response.data
                 });
-
+                console.log("original Data", this.state.data)
                 this.formatForChart();
                 this.costyByItem();
             })
             .catch((err)=> {
                 console.log(err)
             })
-       
+          
+
     }
 
-    getThisMonthsdata = () => {
+    getThisdataByTime = (timeInterval) => {
         axios.get("http://localhost:3001/api/date")
         .then(response => {
-             const test = response.data.reduce( (receipts, current ) => {
-                 if( moment(current.date).isSame(new Date(), 'month')){
-                     console.log("is in the same month")
-                     return current
-                  }
-             })
-             console.log("data responce", test);
-            this.setState({
-            receiptsThisMonth: response.data
-            });
-
-            console.log("state Data" ,this.state.receiptsThisMonth)
-            this.formatForChart();
+            let receipts = [];
+            response.data.forEach(receipt => {
+                if(moment(receipt.date).isSame(new Date(), timeInterval)){
+                    receipts.push(receipt)
+                    console.log('found');
+                }
+            })
+           this.setState({data: receipts})
+           this.formatForChart()
+           console.log("new data" ,this.state.formatedData);
         })
     }
-
-
-
-    // componentWillReceiveProps(nextProps){
-    //     if(nextProps.data!==this.props.data){
-
-    //         console.log("nextProps" ,nextProps.data)
-    //     this.setState({
-    //         propdata: nextProps.data
-    //     })
-       
-    //     } 
-    // }
 
     formatForChart = () => {
         let formattedData = []
@@ -73,8 +60,15 @@ class Chart extends Component {
                 (item , index) => {
                     formattedData.push({label: item.name, x:parseFloat(index) , y: parseFloat(item.cost) } )
                 })},
-            this.setState({formatedData : formattedData}) );
+            this.setState({formatedData : formattedData},   console.log("FORMATED" , formattedData)) ); 
     }
+    
+    setTotal= () =>{
+        this.setState({
+            activePlot: {'x':0, 'y':0, 'Total':  this.getToalMoneySpent() }
+        })
+    }
+    
 
 
      updateState =() => {
@@ -95,15 +89,56 @@ class Chart extends Component {
 
        let i = 0;
        for(let item in totalPriceMap) {
-           costByItem.push({label: item, x: i, y: totalPriceMap[item]})
+           costByItem.push({label: item, x: i +1.5  ,x0: i + 1, y: totalPriceMap[item]})
            i++
        }
+       
         this.setState({testValue: costByItem})
+         this.setTotal();
      }
+
+  
 
      testFormatedData = () => {
         return this.state.formatedData;
      }
+
+     getToalMoneySpent= () => {
+        let total = 0;
+        const currentData = [...this.state.testValue];
+        console.log(currentData);
+        currentData.forEach((item) => total += item.y)
+        console.log("total" ,total);
+        return total
+     }
+
+
+     removeItem = (item) => {
+        let copiedData = [...this.state.testValue]
+        let removedItemList = [...this.state.removedItems]
+        const index = this.state.testValue.map(item => item.label).indexOf(item);
+        removedItemList.push(this.state.testValue[index]);
+        copiedData.splice(index, 1);
+        this.setState({
+            removedItems: removedItemList,
+            testValue: copiedData
+        })
+     }
+
+     addItemBackToList = (item) => {
+        let copiedData = [...this.state.testValue]
+        let removedItemList = [...this.state.removedItems]
+        const index = this.state.removedItems.map(item => item.label).indexOf(item);
+        console.log("the index" , index)
+        console.log("label",  )
+        copiedData.push(removedItemList[index])
+        removedItemList.splice(index, 1);
+        this.setState({
+            removedItems: removedItemList,
+            testValue: copiedData
+        })
+     }
+
 
      
 
@@ -116,12 +151,15 @@ class Chart extends Component {
          
         return(  
             <div>
+               
                  
                <button onClick={this.monthy} > Month </button>
                <button onClick={this.costyByItem} > Costy By Item </button>
-               <button onClick={this.getThisMonthsdata} > get This Month </button>
+               <button onClick={() => this.getThisdataByTime('month')} > get This Month </button>
+               <button onClick={() => this.getThisdataByTime('day')} > get This day </button>
+               <button onClick={() => this.getThisdataByTime('week')} > get This Week </button>
               <XYPlot  type="ordinal" height={800} width={800}>
-              <XAxis title="X Axis" />
+              <XAxis  tickLabelAngle={90}   tickTotal={this.state.testValue.length }    />
                 <YAxis title="Y Axis" />
                 <HorizontalGridLines />
                 <VerticalGridLines />
@@ -135,31 +173,20 @@ class Chart extends Component {
                         <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
                     </linearGradient>
                 </GradientDefs>
-                <VerticalBarSeries color={'url(#CoolGradient)'} data={this.state.testValue} />
+                <VerticalRectSeries onValueMouseOver={(datapoint, event)=>{
+                    datapoint.Total = this.getToalMoneySpent();
+                    this.setState({activePlot :datapoint})
+                }}  color={'url(#CoolGradient)'} data={this.state.testValue} />
                 <Hint  x={30} y={40} value={this.state.activePlot} />
               </XYPlot>
+              <div className="padding" >
+                 {this.state.testValue.map(item => <div  key={item.label} className="pill" > {item.label} <span onClick={ () => this.removeItem(item.label)} className="delete">X </span> </div>) }
+              </div>
+              <div>
+              {this.state.removedItems.map(item => <div  key={item.label} className="pill" > {item.label} <span onClick={ () => this.addItemBackToList(item.label)} className="delete">+</span> </div>) }
+              </div>    
+               
 
-
-              <XYPlot  height={400} width={400}>
-                <XAxis title="X Axis" />
-                <YAxis title="Y Axis" />
-                <LineSeries color={'url(#CoolGradient)'}  data={this.state.testValue} />
-              </XYPlot>
-
-              <XYPlot  height={400} width={400}>
-                <XAxis title="X Axis" />
-                <YAxis title="Y Axis" />
-                <AreaSeries color={'url(#CoolGradient)'}  data={this.state.testValue} />
-              </XYPlot>
-                    
-           
-
-
-              <XYPlot   height={400} width={400}>
-              <XAxis title="X Axis" />
-                <YAxis title="Y Axis" />
-                <MarkSeries color={'url(#CoolGradient)'}  data={this.state.testValue} />
-              </XYPlot>
             </div>
         )
     }
