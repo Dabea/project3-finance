@@ -76,7 +76,6 @@ class TransactionTable extends Component {
           </table>
         </div>
       </div>
-      // }
     );
   }
 }
