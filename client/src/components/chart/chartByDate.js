@@ -6,27 +6,42 @@ import moment from 'moment'
 
 
 
+
 class ChartBydate extends Component {
 
     state = {
         data: [],
         sortedData:[],
-        formatedData:[]
+        formatedData:[],
+        activePlot: {'x':0, 'y':0, 'Total': 0},
     }
 
     componentDidMount() {
-        console.log("mount");
+       this.getReceipts()
+    }
+
+    getReceipts = () => {
         axios.get("http://localhost:3001/api")
         .then(response => {
             this.setState({
             data: response.data
             });
-            console.log("original Data", this.state.data)
             this.formatForChart()
-           
-           
+            this.reduceByMonth()
         }).catch((err)=> {console.log(err)})
+    }
 
+    udateMoneyValues = () =>{
+        const dataCopy =  [...this.state.test]
+        dataCopy.forEach(item => {
+            item.y += Math.random() * 30
+        })
+
+        this.setState({
+            test: dataCopy
+        })
+        console.log('test', this.state.test)
+        console.log('formated', this.state.formatedData)
     }
 
 
@@ -36,25 +51,34 @@ class ChartBydate extends Component {
         var totalPriceMap = {};
         console.log(basedata)
         basedata.forEach(item => {
-            const MonthName = moment(item.x).format('M')
-            console.log(moment(item.x).format('M'))
-             if(totalPriceMap[MonthName]) {
-                 totalPriceMap[MonthName] += parseFloat(item.y);
+            const FirstDay = this.getFirstdayOfTheMonth(item.x)
+             if(totalPriceMap[FirstDay]) {
+                 totalPriceMap[FirstDay] += parseFloat(item.y);
              } else {
-                 totalPriceMap[MonthName] = parseFloat(item.y);
+                 totalPriceMap[FirstDay] = parseFloat(item.y);
              }
         });
-       
-
         let i = 0;
         for(let item in totalPriceMap) {
- 
-            costByDay.push({x: parseFloat(item) , x0:parseFloat(item) -1,   y: totalPriceMap[item]})
+            costByDay.push({x: item , x0:item - (86400000 * 15),   y: totalPriceMap[item]})
             i++
         } 
-        console.log("cost By date" ,costByDay)
-         this.setState({formatedData: costByDay})
-       
+
+         this.setState({formatedData: costByDay, test: costByDay})
+      }
+
+      /**
+       * Gets the Time stamp of the first day of the Month
+       * 
+       * @param date Date
+       * @returns UTC-Time Stamp
+       */
+      getFirstdayOfTheMonth = (date) => {
+        let dt = new Date(date);
+        let month = dt.getMonth(),
+            year = dt.getFullYear();
+
+        return new Date(year, month, 1).getTime();
       }
 
     formatForChart = () => {
@@ -65,14 +89,25 @@ class ChartBydate extends Component {
             receipt.items.forEach(
                 (item , i) => {
                     const date = new Date(receipt.date).getTime();
-                    formattedDataSet.push({label: item.name, x0:date , x:date + 86400000  , y: item.cost } )
+                    formattedDataSet.push({label: item.name, x0:date , x:date - 86400000  , y: item.cost } )
                 })})
+         
         this.setState({formatedData : formattedDataSet})
     }
 
+    buildHintDisplay = (datapoint) => {
+        const displayInfo = {
+            Month:moment(parseFloat(datapoint.x)).format('MMMM YYYY'),
+            Total:'$' + parseFloat(datapoint.y).toFixed(2)
+        }
+
+        this.setState({activePlot :displayInfo})
+    }
+    
+
 
     thisYear = () => {
-
+        this.getReceipts()
     }
 
     render() {
@@ -81,18 +116,24 @@ class ChartBydate extends Component {
         return(
          
             <div>
-                <button onClick={this.reduceByMonth} > test Button </button>
-                <XYPlot type="time-utc"   height={800} width={800} >
-                    <VerticalRectSeries color={'url(#CoolGradient)'}  data={this.state.formatedData} />
+                
+                <button onClick={this.thisYear} > test Button </button>
+                <button onClick={this.udateMoneyValues} >Update Other set</button>
+               <div class="waves-effect"><a href="/chart">Chart</a></div>
+                 <XYPlot    height={800} width={800} >
                     <GradientDefs>
-                    <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stopColor="red" stopOpacity={0.5}/>
-                        <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
-                    </linearGradient>
+                        <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
+                            <stop offset="0%" stopColor="red" stopOpacity={0.5}/>
+                            <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
+                        </linearGradient>
                     </GradientDefs>
-                    <XAxis  tickLabelAngle={90}  tickSizeOuter={6} tickTotal={12}  tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
+                    <XAxis  tickLabelAngle={90}  tickSizeOuter={6} tickTotal={this.state.formatedData.length }  tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
                     <YAxis />
-                </XYPlot>   
+                    <VerticalRectSeries  onValueMouseOver={ datapoint => this.buildHintDisplay(datapoint) }
+                        color={'url(#CoolGradient)'}  data={this.state.formatedData} />  
+                 <Hint  x={30} y={40} value={this.state.activePlot} />
+               
+                </XYPlot>    
             </div>    
         )
     }

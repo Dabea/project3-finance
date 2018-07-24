@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {XYPlot, XAxis,Hint,AreaSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
+import {XYPlot, XAxis,Hint,AreaSeries, VerticalRectSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
 import axios from 'axios';
 import moment from 'moment';
 import './chart.css';
@@ -89,7 +89,7 @@ class Chart extends Component {
 
        let i = 0;
        for(let item in totalPriceMap) {
-           costByItem.push({label: item, x: i, y: totalPriceMap[item]})
+           costByItem.push({label: item, x: i ,x0: i - .5, y: totalPriceMap[item]})
            i++
        }
        
@@ -173,7 +173,7 @@ class Chart extends Component {
                         <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
                     </linearGradient>
                 </GradientDefs>
-                <VerticalBarSeries onValueMouseOver={(datapoint, event)=>{
+                <VerticalRectSeries onValueMouseOver={(datapoint, event)=>{
                     datapoint.Total = this.getToalMoneySpent();
                     this.setState({activePlot :datapoint})
                 }}  color={'url(#CoolGradient)'} data={this.state.testValue} />
