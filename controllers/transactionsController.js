@@ -10,8 +10,22 @@ module.exports = {
   },
   sortQuantity: function(req, res) {
     db.Product
-      .find(req.query).limit()
-      .sort({ "transaction.transactionQuantity": -1 })
+      .find(req.query)
+      .sort({ "items.quantity" : -1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  sortStore: function(req, res) {
+    db.Product
+      .find(req.query)
+      .sort({ store : +1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  sortTotal: function(req, res) {
+    db.Product
+      .find(req.query)
+      .sort({ total : -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

@@ -6,19 +6,10 @@ import moment from 'moment';
 
 
 
-const API_URL = 'http://localhost:8080/api/trends';
+const API_URL = 'http://localhost:3001/api/trends';
 
 class TrendsTable extends Component {
     
-       
-
-        // const sampleData = [
-        //     { date: '7/1/2018', description: 'Rent', category: 'Housing', cost: 1200.00  ,isEditing:false },
-        //     { date: '7/1/2018', description: 'McDonalds',category: 'Fast Food',cost: 12.39 ,isEditing:false },
-        //     { date: '7/1/2018', description: 'Target',category: 'Cleaning Suppys',cost: 41.47 ,isEditing:false }
-        // ];
-
-
         
   constructor(props) {
     super(props);
@@ -26,18 +17,63 @@ class TrendsTable extends Component {
     this.state = {
       data:[],
      
+      items: [],
     
     };
   };
 
-  componentDidMount(){
+ componentWillMount(){
         axios
             .get(API_URL)
             .then(response => {
+
+
+                
+                // let transactions = response.data.map( transaction => {
+                //     let total = 0;
+                //       transaction.items.forEach(item => { total = total + item.cost
+                          
+                //       });
+                      
+                 
+                //      )} ;
+
+
+                let transactions = response.data ;
+                let items = response.data.map( t =>  t.items  ) ;
+                let item = response.data.map( e =>  e.items.map( item =>  item.name  )   ) ;
+                // let itemName = response.data.map( e =>  e.items.map( item =>  item.name.forEach( item => console.log(item)  )   )   ) ;
+                let date = response.data.map( t =>  t.date  ) ;
+                let store = response.data.map( t =>  t.store  ) ;
+                let total = response.data.map( t =>  t.total  ) ;
+
+                this.setState({
+                    transactions: transactions ,
+                    items: items ,
+                    item: item ,
+                    // itemName: itemName ,
+                    date: date ,
+                    store: store ,
+                    total: total 
+                    });
+                    console.log("data", this.state.transactions)
+                    console.log("items", this.state.items)
+                    console.log("items names", this.state.item)
+                    // console.log("ni idea", this.state.itemName)
+                    console.log("dates", this.state.date)
+                    console.log("stores" , this.state.store)
+                    console.log("totals", this.state.total)
+                    
+
+             
+
+
                 this.setState({
                 data: response.data
+                
                 });
                 console.log(response.data)
+                
 
             })
             .catch((err)=> {
@@ -48,67 +84,96 @@ class TrendsTable extends Component {
 
 
 
+    formatForChat = () => {
+        let dataCopy = [...this.state.data];
+        dataCopy.map(value =>{
+            console.log(value.date)
+            value.items.forEach(
+                item => {
+                this.state.testValue.push({item:item.name, x:new Date(value.date).getTime() , y: item.cost } )
+                })} );
+    }
    
     // const data = (props) => {
        
     render(){
     return(
-        <div className="row">
-            <div className="col s8 offset-s2">
 
-            
+        
+        <div >
+        
+<div className="row">
+        <ul className="pagination">
 
-<ul class="pagination">
-    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-    <li class="active"><a href="#!">Day</a></li>
-    <li class="waves-effect"><a href="/trends/weekly">Week</a></li>
-    <li class="waves-effect"><a href="/trends/monthly">Month</a></li>
-    <li class="waves-effect"><a href="/trends/quarter">Quarter</a></li>
-    <li class="waves-effect"><a href="/trends/weekly"><i class="material-icons">chevron_right</i></a></li>
+    <li className="disabled"><a href="#!"><i className="material-icons">chevron_left</i></a></li>
+    <li className="active"><a href="#!">Overview</a></li>
+    <li className="waves-effect"><a href="/trends/daily">Date</a></li>
+    <li className="waves-effect"><a href="/trends/monthly">Store</a></li>
+    <li className="waves-effect"><a href="/trends/quarter">Total</a></li>
+    <li className="waves-effect"><a href="/trends/daily"><i className="material-icons">chevron_right</i></a></li>
+
   </ul>
 
+  </div>
 
+<div className="row">
 
+            <div className="col s8 offset-s2">
+
+ <div className="row">  
+        <h2> About  </h2>
+         <h3> Transactions by product quantity </h3>
+         
+         </div>
                 <table className="striped s6 offset-s6">
                     <thead>
                         <tr>
-                            <th> Item  </th>
-                            <th> Group  </th>
+                            <th> Items  </th>
                             <th> Quantity  </th>
                             <th> Price  </th>
                             <th> Date  </th>
                         </tr>
                     </thead>
                     <tbody>
-                     {this.state.data.map(tranaction => (
-                        <tr key={tranaction._id}  className={ tranaction.isEditing ? 'background-active' : 'test'} >
+                     {this.state.data.map(transaction => (
+                        <tr key={transaction._id}  className={ transaction.isEditing ? 'background-active' : 'test'} >
 
                                 {/* PRODUCT */}
-                                    <td>  {tranaction.product.productName} </td>
+                           <td>
 
-                                {/* GRUOP */}
+                                      {transaction.items.map(e =>  <table><thead><tr><th>{e.name}</th></tr></thead></table>   )} 
+                                    
+
+                                </td>
+
+                            
+
+                                {/* QUANTITY */}
+                                <td className="borders">
+                                {transaction.items.map(e =>  <table><thead><tr><th>{e.quantity}</th></tr></thead></table>   )} 
+                                      </td>
+
+                                {/* PRICE */}
                                     <td className="borders">
-                                            {/* <input className="input-bottom" type="text" value={tranaction.category} />  */}
-
-                                    {tranaction.product.productDepartment} </td>
-
-                                {/* PRICE */}
-                                <td> {tranaction.transaction.transactionQuantity} </td>
-
-                                {/* PRICE */}
-                                    <td> ${tranaction.transaction.transactionTotal} </td>
+                                    {transaction.items.map(e =>  <table><thead><tr><th>{e.cost}</th></tr></thead></table>   )} 
+                                          </td>
 
                                 {/* DATE */}
-                                    <td> 
+                                    <td className="borders"> 
                                         {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
                                             
-                                       {  moment( tranaction.transaction.transactionDate).format('L')   }</td>
+                                   
+                                    {transaction.items.map(e =>  <table><thead><tr><th>{ moment( transaction.date).format('L')  }</th></tr></thead></table>   )} 
+                                       {/* {  moment( tranaction.transaction.transactionDate).format('L')   } */}
+                                       
+                                       </td>
                                         
                         </tr>  
                      ))}
                     </tbody>    
                 </table> 
             </div>
+        </div>
         </div>
     // }
     

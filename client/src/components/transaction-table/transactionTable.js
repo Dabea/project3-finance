@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import moment from 'moment';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = 'http://localhost:3001/api/transactions';
 
 class TransactionTable extends Component {
 
@@ -23,20 +23,23 @@ class TransactionTable extends Component {
         axios
             .get(API_URL)
             .then(response => {
-
-                let item = response.data.map( e =>  e.items  ) ;
+                
+                let transactions = response.data
+                let item = response.data.map( e =>  e.items.name  ) ;
                 let date = response.data.map( e =>  e.date  ) ;
                 let store = response.data.map( e =>  e.store  ) ;
                 let total = response.data.map( e =>  e.total  ) ;
 
                 this.setState({
-                    item: item ,
+                    transactions: transactions ,
+                    item : item,
                     date: date ,
                     store: store ,
                     total: total 
                     });
+                    console.log("transactions", this.state.transactions)
                     console.log(this.state.item)
-                    console.log(this.state.date)
+                    console.log( "date", this.state.date)
                     console.log(this.state.store)
                     console.log(this.state.total)
                     
@@ -64,16 +67,14 @@ class TransactionTable extends Component {
         <div className="row">
 
 
-        
-        <div className="row">  
+            <div className="col s8 offset-s2">
+
+      <div className="row">  
         <h2> About  </h2>
-         <h3> Each transaction you've made  </h3>
+         <h3> Recent transactions </h3>
          
          </div>
 
-            <div className="col s8 offset-s2">
-
-    
                 <table className="striped s6 offset-s6">
                     <thead>
                         
@@ -83,8 +84,8 @@ class TransactionTable extends Component {
                             <th> Group   </th>
                             <th> Price  </th>
                             <th> Date  </th>
-                            {/* <th> Store  </th>
-                            <th> Total  </th> */}
+                            <th> Store  </th>
+                            <th> Total  </th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -95,26 +96,54 @@ class TransactionTable extends Component {
                                 <td className="borders">
                                             {/* <input className="input-bottom" type="text" value={tranaction.category} />  */}
 
-                                    {transaction.items.map(e => <div> {e.name} </div> )} </td>
+                                    {transaction.items.map(e => <div> {e.name} </div>  )} 
+                                    
+                                    </td>
+                                    
+         {/* <table> <thead> <tr> <th>{e.name}</th> </tr> </thead> </table>      */}
+        
 
-                                {/* Group */}
+  
+                  
+
+
+                               {/* PPRICE */}
+                                   <td className="borders">
+                                   
+                                   {transaction.items.map(e => <div> ${e.cost} </div>)}
+
+                                   </td>
+    {/* QUANTITY */}
                             
 
                                 <td className="borders"> 
                                 
-                                 {transaction.items.map(e => <div> {e.category} </div>)} </td>
+                                {transaction.items.map(e => <div> {e.category} </div>)}
+                                 </td>
 
+                               {/* DATE */}
+                                   <td className="borders"> 
+                                       {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
+                                           
+                                   { moment( transaction.date).format('L')  }
+                                   </td>
+                               {/* STORE */}
+                                   <td className="borders"> 
+                                       {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
+                                           
+                                   {transaction.store}
+                                   </td>
 
-                                {/* Price */}
-                                    <td className="borders"> {transaction.items.map(e => <div> ${e.cost} </div>)} </td>
+                               {/* TOTAL */}
+                                   <td className="borders"> 
+                                       {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
+                                           
+                                   ${transaction.total}
+                                   </td>
+                                       
+                       </tr>  
+                            
 
-                                {/* DATE */}
-                                    <td className="borders"> 
-                                        {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
-                                            
-                                    { moment( transaction.items.date).format('L')  }</td>
-                                        
-                        </tr>  
                      ))}
                     </tbody>   
                 </table> 

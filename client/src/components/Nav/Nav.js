@@ -15,7 +15,7 @@ const Nav = () => (
       Trends
     </a>
     
-    <a className="navbar-brand" href="/">
+    <a className="navbar-brand" href="/chart">
       Insights
     </a>
   </nav>
