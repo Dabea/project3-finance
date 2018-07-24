@@ -89,7 +89,7 @@ class Chart extends Component {
 
        let i = 0;
        for(let item in totalPriceMap) {
-           costByItem.push({label: item, x: i ,x0: i - .5, y: totalPriceMap[item]})
+           costByItem.push({label: item, x: i +1.5  ,x0: i + 1, y: totalPriceMap[item]})
            i++
        }
        
@@ -159,7 +159,7 @@ class Chart extends Component {
                <button onClick={() => this.getThisdataByTime('day')} > get This day </button>
                <button onClick={() => this.getThisdataByTime('week')} > get This Week </button>
               <XYPlot  type="ordinal" height={800} width={800}>
-              <XAxis title="X Axis" />
+              <XAxis  tickLabelAngle={90}   tickTotal={this.state.testValue.length }    />
                 <YAxis title="Y Axis" />
                 <HorizontalGridLines />
                 <VerticalGridLines />

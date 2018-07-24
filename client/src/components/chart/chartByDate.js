@@ -127,9 +127,13 @@ class ChartBydate extends Component {
                             <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
                         </linearGradient>
                     </GradientDefs>
+                    <LabelSeries
+                    animation
+                    allowOffsetToBeReversed
+                    data={this.state.testValue} />
                     <XAxis  tickLabelAngle={90}  tickSizeOuter={6} tickTotal={this.state.formatedData.length }  tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
                     <YAxis />
-                    <VerticalRectSeries  onValueMouseOver={ datapoint => this.buildHintDisplay(datapoint) }
+                    <VerticalRectSeries onValueClick={() => alert('clicked So good')}   onValueMouseOver={ datapoint => this.buildHintDisplay(datapoint) }
                         color={'url(#CoolGradient)'}  data={this.state.formatedData} />  
                  <Hint  x={30} y={40} value={this.state.activePlot} />
                
