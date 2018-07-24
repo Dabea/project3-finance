@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route , Switch } from "react-router-dom";
 import './App.css';
 import '../node_modules/react-vis/dist/style.css';
 import TrendsTable from './components/trends-table';
@@ -24,6 +23,8 @@ import ChartByDate from './components/chart/chartByDate'
 class App extends Component {
   render() {
     return (
+<<<<<<< HEAD
+=======
 <Router>
   <div>
     <Route exact path="/FormCarousel" component={FormCarousel} />
@@ -44,6 +45,7 @@ class App extends Component {
     </Switch>
   </div>
 </Router>
+>>>>>>> 33814302a6d2e612d3362baaa0e1a145f378fcc5
     );
   }
 }

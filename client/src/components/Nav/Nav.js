@@ -1,24 +1,56 @@
-import React from "react";
-import './Nav.css';
+import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 
-const Nav = () => (
-  <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a className="navbar-brand" href="/">
-      iFinance
-    </a>
+const links = [
+  {
+    path: '/transactions',
+    text: 'Items'
+  },
+  {
+    path: '/trends',
+    text: 'Trends'
+  },
+  {
+    path: '/chart',
+    text: 'Analysis'
+  }
+]
 
-<a className="navbar-brand" href="/transactions">
-      Recent
-    </a>
+class Nav extends Component {
+  render() {
+    return (
+      <nav className="nav-extended">
+        <div className="nav-wrapper black">
+          <a href="#" className="brand-logo">
+            iFinance
+          </a>
+          <ul id="nav-mobile" className="right">
+            <li>
+              <a href="">Log out</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            {links.map(link => (
+              <li
+                className={buildTabClassNames(window.location.pathname, link.path)}
+                key={link.path}
+              >
+                <Link to={link.path}>
+                  {link.text}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    );
+  }
+}
 
-    <a className="navbar-brand" href="/trends">
-      Trends
-    </a>
-    
-    <a className="navbar-brand" href="/">
-      Insights
-    </a>
-  </nav>
-);
+function buildTabClassNames(currentPath, destinationPath) {
+  return `tab${currentPath === destinationPath ? ' tab-active' : ''}`;
+}
 
 export default Nav;
