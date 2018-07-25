@@ -1,25 +1,43 @@
 import React from "react"
 import axios from 'axios'; 
-import Form from "./Form"
+// import Form from "./Form"
 import "./style.css"
+
+import ItemInfo from "./Forms/itemInfo"
+import TransactionInfo from "./Forms/transactionInfo"
 
 const API_URL = 'http://localhost:3001/api';
 class FormCarousel extends React.Component {
 
-
-
+        // save data in state
     state =  {
-        // count: 0
-        data: [],
-        name: '',
-        date: '',
-        quantity: '1',
-        cost: '',
-        category: '',
-        store: '',
-        total: '',
-        count:0, 
-    }; 
+            name:'', 
+            date:'', 
+            quantity:'1', 
+            cost:'', 
+            category:'', 
+            store:'', 
+            total:'', 
+            count:0, 
+            forms: [0],
+            items: [],
+
+
+        }; 
+
+
+    addMore = () =>  {
+        const forms = this.state.forms; 
+        let formNum = forms.length + 1;
+        forms.push(formNum)
+        const itemInfo = {}
+        const items = this.state.items;
+        items.push(itemInfo)
+        // update data in state
+        // will automatically call render method after update 
+
+        this.setState( {forms, itemInfo }); 
+    }
 
     onChange = (e) =>  {
         // Because we named the inputs to match their corresponding values in state, it's
@@ -31,12 +49,15 @@ class FormCarousel extends React.Component {
         e.preventDefault();
         // get our form data out of state
         const newEntry = {
-             name: this.state.name,
+             items: this.state.items,
+            date: this.state.date,
+            store: this.state.store,
+            total: this.state.total,
         };
 
 
         axios
-            .post(API_URL , {newEntry})
+            .post(API_URL , {})
             .then(response => {
                 console.log(response);
                 console.log(response.data)
@@ -49,37 +70,27 @@ class FormCarousel extends React.Component {
 
     };
 
-   
 
-    increment = () => {
-        this.setState({
-            count: this.state.count + 1,
-        });
-     
-    };
+    saveItemInfo = (info, index) => {
+        console.log(info, index)
+        const items = this.state.items
+        items.push(info)
+        this.setState({items})
+    }
 
-
-
-   render(){
-    //    const { name, date, quantity, cost, category, store, total } = this.state;
+    render = () => {
+        // get data from state, not from props
+        const data = this.state.data;
         return (
         <div className="container">
-                {/* <form onSubmit={this.onSubmit}>
-                <input type="text" name="product" value={product} onChange={this.onChange} />                
-                <input type="text" name="date" value={date} onChange={this.onChange} />
-                <input type="text" name="quantity" value={quantity} onChange={this.onChange} />
-                <input type="text" name="cost" value={cost} onChange={this.onChange} />                 
-                <input type="text" name="department" value={department} onChange={this.onChange} />                 
-                
-                <div>{this.state.count}</div >
-                </form> */}
-
                 <div className="form-carousel">
-                    <Form onSubmit={this.onSubmit} onChange={this.onChange} data={this.state.data[this.state.count]} increment={this.increment}/>
+                    {this.state.forms.map((newEntry, index) => (
+                        <ItemInfo key={newEntry}  saveItemInfo={this.saveItemInfo} index={index}/>
+                    ))}
+                        <button onClick={this.addMore}>add more items</button>
+                        <TransactionInfo />
                 </div>
             
-
-
                 <div >
                     <button onClick={this.onSubmit } >Submit </button>
                 </div >
