@@ -3,13 +3,17 @@ import "./transaction.css";
 import axios from "axios";
 import moment from "moment";
 
-const API_URL = "http://localhost:3001/api";
+// const API_URL = "http://localhost:3001/api";
 
+const API_URL = 'http://localhost:3001/api/transactions';
 const ITEMS_PER_PAGE = 8
 
 class TransactionTable extends Component {
   constructor(props) {
     super(props);
+    
+
+                    
 
     this.state = {
       items: [],
@@ -49,7 +53,7 @@ class TransactionTable extends Component {
     return (        
       <div className="row">
         <div className="row">
-          <h2>Recent Items</h2>
+          <h3>Recent Items</h3>
         </div>
         <div>
           <table>

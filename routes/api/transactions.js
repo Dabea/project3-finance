@@ -13,12 +13,16 @@ router.route("/transactions")
   .post(transactionsController.create);
 
 router.route("/trends")
-  // .get(transactionsController.findAll)
   .get(transactionsController.sortQuantity)
-  .post(transactionsController.create);
+
+router.route("/total")
+  .get(transactionsController.sortTotal)
+
+router.route("/store")
+  .get(transactionsController.sortStore)
 
 
-  router.route("/date")
+router.route("/date")
     .get(transactionsController.findByDate);
     
 
