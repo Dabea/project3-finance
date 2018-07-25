@@ -180,10 +180,10 @@ class Chart extends Component {
                 <Hint  x={30} y={40} value={this.state.activePlot} />
               </XYPlot>
               <div className="padding" >
-                 {this.state.testValue.map(item => <div  key={item.label} className="pill" > {item.label} <span onClick={ () => this.removeItem(item.label)} className="delete">X </span> </div>) }
+                 {this.state.testValue.map(item => <div  key={item.label} className="pill"  onClick={ () => this.removeItem(item.label)}> {item.label}</div>) }
               </div>
               <div>
-              {this.state.removedItems.map(item => <div  key={item.label} className="pill" > {item.label} <span onClick={ () => this.addItemBackToList(item.label)} className="delete">+</span> </div>) }
+              {this.state.removedItems.map(item => <div  key={item.label} className="pill" onClick={ () => this.addItemBackToList(item.label)} > {item.label}  </div>) }
               </div>    
                
 
