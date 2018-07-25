@@ -11,6 +11,7 @@ import Chart from "./chart/chart";
 import PiChart from "./chart/piChartByCat";
 import ChartByDate from "./chart/chartByDate";
 import Forms from "./forms/forms";
+import FormCarousel from "./FormCarousel/FormCarousel";
 import Login from './login/login'
 
 const Router = () => (
@@ -18,8 +19,8 @@ const Router = () => (
     <div>
       <Nav />
       
-        {/* <Route exact path='/' component={Login}/> */}
-        {/* <Route exact path="/FormCarousel" component={FormCarousel} /> */}
+        <Route exact path='/' component={Login}/>
+        <Route exact path="/FormCarousel" component={FormCarousel} />
         <Route exact path="/forms" component={Forms} /> 
         <Route exact path="/transactions" component={TransactionTable} /> 
         <Route exact path="/chart" component={Chart} />
