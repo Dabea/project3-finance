@@ -8,17 +8,10 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3001/api/total';
 
+
+
 class QuarterTrendsTable extends Component {
     
-       
-
-        // const sampleData = [
-        //     { date: '7/1/2018', description: 'Rent', category: 'Housing', cost: 1200.00  ,isEditing:false },
-        //     { date: '7/1/2018', description: 'McDonalds',category: 'Fast Food',cost: 12.39 ,isEditing:false },
-        //     { date: '7/1/2018', description: 'Target',category: 'Cleaning Suppys',cost: 41.47 ,isEditing:false }
-        // ];
-
-
         
   constructor(props) {
     super(props);
@@ -48,29 +41,31 @@ class QuarterTrendsTable extends Component {
        
     render(){
     return(
-        <div className="row">
+        <div >
 
+
+ <div > 
    <ul class="pagination">
                 <li class="waves-effect"><a href="/trends/monthly"><i class="material-icons">chevron_left</i></a></li>
-                <li class="waves-effect"><a href="/trends/trends">Overview</a></li>
+                <li class="waves-effect"><a href="/trends">Overview</a></li>
                 <li class="waves-effect"><a href="/trends/daily">Date</a></li>
                 <li class="waves-effect"><a href="/trends/monthly">Store</a></li>
                 <li class="active"><a href="#!">Total</a></li>
                 <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
             </ul>
-
+            </div>
 
             <div className="col s8 offset-s2">
 
-            
+           
          
  <div className="row">  
-        <h2> About  </h2>
+        
          <h3> Transactions by Total Spent </h3>
          
          </div>
 
-               <table className="striped s6 offset-s6">
+               <table className="s6 offset-s6">
                     <thead>
                         <tr>
                             <th> Items  </th>

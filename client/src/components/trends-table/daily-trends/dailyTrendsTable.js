@@ -8,6 +8,7 @@ import moment from 'moment';
 
 
 const API_URL = 'http://localhost:3001/api/date';
+const ITEMS_PER_PAGE = 8
 
 class DailyTrendsTable extends Component {
     
@@ -18,39 +19,50 @@ class DailyTrendsTable extends Component {
   constructor(props) {
     super(props);
     
-    this.state = {
-      data:[],
-     
-    };
+
+
+
+
+this.state = {
+    items: [],
+    page: 1
   };
+}
 
-  componentDidMount(){
-        axios
-            .get(API_URL)
-            .then(response => {
+componentWillMount() {
+  axios
+    .get(API_URL)
+    .then(response => {
+      const transactions = response.data;
 
+      // We are flattening out response and adding a date and store to each item
+      const items = transactions.reduce((acc, tx) => {
+          return acc.concat(tx.items.map(item => ({
+              _id: item._id,
+              item: item.name,
+              quantity: item.quantity,
+              group: item.category,
+              price: item.cost,
+              date: tx.date,
+              store: tx.store
+          })))
+      }, [])
 
+      this.setState({
+        items
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
 
-                this.setState({
-                data: response.data
-                });
-                console.log(response.data)
+render() {
+  const { page, items } = this.state
+  return (        
+    <div className="row">
 
-            })
-            .catch((err)=> {
-            console.log(err)
-        })
-    };
-
-    // const data = (props) => {
-       
-    render(){
-    return(
-        <div className="row">
-
-
-
- <div className="row"> 
+    <div className="row"> 
 
 <ul className   ="pagination">
     <li className="waves-effect"><a href="/trends"><i className="material-icons">chevron_left</i></a></li>
@@ -62,68 +74,36 @@ class DailyTrendsTable extends Component {
   </ul>
 
     </div>
-
-            <div className="col s8 offset-s2"> 
-
- <div className="row">  
-        <h2> About  </h2>
-         <h3> Transactions by Date </h3>
+      <div className="row">
+               
+               <h3> Transactions by Date </h3>
          
-         </div>
-
-
-                <table className="striped s6 offset-s6">
-                    <thead>
-                        <tr>
-                            <th> Items  </th>
-                            <th> Quantity  </th>
-                            <th> Price  </th>
-                            <th> Date  </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                     {this.state.data.map(transaction => (
-                        <tr key={transaction._id}  className={ transaction.isEditing ? 'background-active' : 'test'} >
-
-                                {/* PRODUCT */}
-                           <td>
-
-                                      {transaction.items.map(e =>  <table><thead><tr><th>{e.name}</th></tr></thead></table>   )} 
-                                    
-
-                                </td>
-
-                            
-
-                                {/* QUANTITY */}
-                                <td className="borders">
-                                {transaction.items.map(e =>  <table><thead><tr><th>{e.quantity}</th></tr></thead></table>   )} 
-                                      </td>
-
-                                {/* PRICE */}
-                                    <td className="borders">
-                                    {transaction.items.map(e =>  <table><thead><tr><th>${e.cost}</th></tr></thead></table>   )} 
-                                          </td>
-
-                                {/* DATE */}
-                                    <td className="borders"> 
-                                        {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
-                                            
-                                   
-                                    {transaction.items.map(e =>  <table><thead><tr><th>{ moment( transaction.date).format('L')  }</th></tr></thead></table>   )} 
-                                       {/* {  moment( tranaction.transaction.transactionDate).format('L')   } */}
-                                       
-                                       </td>
-                                        
-                        </tr>  
-                     ))}
-                    </tbody>    
-                </table> 
-            </div>
-        </div>
- 
-    
-    )
+        
+      </div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Items</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.slice((page - 1) * ITEMS_PER_PAGE, (page - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE).map(item => (
+              <tr key={item._id}>
+                <td>{item.item}</td>
+                <td>{item.quantity}</td>
+                <td>{item.price}</td>
+                <td>{moment(item.date).format("L")}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 }
 }
 

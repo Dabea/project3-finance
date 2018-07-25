@@ -8,6 +8,8 @@ import moment from 'moment';
 
 
 const API_URL = 'http://localhost:3001/api/store';
+const ITEMS_PER_PAGE = 8
+
 
 class MonthlyTrendsTable extends Component {
     
@@ -16,111 +18,95 @@ class MonthlyTrendsTable extends Component {
   constructor(props) {
     super(props);
     
-    this.state = {
-      data:[],
-     
-    };
+
+
+
+
+this.state = {
+    items: [],
+    page: 1
   };
+}
 
-  componentDidMount(){
-        axios
-            .get(API_URL)
-            .then(response => {
-                this.setState({
-                data: response.data
-                });
-                console.log(response.data)
+componentWillMount() {
+  axios
+    .get(API_URL)
+    .then(response => {
+      const transactions = response.data;
 
-            })
-            .catch((err)=> {
-            console.log(err)
-        })
-    };
+      // We are flattening out response and adding a date and store to each item
+      const items = transactions.reduce((acc, tx) => {
+          return acc.concat(tx.items.map(item => ({
+              _id: item._id,
+              item: item.name,
+              quantity: item.quantity,
+              group: item.category,
+              price: item.cost,
+              date: tx.date,
+              store: tx.store
+          })))
+      }, [])
 
-    // const data = (props) => {
-       
-    render(){
-    return(
-        <div className="row">
-      
-      <div className="row"> 
+      this.setState({
+        items
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
 
-            <ul class="pagination">
-                <li class="waves-effect"><a href="/trends/daily"><i class="material-icons">chevron_left</i></a></li>
-                <li class="waves-effect"><a href="/trends/trends">Overview</a></li>
-                <li class="waves-effec"><a href="/trends/daily">Date</a></li>
-                <li class="active"><a href="#!">Store</a></li>
-                <li class="waves-effect"><a href="/trends/quarter">Total</a></li>
-                <li class="waves-effect"><a href="/trends/quarter"><i class="material-icons">chevron_right</i></a></li>
-            </ul>
+render() {
+  const { page, items } = this.state
+  return (        
+    <div className="row">
 
-</div>
+    <div className="row"> 
 
-      <div className="col s8 offset-s2">
+   <ul class="pagination">
+               <li class="waves-effect"><a href="/trends/daily"><i class="material-icons">chevron_left</i></a></li>
+                 <li class="waves-effect"><a href="/trends">Overview</a></li>
+                 <li class="waves-effec"><a href="/trends/daily">Date</a></li>
+                 <li class="active"><a href="#!">Store</a></li>
+                 <li class="waves-effect"><a href="/trends/quarter">Total</a></li>
+                 <li class="waves-effect"><a href="/trends/quarter"><i class="material-icons">chevron_right</i></a></li>
+             </ul>
 
- <div className="row">  
-        <h2> About  </h2>
-         <h3> Transactions by Store </h3>
+    </div>
+      <div className="row">
+               
+               <h3> Transactions by Store </h3>
          
-         </div>
-
-               <table className="striped s6 offset-s6">
-                    <thead>
-                        <tr>
-                            <th> Items  </th>
-                            <th> Quantity  </th>
-                            <th> Price  </th>
-                            <th> Store  </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                     {this.state.data.map(transaction => (
-                        <tr key={transaction._id}  className={ transaction.isEditing ? 'background-active' : 'test'} >
-
-                                {/* PRODUCT */}
-                           <td>
-
-                                      {transaction.items.map(e =>  <table><thead><tr><th>{e.name}</th></tr></thead></table>   )} 
-                                    
-
-                                </td>
-
-                            
-
-                                {/* QUANTITY */}
-                                <td className="borders">
-                                {transaction.items.map(e =>  <table><thead><tr><th>{e.quantity}</th></tr></thead></table>   )} 
-                                      </td>
-
-                                {/* PRICE */}
-                                    <td className="borders">
-                                    {transaction.items.map(e =>  <table><thead><tr><th>${e.cost}</th></tr></thead></table>   )} 
-                                          </td>
-
-                                {/* STORE */}
-                                    <td className="borders"> 
-                                        {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
-                                            
-                                   
-                                    {transaction.items.map(e =>  <table><thead><tr><th>  {transaction.store}</th></tr></thead></table>   )} 
-                                       {/* {  moment( tranaction.transaction.transactionDate).format('L')   } */}
-                                       
-                                       </td>
-                                        
-                        </tr>  
-                     ))}
-                    </tbody>    
-                </table> 
-            </div>
-        </div>
-    // }
-    
-    )
+        
+      </div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Items</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Date</th>
+              <th>Store</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.slice((page - 1) * ITEMS_PER_PAGE, (page - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE).map(item => (
+              <tr key={item._id}>
+                <td>{item.item}</td>
+                <td>{item.quantity}</td>
+                <td>{item.price}</td>
+                <td>{moment(item.date).format("L")}</td>
+                <td>{item.store}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 }
 }
 
-
-//     }
-// }
 
 export default MonthlyTrendsTable;
