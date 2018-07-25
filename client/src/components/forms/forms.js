@@ -27,7 +27,7 @@ class Forms extends Component {
                 console.log(response)
                 console.log('the Receipt has been added')
             })
-        this.props.history.push("/transactions")
+        this.props.history.push("/transactions ")
     }
 
     handelChangeEvent = (event) => {
