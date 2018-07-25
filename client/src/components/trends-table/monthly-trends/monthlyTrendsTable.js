@@ -1,111 +1,112 @@
-import React, { Component } from 'react'
+        import React, { Component } from 'react'
 
 import './trends.css'
 
 import axios from 'axios';
 
+import moment from 'moment';
 
 
-const API_URL = 'http://localhost:8080/api/trends';
+const API_URL = 'http://localhost:3001/api/store';
+const ITEMS_PER_PAGE = 8
+
 
 class MonthlyTrendsTable extends Component {
     
        
-
-        // const sampleData = [
-        //     { date: '7/1/2018', description: 'Rent', category: 'Housing', cost: 1200.00  ,isEditing:false },
-        //     { date: '7/1/2018', description: 'McDonalds',category: 'Fast Food',cost: 12.39 ,isEditing:false },
-        //     { date: '7/1/2018', description: 'Target',category: 'Cleaning Suppys',cost: 41.47 ,isEditing:false }
-        // ];
-
-
         
   constructor(props) {
     super(props);
     
-    this.state = {
-      data:[],
-     
-    };
+
+
+
+
+this.state = {
+    items: [],
+    page: 1
   };
+}
 
-  componentDidMount(){
-        axios
-            .get(API_URL)
-            .then(response => {
-                this.setState({
-                data: response.data
-                });
-                console.log(response.data)
+componentWillMount() {
+  axios
+    .get(API_URL)
+    .then(response => {
+      const transactions = response.data;
 
-            })
-            .catch((err)=> {
-            console.log(err)
-        })
-    };
+      // We are flattening out response and adding a date and store to each item
+      const items = transactions.reduce((acc, tx) => {
+          return acc.concat(tx.items.map(item => ({
+              _id: item._id,
+              item: item.name,
+              quantity: item.quantity,
+              group: item.category,
+              price: item.cost,
+              date: tx.date,
+              store: tx.store
+          })))
+      }, [])
 
-    // const data = (props) => {
-       
-    render(){
-    return(
-        <div className="row">
-            <div className="col s8 offset-s2">
+      this.setState({
+        items
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
 
-            <ul class="pagination">
-                <li class="disabled"><a href="/trends/weekly"><i class="material-icons">chevron_left</i></a></li>
-                <li class="waves-effect"><a href="/trends/daily">Day</a></li>
-                <li class="waves-effec"><a href="/trends/weekly">Week</a></li>
-                <li class="active"><a href="#!">Month</a></li>
-                <li class="waves-effect"><a href="/trends/quarter">Quarter</a></li>
-                <li class="waves-effect"><a href="/trends/quarter"><i class="material-icons">chevron_right</i></a></li>
-            </ul>
+render() {
+  const { page, items } = this.state
+  return (        
+    <div className="row">
 
+    <div className="row"> 
 
-                <table className="striped s6 offset-s6">
-                    <thead>
-                        <tr>
-                            <th> Item  </th>
-                            <th> Group  </th>
-                            <th> Price  </th>
-                            <th> Date  </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                     {this.state.data.map(tranaction => (
-                        <tr key={tranaction._id}  className={ tranaction.isEditing ? 'background-active' : 'test'} >
+   <ul class="pagination">
+               <li class="waves-effect"><a href="/trends/daily"><i class="material-icons">chevron_left</i></a></li>
+                 <li class="waves-effect"><a href="/trends">Overview</a></li>
+                 <li class="waves-effec"><a href="/trends/daily">Date</a></li>
+                 <li class="active"><a href="#!">Store</a></li>
+                 <li class="waves-effect"><a href="/trends/quarter">Total</a></li>
+                 <li class="waves-effect"><a href="/trends/quarter"><i class="material-icons">chevron_right</i></a></li>
+             </ul>
 
-                                {/* PRODUCT */}
-                                    <td>  {tranaction.product.productName} </td>
-
-                                {/* GRUOP */}
-                                    <td className="borders">
-                                            {/* <input className="input-bottom" type="text" value={tranaction.category} />  */}
-
-                                    {tranaction.product.productDepartment} </td>
-
-                                {/* PRICE */}
-                                    <td> ${tranaction.transaction.transactionTotal} </td>
-
-                                {/* DATE */}
-                                    <td> 
-                                        {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
-                                            
-                                        {tranaction.transaction.transactionDate}</td>
-                                        
-                        </tr>  
-                     ))}
-                    </tbody>   
-                </table> 
-            </div>
-        </div>
-    // }
-    
-    )
+    </div>
+      <div className="row">
+               
+               <h3> Transactions by Store </h3>
+         
+        
+      </div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Items</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Date</th>
+              <th>Store</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.slice((page - 1) * ITEMS_PER_PAGE, (page - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE).map(item => (
+              <tr key={item._id}>
+                <td>{item.item}</td>
+                <td>{item.quantity}</td>
+                <td>{item.price}</td>
+                <td>{moment(item.date).format("L")}</td>
+                <td>{item.store}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 }
 }
 
-
-//     }
-// }
 
 export default MonthlyTrendsTable;

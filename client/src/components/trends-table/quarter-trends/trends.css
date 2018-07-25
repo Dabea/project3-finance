@@ -1,12 +1,17 @@
-.input-bottom {
-    border-bottom: none;
-    outline: none;
+th, td, .trow {
+  border-bottom: 1px solid #00b0ff;
 }
+
 
 textarea:focus {
     border-bottom: none!important;
     box-shadow: none!important;
   }
+
+.input-bottom {
+    border-bottom: none;
+    outline: none;
+}
 
   input[type="text"] {
     border: 1px solid #999999;
@@ -31,10 +36,3 @@ textarea:focus {
     box-shadow: 0 1px 0 0 #0C8CF6;
 
   }
-
-
-table.striped > tbody > tr.background-active{
-    background: #666666;
-    color: white;
-
-}  
