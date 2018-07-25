@@ -2,7 +2,7 @@
     background: teal;
     float: left;
     border-radius: 500px;
-    padding:px;
+    padding:5px 8px 5px 8px;
     margin: 3px;
     z-index: 5;
 }
@@ -20,13 +20,36 @@
 }
 
 .chart-background {
-
+    background: white;
+    display:inline-block;
     color:white;
     z-index: 3;
 }
 
+
 .btn {
-    background: teal;
-    color:white;
-    padding:15px;
+    background: black;
+    padding: 20px;
+    padding-top:0;
+    margin: 0px;
+    color: #0ab7e9;
+    font-weight: bold;
 }
+
+.btn:hover {
+    background: #047BA4;
+    color: white
+}
+
+.btn-container {
+    margin-top: 5px;
+    width: max-content;
+    margin-left: 40px;
+    border: 1px solid #0ab7e9;
+}
+
+.rv-xy-plot__grid-lines__line {
+    stroke: #252525;
+    stroke-width: 1;
+  }
+

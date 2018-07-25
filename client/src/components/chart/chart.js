@@ -152,13 +152,16 @@ class Chart extends Component {
         return(  
             <div>
                
-                 
-               <button onClick={this.monthy} > Month </button>
-               <button onClick={this.costyByItem} > Costy By Item </button>
-               <button onClick={() => this.getThisdataByTime('month')} > get This Month </button>
-               <button onClick={() => this.getThisdataByTime('day')} > get This day </button>
-               <button onClick={() => this.getThisdataByTime('week')} > get This Week </button>
+                <div className="btn-container" >
+                    <button className="btn" onClick={this.monthy} > Month </button>
+                    <button className="btn middle" onClick={this.costyByItem} > Costy By Item </button>
+                    <button className="btn middle" onClick={() => this.getThisdataByTime('month')} > get This Month </button>
+                    <button className="btn middle" onClick={() => this.getThisdataByTime('day')} > get This day </button>
+                    <button className="btn" onClick={() => this.getThisdataByTime('week')} > get This Week </button>
+                </div>     
+              
               <XYPlot  type="ordinal" height={800} width={800}>
+              
               <XAxis  tickLabelAngle={90}   tickTotal={this.state.testValue.length }    />
                 <YAxis title="Y Axis" />
                 <HorizontalGridLines />

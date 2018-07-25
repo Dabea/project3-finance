@@ -7,6 +7,7 @@ import MonthlyTrendsTable from './trends-table/monthly-trends/monthlyTrendsTable
 import QuarterTrendsTable from './trends-table/quarter-trends/QuarterTrendsTable';
 import Nav from "./Nav/Nav";
 import TransactionTable from './transaction-table/transactionTable';
+import '../../node_modules/react-vis/dist/style.css';
 import Chart from "./chart/chart";
 import PiChart from "./chart/piChartByCat";
 import ChartByDate from "./chart/chartByDate";
@@ -17,7 +18,7 @@ import Login from './login/login'
 const Router = () => (
   <BrowserRouter>
     <div>
-      <Nav />
+        <Nav />
       
         <Route exact path='/' component={Login}/>
         <Route exact path="/FormCarousel" component={FormCarousel} />

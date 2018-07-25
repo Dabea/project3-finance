@@ -110,25 +110,38 @@ class ChartBydate extends Component {
     }
 
     render() {
-       
+        const axisStyle = {
+            line: {
+                color:'green'
+            },
+            ticks: {
+              fontSize: '64px',
+              color: '#333'
+            },
+            title: {
+                stoke:'green',
+              fontSize: '33px',
+              color: '#333'
+            }
+          };
        
         return(
             <div classname="chart-background">
-                <button className="btn" onClick={this.thisYear} > test Button </button>
+                <button  onClick={this.thisYear} > test Button </button>
                 <button onClick={this.udateMoneyValues} >Update Other set</button>
                <div className="waves-effect"><a href="/chart">Chart</a></div>
-               <div className="chart-background">
+               <div >
 
-                 <XYPlot    height={800} width={800} >
+                 <XYPlot   className="chart-background" height={800} width={800} >
+                    <VerticalGridLines />
+                    <HorizontalGridLines />
                     <GradientDefs>
-                        <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
-                            <stop offset="0%" stopColor="#E82164" stopOpacity={0.6}/>
-                            <stop offset="10%" stopColor="#E82164" stopOpacity={0.3}/>
-                            <stop offset="55%" stopColor="#001463" stopOpacity={1}/>
-                            <stop offset="100%" stopColor="#4341e0" stopOpacity={0.4} />
-                        </linearGradient>
+                    <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="red" stopOpacity={0.5}/>
+                    <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
+                </linearGradient>
                     </GradientDefs>
-                    <XAxis  tickLabelAngle={90}  tickSizeOuter={6} style={{color: 'white'}} tickTotal={this.state.formatedData.length }  tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
+                    <XAxis style={axisStyle}  tickLabelAngle={90}  tickSizeOuter={6} style={{color: 'white'}} tickTotal={this.state.formatedData.length }  tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
                     <YAxis />
                     <VerticalRectSeries onValueClick={() => alert('clicked So good')}   onValueMouseOver={ datapoint => this.buildHintDisplay(datapoint) }
                         color={'url(#CoolGradient)'}  data={this.state.formatedData} />
