@@ -8,6 +8,8 @@ import QuarterTrendsTable from './trends-table/quarter-trends/QuarterTrendsTable
 import Nav from "./Nav/Nav";
 import TransactionTable from './transaction-table/transactionTable';
 import Chart from "./chart/chart";
+import PiChart from "./chart/piChartByCat";
+import ChartByDate from "./chart/chartByDate";
 import Forms from "./forms/forms";
 import Login from './login/login'
 
@@ -21,6 +23,8 @@ const Router = () => (
         <Route exact path="/forms" component={Forms} /> 
         <Route exact path="/transactions" component={TransactionTable} /> 
         <Route exact path="/chart" component={Chart} />
+        <Route exact path="/pichart" component={PiChart} />
+        <Route exact path="/chart-date" component={ChartByDate} />
         <Switch>  
         <Route exact path="/trends" component={TrendsTable} />
         <Route exact path="/trends/daily" component={ DailyTrendsTable} />

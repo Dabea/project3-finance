@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import  {XYPlot, XAxis,Hint,VerticalRectSeries , LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
+import  {XYPlot, XAxis,Hint,VerticalRectSeries ,DecorativeAxis, FlexibleHeightXYPlot,  FlexibleXYPlot,FlexibleWidthXYPlot,LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
 import axios from 'axios'
 import xyPlot from 'react-vis/dist/plot/xy-plot';
 import moment from 'moment'
@@ -119,7 +119,7 @@ class ChartBydate extends Component {
                 
                 <button onClick={this.thisYear} > test Button </button>
                 <button onClick={this.udateMoneyValues} >Update Other set</button>
-               <div class="waves-effect"><a href="/chart">Chart</a></div>
+               <div className="waves-effect"><a href="/chart">Chart</a></div>
                  <XYPlot    height={800} width={800} >
                     <GradientDefs>
                         <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
@@ -131,13 +131,17 @@ class ChartBydate extends Component {
                     animation
                     allowOffsetToBeReversed
                     data={this.state.testValue} />
-                    <XAxis  tickLabelAngle={90}  tickSizeOuter={6} tickTotal={this.state.formatedData.length }  tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
+                    <XAxis  tickLabelAngle={90}  tickSizeOuter={6} style={{color: 'white'}} tickTotal={this.state.formatedData.length }  tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
                     <YAxis />
+                   
                     <VerticalRectSeries onValueClick={() => alert('clicked So good')}   onValueMouseOver={ datapoint => this.buildHintDisplay(datapoint) }
-                        color={'url(#CoolGradient)'}  data={this.state.formatedData} />  
+                        color={'url(#CoolGradient)'}  data={this.state.formatedData} />
+                
                  <Hint  x={30} y={40} value={this.state.activePlot} />
                
-                </XYPlot>    
+                </XYPlot>  
+               
+
             </div>    
         )
     }

@@ -63,13 +63,13 @@ render() {
 
     <div className="row"> 
 
-   <ul class="pagination">
-               <li class="waves-effect"><a href="/trends/daily"><i class="material-icons">chevron_left</i></a></li>
-                 <li class="waves-effect"><a href="/trends">Overview</a></li>
-                 <li class="waves-effec"><a href="/trends/daily">Date</a></li>
-                 <li class="active"><a href="#!">Store</a></li>
-                 <li class="waves-effect"><a href="/trends/quarter">Total</a></li>
-                 <li class="waves-effect"><a href="/trends/quarter"><i class="material-icons">chevron_right</i></a></li>
+   <ul className="pagination">
+               <li className="waves-effect"><a href="/trends/daily"><i className="material-icons">chevron_left</i></a></li>
+                 <li className="waves-effect"><a href="/trends">Overview</a></li>
+                 <li className="waves-effec"><a href="/trends/daily">Date</a></li>
+                 <li className="active"><a href="#!">Store</a></li>
+                 <li className="waves-effect"><a href="/trends/quarter">Total</a></li>
+                 <li className="waves-effect"><a href="/trends/quarter"><i className="material-icons">chevron_right</i></a></li>
              </ul>
 
     </div>

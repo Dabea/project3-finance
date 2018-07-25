@@ -45,13 +45,13 @@ class QuarterTrendsTable extends Component {
 
 
  <div > 
-   <ul class="pagination">
-                <li class="waves-effect"><a href="/trends/monthly"><i class="material-icons">chevron_left</i></a></li>
-                <li class="waves-effect"><a href="/trends">Overview</a></li>
-                <li class="waves-effect"><a href="/trends/daily">Date</a></li>
-                <li class="waves-effect"><a href="/trends/monthly">Store</a></li>
-                <li class="active"><a href="#!">Total</a></li>
-                <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+   <ul className="pagination">
+                <li className="waves-effect"><a href="/trends/monthly"><i className="material-icons">chevron_left</i></a></li>
+                <li className="waves-effect"><a href="/trends">Overview</a></li>
+                <li className="waves-effect"><a href="/trends/daily">Date</a></li>
+                <li className="waves-effect"><a href="/trends/monthly">Store</a></li>
+                <li className="active"><a href="#!">Total</a></li>
+                <li className="disabled"><a href="#!"><i className="material-icons">chevron_right</i></a></li>
             </ul>
             </div>
 

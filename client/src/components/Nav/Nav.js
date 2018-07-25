@@ -33,7 +33,7 @@ class Nav extends Component {
             </li>
           </ul>
         </div>
-        <div class="clearfix">
+        <div className="clearfix">
           <ul>
             {links.map(link => (
               <li
@@ -47,7 +47,7 @@ class Nav extends Component {
             ))}
           </ul>
         </div>
-        <div class="clearfix"></div>
+        <div className="clearfix"></div>
       </nav>
       
     );

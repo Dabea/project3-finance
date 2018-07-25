@@ -52,13 +52,13 @@ class WeeklyTrendsTable extends Component {
 
             
 
-<ul class="pagination">
-    <li class="disabled"><a href="/trends/daily"><i class="material-icons">chevron_left</i></a></li>
-    <li class="waves-effect"><a href="/trends/daily">Day</a></li>
-    <li class="active"><a href="#!">Week</a></li>
-    <li class="waves-effect"><a href="/trends/monthly">Month</a></li>
-    <li class="waves-effect"><a href="/trends/quarter">Quarter</a></li>
-    <li class="waves-effect"><a href="/trends/monthly"><i class="material-icons">chevron_right</i></a></li>
+<ul className="pagination">
+    <li className="disabled"><a href="/trends/daily"><i className="material-icons">chevron_left</i></a></li>
+    <li className="waves-effect"><a href="/trends/daily">Day</a></li>
+    <li className="active"><a href="#!">Week</a></li>
+    <li className="waves-effect"><a href="/trends/monthly">Month</a></li>
+    <li className="waves-effect"><a href="/trends/quarter">Quarter</a></li>
+    <li className="waves-effect"><a href="/trends/monthly"><i className="material-icons">chevron_right</i></a></li>
   </ul>
 
 
