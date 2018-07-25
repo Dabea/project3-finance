@@ -9,12 +9,12 @@
     border:1px solid black;
 } 
 
-.input-area {
+ .input-area {
     margin:10px;
     text-align: left;
-} 
+}
 
-.model-header {
+ .model-header {
     height:35px;
     padding: 1px;
     width: 100%;
@@ -22,10 +22,10 @@
 }
 
 .model-header-title {
-    font-size: 2em;
-} 
+    font-size: 2em; 
+}
 
-.model-body {
+ .model-body {
     padding:15px;
 }
 
@@ -34,10 +34,10 @@
     width: 75px;
     margin-right: 15px;
     float: left;
-} 
+}
 
 
- .backdrop1  {
+.backdrop1  {
     position: fixed !important ; 
     top: 0;
     bottom: 0;

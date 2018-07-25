@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route , Switch } from "react-router-dom";
 import './App.css';
 import '../node_modules/react-vis/dist/style.css';
+import { BrowserRouter as Router, Route , Switch } from "react-router-dom";
+
 import TrendsTable from './components/trends-table';
 import DailyTrendsTable from './components/trends-table/daily-trends/dailyTrendsTable';
 import WeeklyTrendsTable from './components/trends-table/weekly-trends/WeeklyTrendsTable';
@@ -14,6 +15,8 @@ import Forms from "./components/forms/forms"
 // import UploadData from './components/upload';
 import FormCarousel from './components/FormCarousel/FormCarousel'
 import Login from './components/login/login'
+import PiChart from './components/chart/piChartByCat'
+import ChartByDate from './components/chart/chartByDate'
 
 
 
@@ -22,6 +25,7 @@ import Login from './components/login/login'
 class App extends Component {
   render() {
     return (
+
 <Router>
   <div>
     <Route exact path="/FormCarousel" component={FormCarousel} />
@@ -32,6 +36,8 @@ class App extends Component {
     <Route exact path="/transactions" component={TransactionTable} />
     <Switch> 
       <Route exact path="/chart" component={Chart} />
+      <Route exact path="/pichart" component={PiChart} />
+      <Route exact path="/chart-date" component={ChartByDate} />
       <Route exact path="/trends" component={TrendsTable} />
       <Route exact path="/trends/daily" component={ DailyTrendsTable} />
       <Route exact path="/trends/weekly" component={ WeeklyTrendsTable} />
@@ -40,6 +46,7 @@ class App extends Component {
     </Switch>
   </div>
 </Router>
+
     );
   }
 }
