@@ -3,6 +3,7 @@ import {XYPlot, XAxis,Hint,AreaSeries, VerticalRectSeries, LabelSeries,  YAxis,V
 import axios from 'axios';
 import moment from 'moment';
 import './chart.css';
+import cloneDeep from 'clone-deep';
 
 
 class Chart extends Component {
@@ -36,7 +37,7 @@ class Chart extends Component {
 
     }
 
-    getThisdataByTime = (timeInterval) => {
+    getThisdataByTime = (timeInterval ,callback) => {
         axios.get("http://localhost:3001/api/date")
         .then(response => {
             let receipts = [];
@@ -50,11 +51,14 @@ class Chart extends Component {
            this.formatForChart()
            console.log("new data" ,this.state.formatedData);
         })
+        callback();
     }
 
     formatForChart = () => {
+    
         let formattedData = []
-        let dataCopy = [...this.state.data];
+        let dataCopy = cloneDeep(this.state.data)
+        dataCopy[0].x = 'foorbar';
         dataCopy.forEach(value =>{
             value.items.forEach(
                 (item , index) => {
@@ -77,7 +81,7 @@ class Chart extends Component {
 
      costyByItem = () => {
        let costByItem = [];
-       const basedata = [...this.state.formatedData];
+       const basedata = cloneDeep(this.state.formatedData);
        var totalPriceMap = {};
        basedata.forEach(item => {
             if(totalPriceMap[item.label]) {
@@ -105,7 +109,7 @@ class Chart extends Component {
 
      getToalMoneySpent= () => {
         let total = 0;
-        const currentData = [...this.state.testValue];
+        const currentData = cloneDeep(this.state.testValue);
         console.log(currentData);
         currentData.forEach((item) => total += item.y)
         console.log("total" ,total);
@@ -114,8 +118,8 @@ class Chart extends Component {
 
 
      removeItem = (item) => {
-        let copiedData = [...this.state.testValue]
-        let removedItemList = [...this.state.removedItems]
+        let copiedData = cloneDeep(this.state.testValue)
+        let removedItemList = cloneDeep(this.state.removedItems)
         const index = this.state.testValue.map(item => item.label).indexOf(item);
         removedItemList.push(this.state.testValue[index]);
         copiedData.splice(index, 1);
@@ -126,8 +130,8 @@ class Chart extends Component {
      }
 
      addItemBackToList = (item) => {
-        let copiedData = [...this.state.testValue]
-        let removedItemList = [...this.state.removedItems]
+        let copiedData = cloneDeep(this.state.testValue)
+        let removedItemList = cloneDeep(this.state.removedItems)
         const index = this.state.removedItems.map(item => item.label).indexOf(item);
         console.log("the index" , index)
         console.log("label",  )
@@ -140,7 +144,11 @@ class Chart extends Component {
      }
 
 
-     
+     noDataToDisplay = () => {
+            if(this.state.testValue.length === 0){
+                return <div> There is no infomation to display for this date range </div>
+            }  
+    }
 
 
 
@@ -155,9 +163,10 @@ class Chart extends Component {
                  
                <button onClick={this.monthy} > Month </button>
                <button onClick={this.costyByItem} > Costy By Item </button>
-               <button onClick={() => this.getThisdataByTime('month')} > get This Month </button>
-               <button onClick={() => this.getThisdataByTime('day')} > get This day </button>
-               <button onClick={() => this.getThisdataByTime('week')} > get This Week </button>
+               <button onClick={() => this.getThisdataByTime('month', this.costyByItem)} > get This Month </button>
+               <button onClick={() => this.getThisdataByTime('day', this.costyByItem)} > get This day </button>
+               <button onClick={() => this.getThisdataByTime('week', this.costyByItem)} > get This Week </button>
+               {this.noDataToDisplay()}
               <XYPlot  type="ordinal" height={800} width={800}>
               <XAxis  tickLabelAngle={90}   tickTotal={this.state.testValue.length }    />
                 <YAxis title="Y Axis" />

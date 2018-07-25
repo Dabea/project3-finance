@@ -14,6 +14,7 @@ class ChartBydate extends Component {
         sortedData:[],
         formatedData:[],
         activePlot: {'x':0, 'y':0, 'Total': 0},
+        noData: ''
     }
 
     componentDidMount() {
@@ -103,6 +104,8 @@ class ChartBydate extends Component {
 
         this.setState({activePlot :displayInfo})
     }
+
+
     
 
 
@@ -111,6 +114,7 @@ class ChartBydate extends Component {
     }
 
     render() {
+        
        
        
         return(
@@ -120,6 +124,8 @@ class ChartBydate extends Component {
                 <button onClick={this.thisYear} > test Button </button>
                 <button onClick={this.udateMoneyValues} >Update Other set</button>
                <div class="waves-effect"><a href="/chart">Chart</a></div>
+           
+               <div>{this.state.noData}</div>
                  <XYPlot    height={800} width={800} >
                     <GradientDefs>
                         <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
@@ -127,7 +133,7 @@ class ChartBydate extends Component {
                             <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
                         </linearGradient>
                     </GradientDefs>
-                    <LabelSeries
+                    <LabelSeries 
                     animation
                     allowOffsetToBeReversed
                     data={this.state.testValue} />
