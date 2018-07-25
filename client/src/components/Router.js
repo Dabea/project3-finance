@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import TrendsTable from './trends-table';
 import DailyTrendsTable from './trends-table/daily-trends/dailyTrendsTable';
 import WeeklyTrendsTable from './trends-table/weekly-trends/WeeklyTrendsTable';

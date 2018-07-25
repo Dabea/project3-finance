@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {withRouter} from "react-router-dom";
 import './forms.css';
 import axios from 'axios';
 
@@ -26,7 +27,7 @@ class Forms extends Component {
                 console.log(response)
                 console.log('the Receipt has been added')
             })
-    
+        this.props.history.push("/transactions")
     }
 
     handelChangeEvent = (event) => {
@@ -102,7 +103,7 @@ class Forms extends Component {
                          </div>
                     </div>    
                   
-                   
+                    
             </div>    
 
                 </div>
