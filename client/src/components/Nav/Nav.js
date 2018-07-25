@@ -26,11 +26,14 @@ class Nav extends Component {
           </a>
           <ul id="nav-mobile" className="right">
             <li>
+            <Link to="/forms">Add items</Link>
+            </li>
+            <li>
               <a href="">Log out</a>
             </li>
           </ul>
         </div>
-        <div>
+        <div class="clearfix">
           <ul>
             {links.map(link => (
               <li
@@ -44,7 +47,9 @@ class Nav extends Component {
             ))}
           </ul>
         </div>
+        <div class="clearfix"></div>
       </nav>
+      
     );
   }
 }

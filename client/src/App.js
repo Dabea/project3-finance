@@ -23,29 +23,6 @@ import ChartByDate from './components/chart/chartByDate'
 class App extends Component {
   render() {
     return (
-<<<<<<< HEAD
-=======
-<Router>
-  <div>
-    <Route exact path="/FormCarousel" component={FormCarousel} />
-    {/* <Route exact path="/FormCarousel" component={Form} /> */}
-    <Nav/>
-    <Route exact path ='/' component={Login}/>
-    <Route exact path="/forms" component={Forms} />
-    <Route exact path="/transactions" component={TransactionTable} />
-    <Switch> 
-      <Route exact path="/chart" component={Chart} />
-      <Route exact path="/pichart" component={PiChart} />
-      <Route exact path="/chart-date" component={ChartByDate} />
-      <Route exact path="/trends" component={TrendsTable} />
-      <Route exact path="/trends/daily" component={ DailyTrendsTable} />
-      <Route exact path="/trends/weekly" component={ WeeklyTrendsTable} />
-      <Route exact path="/trends/monthly" component={ MonthlyTrendsTable} />
-      <Route exact path="/trends/quarter" component={ QuarterTrendsTable} />
-    </Switch>
-  </div>
-</Router>
->>>>>>> 33814302a6d2e612d3362baaa0e1a145f378fcc5
     );
   }
 }
