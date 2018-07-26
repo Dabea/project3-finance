@@ -6,118 +6,103 @@ import moment from 'moment';
 
 
 
-const API_URL = 'http://localhost:8080/api/trends';
+const API_URL = 'http://localhost:3001/api/trends';
+const ITEMS_PER_PAGE = 8
 
 class TrendsTable extends Component {
     
-       
-
-        // const sampleData = [
-        //     { date: '7/1/2018', description: 'Rent', category: 'Housing', cost: 1200.00  ,isEditing:false },
-        //     { date: '7/1/2018', description: 'McDonalds',category: 'Fast Food',cost: 12.39 ,isEditing:false },
-        //     { date: '7/1/2018', description: 'Target',category: 'Cleaning Suppys',cost: 41.47 ,isEditing:false }
-        // ];
-
-
         
   constructor(props) {
     super(props);
-    
-    this.state = {
-      data:[],
-     
-    
-    };
+ 
+
+
+this.state = {
+    items: [],
+    page: 1
   };
+}
 
-  componentDidMount(){
-        axios
-            .get(API_URL)
-            .then(response => {
-                this.setState({
-                data: response.data
-                });
-                console.log(response.data)
+componentWillMount() {
+  axios
+    .get(API_URL)
+    .then(response => {
+      const transactions = response.data;
 
-            })
-            .catch((err)=> {
-            console.log(err)
-        })
-    };
+      // We are flattening out response and adding a date and store to each item
+      const items = transactions.reduce((acc, tx) => {
+          return acc.concat(tx.items.map(item => ({
+              _id: item._id,
+              item: item.name,
+              quantity: item.quantity,
+              group: item.category,
+              price: item.cost,
+              date: tx.date,
+              store: tx.store
+          })))
+      }, [])
 
+      this.setState({
+        items
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
 
+render() {
+  const { page, items } = this.state
+  return (        
+    <div className="row">
 
+     <div className="row">
+     
+       <ul className="pagination">
 
-   
-    // const data = (props) => {
-       
-    render(){
-    return(
-        <div className="row">
-            <div className="col s8 offset-s2">
+     <li className="disabled"><a href="#!"><i className="material-icons">chevron_left</i></a></li>
+     <li className="active"><a href="#!">Overview</a></li>
+     <li className="waves-effect"><a href="/trends/daily">Date</a></li>
+     <li className="waves-effect"><a href="/trends/monthly">Store</a></li>
+     <li className="waves-effect"><a href="/trends/quarter">Total</a></li>
+     <li className="waves-effect"><a href="/trends/daily"><i className="material-icons">chevron_right</i></a></li>
 
-            
-
-<ul class="pagination">
-    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-    <li class="active"><a href="#!">Day</a></li>
-    <li class="waves-effect"><a href="/trends/weekly">Week</a></li>
-    <li class="waves-effect"><a href="/trends/monthly">Month</a></li>
-    <li class="waves-effect"><a href="/trends/quarter">Quarter</a></li>
-    <li class="waves-effect"><a href="/trends/weekly"><i class="material-icons">chevron_right</i></a></li>
   </ul>
 
-
-
-                <table className="striped s6 offset-s6">
-                    <thead>
-                        <tr>
-                            <th> Item  </th>
-                            <th> Group  </th>
-                            <th> Quantity  </th>
-                            <th> Price  </th>
-                            <th> Date  </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                     {this.state.data.map(tranaction => (
-                        <tr key={tranaction._id}  className={ tranaction.isEditing ? 'background-active' : 'test'} >
-
-                                {/* PRODUCT */}
-                                    <td>  {tranaction.product.productName} </td>
-
-                                {/* GRUOP */}
-                                    <td className="borders">
-                                            {/* <input className="input-bottom" type="text" value={tranaction.category} />  */}
-
-                                    {tranaction.product.productDepartment} </td>
-
-                                {/* PRICE */}
-                                <td> {tranaction.transaction.transactionQuantity} </td>
-
-                                {/* PRICE */}
-                                    <td> ${tranaction.transaction.transactionTotal} </td>
-
-                                {/* DATE */}
-                                    <td> 
-                                        {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
-                                            
-                                       {  moment( tranaction.transaction.transactionDate).format('L')   }</td>
-                                        
-                        </tr>  
-                     ))}
-                    </tbody>    
-                </table> 
-            </div>
-        </div>
-    // }
-    
-    )
+</div>
+      <div className="row">
+              
+        <h3> Transactions by product quantity </h3>
+         
+        
+      </div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Items</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Date</th>
+              <th>Store</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.slice((page - 1) * ITEMS_PER_PAGE, (page - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE).map(item => (
+              <tr key={item._id}>
+                <td>{item.item}</td>
+                <td>{item.quantity}</td>
+                <td>{item.price}</td>
+                <td>{moment(item.date).format("L")}</td>
+                <td>{item.store}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 }
 }
-
-
-//     }
-// }
 
 export default TrendsTable;

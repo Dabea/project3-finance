@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {XYPlot, XAxis,Hint,AreaSeries, VerticalRectSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
+import {XYPlot, XAxis,Hint,AreaSeries,FlexibleXYPlot,FlexibleWidthXYPlot, VerticalRectSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
 import axios from 'axios';
 import moment from 'moment';
 import './chart.css';
@@ -37,7 +37,7 @@ class Chart extends Component {
 
     }
 
-    getThisdataByTime = (timeInterval ,callback) => {
+    getThisdataByTime = (timeInterval) => {
         axios.get("http://localhost:3001/api/date")
         .then(response => {
             let receipts = [];
@@ -49,15 +49,21 @@ class Chart extends Component {
             })
            this.setState({data: receipts})
            this.formatForChart()
+ 
            console.log("new data" ,this.state.formatedData);
         })
-        callback();
+        
     }
 
     formatForChart = () => {
-    
-        let formattedData = []
+         let formattedData = []
         let dataCopy = cloneDeep(this.state.data)
+        if(this.state.data.length === 0 ){
+            this.noDataToDisplay();
+            this.setState({formatedData : formattedData},   console.log("FORMATED" , formattedData)); 
+            return
+        }
+       
         dataCopy[0].x = 'foorbar';
         dataCopy.forEach(value =>{
             value.items.forEach(
@@ -160,14 +166,16 @@ class Chart extends Component {
         return(  
             <div>
                
-                 
-               <button onClick={this.monthy} > Month </button>
-               <button onClick={this.costyByItem} > Costy By Item </button>
-               <button onClick={() => this.getThisdataByTime('month', this.costyByItem)} > get This Month </button>
-               <button onClick={() => this.getThisdataByTime('day', this.costyByItem)} > get This day </button>
-               <button onClick={() => this.getThisdataByTime('week', this.costyByItem)} > get This Week </button>
-               {this.noDataToDisplay()}
-              <XYPlot  type="ordinal" height={800} width={800}>
+                <div className="btn-container" >
+                    <button className="btn" onClick={this.monthy} > Month </button>
+                    <button className="btn middle" onClick={this.costyByItem} > Costy By Item </button>
+                    <button className="btn middle" onClick={() => this.getThisdataByTime('month')} > get This Month </button>
+                    <button className="btn middle" onClick={() => this.getThisdataByTime('day')} > get This day </button>
+                    <button className="btn" onClick={() => this.getThisdataByTime('week')} > get This Week </button>
+                </div>     
+              
+              <FlexibleWidthXYPlot height={600}   >
+              
               <XAxis  tickLabelAngle={90}   tickTotal={this.state.testValue.length }    />
                 <YAxis title="Y Axis" />
                 <HorizontalGridLines />
@@ -178,8 +186,8 @@ class Chart extends Component {
                     data={this.state.testValue} />
                 <GradientDefs>
                     <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stopColor="red" stopOpacity={0.5}/>
-                        <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
+                        <stop offset="0%" stopColor="red" stopOpacity={0.8}/>
+                        <stop offset="100%" stopColor="#0e6bf7" stopOpacity={0.7} />
                     </linearGradient>
                 </GradientDefs>
                 <VerticalRectSeries onValueMouseOver={(datapoint, event)=>{
@@ -187,12 +195,12 @@ class Chart extends Component {
                     this.setState({activePlot :datapoint})
                 }}  color={'url(#CoolGradient)'} data={this.state.testValue} />
                 <Hint  x={30} y={40} value={this.state.activePlot} />
-              </XYPlot>
+              </FlexibleWidthXYPlot >
               <div className="padding" >
-                 {this.state.testValue.map(item => <div  key={item.label} className="pill" > {item.label} <span onClick={ () => this.removeItem(item.label)} className="delete">X </span> </div>) }
+                 {this.state.testValue.map(item => <div  key={item.label} className="pill"  onClick={ () => this.removeItem(item.label)}> {item.label}</div>) }
               </div>
               <div>
-              {this.state.removedItems.map(item => <div  key={item.label} className="pill" > {item.label} <span onClick={ () => this.addItemBackToList(item.label)} className="delete">+</span> </div>) }
+              {this.state.removedItems.map(item => <div  key={item.label} className="pill" onClick={ () => this.addItemBackToList(item.label)} > {item.label}  </div>) }
               </div>    
                
 

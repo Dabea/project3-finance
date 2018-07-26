@@ -6,19 +6,12 @@ import axios from 'axios';
 
 
 
-const API_URL = 'http://localhost:8080/api/trends';
+const API_URL = 'http://localhost:3001/api/total';
+
+
 
 class QuarterTrendsTable extends Component {
     
-       
-
-        // const sampleData = [
-        //     { date: '7/1/2018', description: 'Rent', category: 'Housing', cost: 1200.00  ,isEditing:false },
-        //     { date: '7/1/2018', description: 'McDonalds',category: 'Fast Food',cost: 12.39 ,isEditing:false },
-        //     { date: '7/1/2018', description: 'Target',category: 'Cleaning Suppys',cost: 41.47 ,isEditing:false }
-        // ];
-
-
         
   constructor(props) {
     super(props);
@@ -48,54 +41,73 @@ class QuarterTrendsTable extends Component {
        
     render(){
     return(
-        <div className="row">
+        <div >
+
+
+ <div > 
+   <ul className="pagination">
+                <li className="waves-effect"><a href="/trends/monthly"><i className="material-icons">chevron_left</i></a></li>
+                <li className="waves-effect"><a href="/trends">Overview</a></li>
+                <li className="waves-effect"><a href="/trends/daily">Date</a></li>
+                <li className="waves-effect"><a href="/trends/monthly">Store</a></li>
+                <li className="active"><a href="#!">Total</a></li>
+                <li className="disabled"><a href="#!"><i className="material-icons">chevron_right</i></a></li>
+            </ul>
+            </div>
+
             <div className="col s8 offset-s2">
 
-            
-            <ul class="pagination">
-                <li class="disabled"><a href="/trends/monthly"><i class="material-icons">chevron_left</i></a></li>
-                <li class="waves-effect"><a href="/trends/daily">Day</a></li>
-                <li class="waves-effect"><a href="/trends/weekly">Week</a></li>
-                <li class="waves-effect"><a href="/trends/monthly">Month</a></li>
-                <li class="active"><a href="#!">Quarter</a></li>
-                <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-            </ul>
+           
+         
+ <div className="row">  
+        
+         <h3> Transactions by Total Spent </h3>
+         
+         </div>
 
-
-                <table className="striped s6 offset-s6">
+               <table className="s6 offset-s6">
                     <thead>
                         <tr>
-                            <th> Item  </th>
-                            <th> Group  </th>
+                            <th> Items  </th>
+                            <th> Quantity  </th>
                             <th> Price  </th>
-                            <th> Date  </th>
+                            <th> Total Spent </th>
                         </tr>
                     </thead>
                     <tbody>
-                     {this.state.data.map(tranaction => (
-                        <tr key={tranaction._id}  className={ tranaction.isEditing ? 'background-active' : 'test'} >
+                     {this.state.data.map(transaction => (
+                        <tr key={transaction._id}  className={ transaction.isEditing ? 'background-active' : 'test'} >
 
                                 {/* PRODUCT */}
-                                    <td>  {tranaction.product.productName} </td>
+                           <td>
 
-                                {/* GRUOP */}
-                                    <td className="borders">
-                                            {/* <input className="input-bottom" type="text" value={tranaction.category} />  */}
+                                      {transaction.items.map(e =>  <table><thead><tr><th>{e.name}</th></tr></thead></table>   )} 
+                                    
 
-                                    {tranaction.product.productDepartment} </td>
+                                </td>
+
+                            
+
+                                {/* QUANTITY */}
+                                <td className="borders">
+                                {transaction.items.map(e =>  <table><thead><tr><th>{e.quantity}</th></tr></thead></table>   )} 
+                                      </td>
 
                                 {/* PRICE */}
-                                    <td> ${tranaction.transaction.transactionTotal} </td>
+                                    <td className="borders">
+                                    {transaction.items.map(e =>  <table><thead><tr><th>${e.cost}</th></tr></thead></table>   )} 
+                                          </td>
 
-                                {/* DATE */}
-                                    <td> 
-                                        {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
-                                            
-                                        {tranaction.transaction.transactionDate}</td>
+                                {/* TOTAL */}
+                                <td className="borders"> 
+                                       {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
+                                           
+                                   ${transaction.total}
+                                   </td>
                                         
                         </tr>  
                      ))}
-                    </tbody>   
+                    </tbody>    
                 </table> 
             </div>
         </div>
