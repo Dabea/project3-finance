@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {XYPlot, XAxis,Hint,AreaSeries,FlexibleXYPlot,FlexibleWidthXYPlot, VerticalRectSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
+import { XAxis,Hint,FlexibleWidthXYPlot, VerticalRectSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient} from 'react-vis';
 import axios from 'axios';
 import moment from 'moment';
 import './chart.css';
@@ -63,8 +63,7 @@ class Chart extends Component {
             this.setState({formatedData : formattedData},   console.log("FORMATED" , formattedData)); 
             return
         }
-       
-        dataCopy[0].x = 'foorbar';
+        
         dataCopy.forEach(value =>{
             value.items.forEach(
                 (item , index) => {
@@ -167,11 +166,13 @@ class Chart extends Component {
             <div>
                
                 <div className="btn-container" >
-                    <button className="btn" onClick={this.monthy} > Month </button>
-                    <button className="btn middle" onClick={this.costyByItem} > Costy By Item </button>
-                    <button className="btn middle" onClick={() => this.getThisdataByTime('month')} > get This Month </button>
-                    <button className="btn middle" onClick={() => this.getThisdataByTime('day')} > get This day </button>
-                    <button className="btn" onClick={() => this.getThisdataByTime('week')} > get This Week </button>
+                   
+                    <button className="btn" onClick={this.costyByItem} > Costy By Item </button>
+                    <button className="btn" onClick={() => this.getThisdataByTime('year')} > Year </button>
+                    <button className="btn" onClick={() => this.getThisdataByTime('month')} > Month </button>
+                    <button className="btn" onClick={() => this.getThisdataByTime('week')} > Week </button>
+                    <button className="btn" onClick={() => this.getThisdataByTime('day')} > day </button>
+                   
                 </div>     
               
               <FlexibleWidthXYPlot height={600}   >
@@ -181,7 +182,7 @@ class Chart extends Component {
                 <HorizontalGridLines />
                 <VerticalGridLines />
                 <LabelSeries
-                    labelAnchorX="bottom"
+                   
                     animation
                     allowOffsetToBeReversed
                     data={this.state.testValue} />

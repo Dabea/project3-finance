@@ -40,6 +40,10 @@
     background: #047BA4;
     color: white
 }
+.btn:focus {
+    background: #047BA4;
+    color:white;
+}
 
 .btn-container {
     margin-top: 5px;
