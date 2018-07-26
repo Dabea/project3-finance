@@ -1,61 +1,129 @@
-// import React, { Component } from 'react';
-// import {XYPlot, XAxis,Hint,AreaSeries, ArcSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
-// import axios from 'axios';
+import React, { Component } from 'react';
+import {XYPlot, XAxis,Hint,AreaSeries, makeWidthFlexible, RadialChart, ArcSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
+import axios from 'axios';
+import cloneDeep from 'clone-deep'
 
-// class PiChart extends Component {
+class PiChart extends Component {
 
-//     state = {
-//         data: []
-//     }
+    state = {
+        data: [],
+        formatedByCategory: [],
+        piChartData: []
+    }
     
 
-//     componentDidMount() {
-//         axios.get("http://localhost:3001/api")
-//         .then(response => {
-//             this.setState({
-//             data: response.data
-//             });
-//             console.log("original Data", this.state.data)
-//             this.formatForChart();
-//             this.costyByCategory();
-//         })
-//         .catch((err)=> {
-//             console.log(err)
-//         })
-//     }
+    componentDidMount() {
+        axios.get("http://localhost:3001/api")
+        .then(response => {
+            this.setState({
+            data: response.data
+            });
+            console.log("original Data", this.state.data)
+           
+            this.convertToItemList();
+            this.combindCategoryPrices();
+        })
+        .catch((err)=> {
+            console.log(err)
+        })
+    }
 
-//     formatForPiChart = () => {
+    convertToItemList = () => {
+        let formattedDataSet = []
+        let dataCopy = cloneDeep(this.state.data)
+        dataCopy.forEach(receipt =>{
+            receipt.items.forEach(
+                (item , i) => {
+                    const date = new Date(receipt.date).getTime();
+                    formattedDataSet.push({ category:item.category , y: item.cost } )
+                })})
+        this.setState({formatedByCategory:formattedDataSet})
+        console.log("formatted data" ,formattedDataSet)   
+    }
 
-//     }
+    combindCategoryPrices = () => {
+        let categoryTotals = [];
+        let categoryPriceMap = {}
+        let itemList = cloneDeep(this.state.formatedByCategory);
+        itemList.forEach((item) => {
+            if(categoryPriceMap[item.category]){
+                categoryPriceMap[item.category] += parseFloat(item.y)
+            }else{
+                categoryPriceMap[item.category] = parseFloat(item.y)
+            }
+        })
+        let TotalSpent = this.getTotalPriceFromList(itemList)
+        
+        let i = 0;
+        for(let item in categoryPriceMap){
+            const angle = ((categoryPriceMap[item]/ TotalSpent) * 100)
+            categoryTotals.push({label:item, angle:parseFloat(angle), style:{stroke:'black', strokeWidth: '0'}})
+        }
+       this.setState({
+             piChartData: categoryTotals
+       })
+    }
 
-//     render(){
-//         const PI = Math.PI;
-//         const myData = [
-//             {angle0: 0, angle: PI / 4, opacity: 0.2, radius:3 , radius0: 5, color:'red' },
-//             {angle0: PI / 4, angle: 2 * PI / 4, radius: 3, radius0: 1, color:'blue'},
-//             {angle0: 2 * PI / 4, angle: 3 * PI / 4, radius: 2, radius0: 1, color:'green'},
-//             {angle0: 3 * PI / 4, angle: 4 * PI / 4, radius: 2, radius0: 1 , color:'#999999'},
-//             {angle0: 4 * PI / 4, angle: 5 * PI / 4, radius: 2, radius0: 1},
-//             {angle0: 0, angle: 5 * PI / 4, radius: 1.1, radius0: 0.8}
-//           ];
+    
 
-//         return(
-//             <div  >
-//                <XYPlot
-//                     xDomain={[-10, 10]}
-//                     yDomain={[-10, 10]}
-//                     width={800}
-//                     height={800}>
-//                     <ArcSeries
-//                         animation
-                      
-//                         center={{x: -2, y: 2}}
-//                         data={myData} 
-//                         colorType={'literal'}/>
-//             </XYPlot>
-//             </div>    
-//         )
-//     }
-// }
+    getTotalPriceFromList = (itemList) => {
+        let value = itemList.reduce((acc ,current) => {
+            return (parseFloat(acc) + parseFloat(current.y))
+        },0)
 
-// export default PiChart; 
+        return value.toFixed(2);
+    }
+
+    updateHoveredSection = (dataPoint, value) => {
+        console.log('trigger', value, dataPoint)
+        if(value === '0px'){
+            console.log("mouse Out event" ,dataPoint )
+        }
+        const displayedData = cloneDeep(this.state.piChartData);
+        displayedData.forEach((category) =>{
+            if(category.label === dataPoint.label){
+                category.style = {stroke:'black', strokeWidth: '15px'}
+            }else{
+                category.style = {stroke:'black', strokeWidth: '0px'}
+            }
+        }) 
+
+        this.setState({piChartData:displayedData})
+    }
+
+    updateHoveredSection2 = () => {
+        const displayedData = cloneDeep(this.state.piChartData);
+        displayedData.forEach((category) =>{
+           
+                category.style = {stroke:'black', strokeWidth: '0px'}
+
+        }) 
+
+        this.setState({piChartData:displayedData})
+    }
+
+    render(){
+        
+ 
+     
+        const FlexibleRadialChart = makeWidthFlexible(RadialChart);
+        return(
+            <div  >
+             <FlexibleRadialChart height={600} 
+                    
+                onValueMouseOver  ={ (dataPoint , event) => this.updateHoveredSection(dataPoint, '5px') }
+                onSeriesMouseOut ={ () => this.updateHoveredSection2() }
+                data={this.state.piChartData}
+                labelsRadiusMultiplier={.8}
+                labelsStyle={{
+                    fontSize: 22,
+                    fill: 'white'
+                }}
+                showLabels
+                />
+            </div>    
+        )
+    }
+}
+
+export default PiChart; 

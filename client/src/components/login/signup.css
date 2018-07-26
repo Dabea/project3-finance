@@ -1,0 +1,25 @@
+html,
+body,
+.login-box {
+  height: 100%;
+}
+
+.btn{
+    color: whitesmoke;
+}
+
+.card-title{
+    color: teal;
+}
+
+.card-content{
+    padding-bottom: 0px;
+}
+
+.hoverable{
+    margin-top: 50px;
+}
+
+.input-box{
+    color: black;
+}
