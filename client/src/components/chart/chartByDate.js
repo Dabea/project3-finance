@@ -62,7 +62,7 @@ class ChartBydate extends Component {
         });
         let i = 0;
         for(let item in totalPriceMap) {
-            costByDay.push({x: item , x0:item - (86400000 * 15),   y: totalPriceMap[item]})
+            costByDay.push({x: item , x0:item - (86400000 * 15),   y: totalPriceMap[item]}, 'style':{'color': 'white'} )
             i++
         } 
 
@@ -129,27 +129,30 @@ class ChartBydate extends Component {
           };
        
         return(
-            <div classname="chart-background">
-                <button  onClick={this.thisYear} > test Button </button>
-                <button onClick={this.udateMoneyValues} >Update Other set</button>
+            <div >
+                <div className="btn-container">
+                    <button className="btn"  onClick={this.thisYear} > test Button </button>
+                    <button className="btn" onClick={this.udateMoneyValues} >Update Other set</button>
+                </div>    
+               
                <div className="waves-effect"><a href="/chart">Chart</a></div>
                <div >
 
-                 <XYPlot   className="chart-background" height={800} width={800} >
+                 <FlexibleWidthXYPlot height={600}  >
                     <VerticalGridLines />
                     <HorizontalGridLines />
                     <GradientDefs>
                     <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stopColor="red" stopOpacity={0.5}/>
-                    <stop offset="100%" stopColor="#45D4FF" stopOpacity={0.4} />
-                </linearGradient>
+                        <stop offset="0%" stopColor="red" stopOpacity={0.8}/>
+                        <stop offset="100%" stopColor="#0e6bf7" stopOpacity={0.7} />
+                    </linearGradient>
                     </GradientDefs>
                     <XAxis style={axisStyle}  tickLabelAngle={90}  tickSizeOuter={6} style={{color: 'white'}} tickTotal={this.state.formatedData.length }  tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
                     <YAxis />
                     <VerticalRectSeries onValueClick={() => alert('clicked So good')}   onValueMouseOver={ datapoint => this.buildHintDisplay(datapoint) }
-                        color={'url(#CoolGradient)'}  data={this.state.formatedData} />
+                        color={'url(#CoolGradient)'}   data={this.state.formatedData}  />
                     <Hint  x={30} y={40} value={this.state.activePlot} />
-                </XYPlot>  
+                </FlexibleWidthXYPlot>  
                 </div>
             </div>    
         )

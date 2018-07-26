@@ -99,7 +99,7 @@ class Chart extends Component {
 
        let i = 0;
        for(let item in totalPriceMap) {
-           costByItem.push({label: item, x: i +1.5  ,x0: i + 1, y: totalPriceMap[item]})
+           costByItem.push({label: item, size:30,  style: {fontSize: 14,  fill:'white' }, rotation: -65, x: i +1.5  ,x0: i + 1, y: totalPriceMap[item]})
            i++
        }
        
@@ -181,6 +181,7 @@ class Chart extends Component {
                 <HorizontalGridLines />
                 <VerticalGridLines />
                 <LabelSeries
+                    labelAnchorX="bottom"
                     animation
                     allowOffsetToBeReversed
                     data={this.state.testValue} />
@@ -191,10 +192,13 @@ class Chart extends Component {
                     </linearGradient>
                 </GradientDefs>
                 <VerticalRectSeries onValueMouseOver={(datapoint, event)=>{
-                    datapoint.Total = this.getToalMoneySpent();
-                    this.setState({activePlot :datapoint})
+                    console.log(datapoint)
+                    const test = {Item:datapoint.label, Total:this.getToalMoneySpent()}
+                    // datapoint.Total = this.getToalMoneySpent();
+                    this.setState({activePlot :test})
                 }}  color={'url(#CoolGradient)'} data={this.state.testValue} />
                 <Hint  x={30} y={40} value={this.state.activePlot} />
+              
               </FlexibleWidthXYPlot >
               <div className="padding" >
                  {this.state.testValue.map(item => <div  key={item.label} className="pill"  onClick={ () => this.removeItem(item.label)}> {item.label}</div>) }
