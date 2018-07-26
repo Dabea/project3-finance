@@ -1,5 +1,5 @@
 .pill {
-    background: teal;
+    background: #7E70AF;
     float: left;
     border-radius: 500px;
     padding:5px 8px 5px 8px;
@@ -14,7 +14,7 @@
 }
 
 .padding {
-    height:100px;
+    height:110px;
     margin: 30px;
     background: rgba(5, 5, 5, .4);
 }
@@ -39,6 +39,10 @@
 .btn:hover {
     background: #047BA4;
     color: white
+}
+.btn:focus {
+    background: #047BA4;
+    color:white;
 }
 
 .btn-container {

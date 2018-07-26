@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import  {XYPlot, XAxis,Hint,VerticalRectSeries ,DecorativeAxis, FlexibleHeightXYPlot,  FlexibleXYPlot,FlexibleWidthXYPlot,LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
+import  {XAxis,Hint,VerticalRectSeries , FlexibleWidthXYPlot, YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient} from 'react-vis';
 import axios from 'axios';
-import xyPlot from 'react-vis/dist/plot/xy-plot';
 import moment from 'moment';
 import cloneDeep from 'clone-deep';
 import './chart.css';
@@ -14,7 +13,9 @@ class ChartBydate extends Component {
         data: [],
         sortedData:[],
         formatedData:[],
+        lastYear: [],
         activePlot: {'x':0, 'y':0, 'Total': 0},
+        noData: ''
     }
 
     componentDidMount() {
@@ -32,20 +33,6 @@ class ChartBydate extends Component {
         }).catch((err)=> {console.log(err)})
     }
 
-    udateMoneyValues = () =>{
-        const dataCopy =  cloneDeep(this.state.test)
-        dataCopy.forEach(item => {
-            item.y += Math.random() * 30
-        })
-
-        this.setState({
-            test: dataCopy
-        })
-        console.log('test', this.state.test)
-        console.log('formated', this.state.formatedData)
-    }
-
-
     reduceByMonth = () => {
         let costByDay = [];
         const basedata = cloneDeep(this.state.formatedData)
@@ -61,7 +48,7 @@ class ChartBydate extends Component {
         });
         let i = 0;
         for(let item in totalPriceMap) {
-            costByDay.push({x: item , x0:item - (86400000 * 15),   y: totalPriceMap[item]})
+            costByDay.push({x: item , x0:item - (86400000 * 15),   y: totalPriceMap[item]}, 'style':{'color': 'white'} )
             i++
         } 
 
@@ -104,6 +91,8 @@ class ChartBydate extends Component {
 
         this.setState({activePlot :displayInfo})
     }
+
+
     
     thisYear = () => {
         this.getReceipts()
@@ -112,41 +101,43 @@ class ChartBydate extends Component {
     render() {
         const axisStyle = {
             line: {
-                color:'green'
+                stroke: '#555555'
             },
             ticks: {
-              fontSize: '64px',
-              color: '#333'
+              fontSize: '1.2em',
+              fill: 'white'
             },
             title: {
                 stoke:'green',
               fontSize: '33px',
-              color: '#333'
+              
             }
           };
        
         return(
-            <div classname="chart-background">
-                <button  onClick={this.thisYear} > test Button </button>
-                <button onClick={this.udateMoneyValues} >Update Other set</button>
+            <div >
+                <div className="btn-container">
+                    <button className="btn"  onClick={this.thisYear} > Year </button>
+                </div>    
+               
                <div className="waves-effect"><a href="/chart">Chart</a></div>
                <div >
 
-                 <XYPlot   className="chart-background" height={800} width={800} >
+                 <FlexibleWidthXYPlot height={600}  >
                     <VerticalGridLines />
                     <HorizontalGridLines />
                     <GradientDefs>
                     <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stopColor="red" stopOpacity={0.5}/>
-                    <stop offset="100%" stopColor="blue" stopOpacity={0.4} />
-                </linearGradient>
+                        <stop offset="0%" stopColor="red" stopOpacity={0.8}/>
+                        <stop offset="100%" stopColor="#0e6bf7" stopOpacity={0.7} />
+                    </linearGradient>
                     </GradientDefs>
-                    <XAxis style={axisStyle}  tickLabelAngle={90}  tickSizeOuter={6} style={{color: 'white'}} tickTotal={this.state.formatedData.length }  tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
+                    <XAxis style={axisStyle}  tickLabelAngle={90}  tickSizeOuter={6}  tickTotal={this.state.formatedData.length -1 }  tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
                     <YAxis />
-                    <VerticalRectSeries onValueClick={() => alert('clicked So good')}   onValueMouseOver={ datapoint => this.buildHintDisplay(datapoint) }
-                        color={'url(#CoolGradient)'}  data={this.state.formatedData} />
+                    <VerticalRectSeries   onValueMouseOver={ datapoint => this.buildHintDisplay(datapoint) }
+                        color={'url(#CoolGradient)'}   data={this.state.formatedData}  />
                     <Hint  x={30} y={40} value={this.state.activePlot} />
-                </XYPlot>  
+                </FlexibleWidthXYPlot>  
                 </div>
             </div>    
         )
