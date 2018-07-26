@@ -5,7 +5,7 @@ import DailyTrendsTable from './trends-table/daily-trends/dailyTrendsTable';
 import WeeklyTrendsTable from './trends-table/weekly-trends/WeeklyTrendsTable';
 import MonthlyTrendsTable from './trends-table/monthly-trends/monthlyTrendsTable';
 import QuarterTrendsTable from './trends-table/quarter-trends/QuarterTrendsTable';
-// import Nav from "./Nav/Nav";
+import Nav from "./Nav/Nav";
 import TransactionTable from './transaction-table/transactionTable';
 import '../../node_modules/react-vis/dist/style.css';
 import Chart from "./chart/chart";
@@ -176,8 +176,8 @@ class Router extends Component {
   return (
     <BrowserRouter>
       <div>
-          {/* <Nav /> */}
-          <DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
+          <Nav />
+          {/* <DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} /> */}
           <Route
               exact
               path="/login"

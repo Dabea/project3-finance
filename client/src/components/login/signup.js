@@ -87,7 +87,7 @@ class SignupForm extends Component {
 							</div>
 							</div>
 							<div class="card-action right-align">
-							<input onClick={this.handleSubmit} type="submit" class="btn teal waves-effect waves-light btn" value="Login"/>
+							<input onClick={this.handleSubmit} type="submit" class="btn teal waves-effect waves-light btn" value="Sign-up"/>
 							</div>
 						</form>
 					</div>
