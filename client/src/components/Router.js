@@ -5,7 +5,7 @@ import DailyTrendsTable from './trends-table/daily-trends/dailyTrendsTable';
 import WeeklyTrendsTable from './trends-table/weekly-trends/WeeklyTrendsTable';
 import MonthlyTrendsTable from './trends-table/monthly-trends/monthlyTrendsTable';
 import QuarterTrendsTable from './trends-table/quarter-trends/QuarterTrendsTable';
-import Nav from "./nav/Nav";
+import Nav from "./Nav/Nav";
 import TransactionTable from './transaction-table/transactionTable';
 import '../../node_modules/react-vis/dist/style.css';
 import Chart from "./chart/chart";
@@ -13,8 +13,9 @@ import PiChart from "./chart/piChartByCat";
 import ChartByDate from "./chart/chartByDate";
 import Forms from "./forms/forms";
 import FormCarousel from "./FormCarousel/FormCarousel";
-import LoginForm from './login/login'
-import SignupForm from './login/signup'
+import LoginForm from './login/login';
+import SignupForm from './login/signup';
+import home from './home/home';
 import axios from 'axios';
 
 
@@ -183,6 +184,7 @@ class Router extends Component {
                 />}
           />
           <Route exact path="/signup" component={SignupForm} />
+          <Route exact path="/" component={home} />
 
         
           {/* <Route exact path='/' component={Login}/> */}
