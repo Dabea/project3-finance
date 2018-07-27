@@ -82,7 +82,7 @@ class PiChart extends Component {
         const displayedData = cloneDeep(this.state.piChartData);
         displayedData.forEach((category) =>{
             if(category.label === dataPoint.label){
-                category.style = {stroke:'black', strokeWidth: '15px'}
+                category.style = {stroke:'black', strokeWidth: '10px'}
             }else{
                 category.style = {stroke:'black', strokeWidth: '0px'}
             }
