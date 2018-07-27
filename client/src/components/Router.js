@@ -48,7 +48,7 @@ const DisplayLinks = props => {
 				</a>
 				<ul id="nav-mobile" className="right">
 					<li>
-					<Link to="/forms">Add items</Link>
+					<Link to="/formcarousel">Add items</Link>
 					</li>
 					<li>
 						<a href="#" onClick={props._logout}>Log out</a>
