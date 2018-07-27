@@ -41,50 +41,45 @@ const links = [
 const DisplayLinks = props => {
 	if (props.loggedIn) {
 		return (
-			<nav className="navbar navbar-expand-lg navbar-dark bg-primary teal lighten-2">
-				<div className="container">
-				<a className="navbar-brand main-logo" href="/">
+			<nav className="nav-extended">
+			<div className="nav-wrapper black">
+				<a href="#" className="brand-logo">
 					iFinance
 				</a>
-				<ul className="right hide-on-med-and-down">
-						<li className="nav-item">
-							{/* <Link to="/" className="nav-link">
-								Home
-							</Link> */}
-						</li>
-
-						<li className="navbar-brand">
-							<Link to="/transactions" className="nav-link">
-								Recent
+				<ul id="nav-mobile" className="right">
+					<li>
+					<Link to="/forms">Add items</Link>
+					</li>
+					<li>
+						<a href="#" onClick={props._logout}>Log out</a>
+					</li>
+				</ul>
+			</div>
+			<div className="clearfix">
+				<ul>
+					{links.map(link => (
+						<li
+							className={buildTabClassNames(window.location.pathname, link.path)}
+							key={link.path}
+						>
+							<Link to={link.path}>
+								{link.text}
 							</Link>
 						</li>
-						<li className="navbar-brand">
-							<Link to="/trends" className="nav-link">
-								Trends
-							</Link>
-						</li>
-						<li className="navbar-brand">
-							<Link to="/charts" className="nav-link">
-								Insights
-							</Link>
-						</li>
-						<li>
-							<Link to="#" className="nav-link" onClick={props._logout}>
-								Logout
-							</Link>
-						</li>
-					</ul>
-				</div>
+					))}
+				</ul>
+			</div>
+			<div className="clearfix"></div>
 			</nav>
 		)
 	} else {
 		return (
-			<nav className="navbar navbar-expand-lg navbar-dark bg-primary teal lighten-2">
-			<div className="container">
+			<nav className="nav-extended">
+			<div className="nav-wrapper black">
 
-			<a className="navbar-brand main-logo" href="/">
-				iFinance
-			</a>
+				<a href="#" className="brand-logo">
+					iFinance
+				</a>
 				<ul className="right hide-on-med-and-down">
 					<li className="nav-item">
 						{/* <Link to="/" className="nav-link">
@@ -176,8 +171,8 @@ class Router extends Component {
   return (
     <BrowserRouter>
       <div>
-          <Nav />
-          {/* <DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} /> */}
+          {/* <Nav /> */}
+          <DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
           <Route
               exact
               path="/login"
