@@ -1,31 +1,3 @@
-.pill {
-  background: #7E70AF;
-  float: left;
-  border-radius: 500px;
-  padding:5px 8px 5px 8px;
-  margin: 3px;
-  z-index: 5;
-}
-
-.delete {
-  background: white;
-  border-radius: 50%;
-  padding:3px;
-}
-
-.padding {
-  height:110px;
-  margin: 30px;
-  background: rgba(5, 5, 5, .4);
-}
-
-.chart-background {
-  background: white;
-  display:inline-block;
-  color:white;
-  z-index: 3;
-}
-
 
 .btn {
   background: black;
@@ -50,10 +22,5 @@
   width: max-content;
   margin-left: 40px;
   border: 1px solid #0ab7e9;
-}
-
-.rv-xy-plot__grid-lines__line {
-  stroke: #252525;
-  stroke-width: 1;
 }
 
