@@ -7,7 +7,7 @@ class itemInfo extends Component {
 
     state = {
         name: '',
-        quantity: '1',
+        quantity: '',
         cost: '',
         category: '',
     }
@@ -41,17 +41,17 @@ class itemInfo extends Component {
                     </div>
 
                     <div className="input-field" >
-                        <input className="validate" type="text" name="quantity" value={this.props.quantity} onChange={this.props.onChange} />
+                        <input className="validate" type="text" name="quantity" value={this.state.quantity} onChange={this.handleNameChange} />
                         <label htmlFor="quantity"  >Quantity </label>
                     </div>
 
                     <div className="input-field" >
-                        <input className="validate" type="text" name="cost" value={this.props.cost} onChange={this.props.onChange} />
+                        <input className="validate" type="text" name="cost" value={this.state.cost} onChange={this.handleNameChange} />
                         <label htmlFor="cost"  >Cost </label>
                     </div>
 
                     <div className="input-field" >
-                        <input className="validate" type="text" name="category" value={this.props.category} onChange={this.props.onChange} />
+                        <input className="validate" type="text" name="category" value={this.state.category} onChange={this.handleNameChange} />
                         <label htmlFor="category"  >Category </label>
                     </div>
                 </div>

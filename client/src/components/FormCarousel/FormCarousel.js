@@ -10,10 +10,12 @@ const API_URL = 'http://localhost:3001/api';
 class FormCarousel extends React.Component {
 
         // save data in state
-    state =  {
+
+    
+        state =  {
             name:'', 
             date:'', 
-            quantity:'1', 
+            quantity:'', 
             cost:'', 
             category:'', 
             store:'', 
@@ -21,9 +23,9 @@ class FormCarousel extends React.Component {
             count:0, 
             forms: [0],
             items: [],
-
-
         }; 
+    
+    
 
 
     addMore = () =>  {
@@ -59,7 +61,7 @@ class FormCarousel extends React.Component {
 
 
         axios
-            .post(API_URL , {})
+            .post('/' , {newEntry})
             .then(response => {
                 console.log(response);
                 console.log(response.data)

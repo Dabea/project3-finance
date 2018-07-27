@@ -9,7 +9,7 @@ const transactionInfo = (props) => (
     <div>
 
         <form>
-                <span className="model-header-title" >Transaction Info </span>
+                <span className="model-header-title" > Info </span>
 
                 <div className="input-field " >
                     <label htmlFor="date"  >Date </label><br />

@@ -43,12 +43,12 @@ const DisplayLinks = props => {
 		return (
 			<nav className="nav-extended">
 			<div className="nav-wrapper black">
-				<a href="#" className="brand-logo">
+				<a href="/" className="brand-logo">
 					iFinance
 				</a>
 				<ul id="nav-mobile" className="right">
 					<li>
-					<Link to="/forms">Add items</Link>
+					<Link to="/formcarousel">Add items</Link>
 					</li>
 					<li>
 						<a href="#" onClick={props._logout}>Log out</a>
@@ -77,7 +77,7 @@ const DisplayLinks = props => {
 			<nav className="nav-extended">
 			<div className="nav-wrapper black">
 
-				<a href="#" className="brand-logo">
+				<a href="/" className="brand-logo">
 					iFinance
 				</a>
 				<ul className="right hide-on-med-and-down">
@@ -187,7 +187,7 @@ class Router extends Component {
         
           {/* <Route exact path='/' component={Login}/> */}
           <Route exact path="/FormCarousel" component={FormCarousel} />
-          <Route exact path="/forms" component={Forms} /> 
+          {/* <Route exact path="/forms" component={Forms} />  */}
           <Route exact path="/transactions" component={TransactionTable} /> 
           <Route exact path="/chart" component={Chart} />
           <Route exact path="/pichart" component={PiChart} />

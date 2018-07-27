@@ -37,7 +37,7 @@ class LoginForm extends Component {
 		} else {
 			return (
 				<div class="valign-wrapper row login-box">
-					<div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+					<div class="grey darken-1 col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
 						<form>
 							<div class="card-content">
 							<span class="card-title">Enter credentials</span>

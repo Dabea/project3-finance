@@ -37,4 +37,9 @@ body,
 
 .input-box{
     color: black;
+    background-color:white;
+}
+
+.username{
+    color:white;
 }
