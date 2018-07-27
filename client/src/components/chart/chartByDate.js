@@ -134,7 +134,7 @@ class ChartBydate extends Component {
                     </GradientDefs>
                     <XAxis style={axisStyle}  tickLabelAngle={90}  tickSizeOuter={6}  tickTotal={this.state.formatedData.length -1 }  tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
                     <YAxis />
-                    <VerticalRectSeries   onValueMouseOver={ datapoint => this.buildHintDisplay(datapoint) }
+                    <VerticalRectSeries   onMouseEnter={ datapoint => this.buildHintDisplay(datapoint) }
                         color={'url(#CoolGradient)'}   data={this.state.formatedData}  />
                     <Hint  x={30} y={40} value={this.state.activePlot} />
                 </FlexibleWidthXYPlot>  
