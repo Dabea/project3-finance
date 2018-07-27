@@ -1,21 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import "./trends.css";
+import axios from "axios";
+import moment from "moment";
 
-import './trends.css'
-
-import axios from 'axios';
-
-
-
-const API_URL = 'http://localhost:3001/api/total';
-
-
-
-class QuarterTrendsTable extends Component {
-    
-        
+const API_URL = "http://localhost:3001/api/total";
+class TotalTrendsTable extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       data:[],
      
@@ -44,16 +36,22 @@ class QuarterTrendsTable extends Component {
         <div >
 
 
- <div > 
-   <ul className="pagination">
-                <li className="waves-effect"><a href="/trends/monthly"><i className="material-icons">chevron_left</i></a></li>
-                <li className="waves-effect"><a href="/trends">Overview</a></li>
-                <li className="waves-effect"><a href="/trends/daily">Date</a></li>
-                <li className="waves-effect"><a href="/trends/monthly">Store</a></li>
-                <li className="active"><a href="#!">Total</a></li>
-                <li className="disabled"><a href="#!"><i className="material-icons">chevron_right</i></a></li>
-            </ul>
-            </div>
+
+ <ul className="btn-container">
+          <li className="btn ">
+          <a href="/trends">Overview</a>
+          </li>
+          <li className="btn">
+            <a href="/trends/date">Date</a>
+          </li>
+          <li className="btn">
+            <a href="/trends/store">Store</a>
+          </li>
+           <li className="btn">
+            <a href="#!">Total</a>
+          </li>
+        </ul> 
+            
 
             <div className="col s8 offset-s2">
 
@@ -100,7 +98,6 @@ class QuarterTrendsTable extends Component {
 
                                 {/* TOTAL */}
                                 <td className="borders"> 
-                                       {/* <TableInput name="test" value={tranaction.description} isEditing={tranaction.isEditing} />  */}
                                            
                                    ${transaction.total}
                                    </td>
@@ -111,14 +108,11 @@ class QuarterTrendsTable extends Component {
                 </table> 
             </div>
         </div>
-    // }
+    
     
     )
 }
 }
 
 
-//     }
-// }
-
-export default QuarterTrendsTable;
+export default TotalTrendsTable;

@@ -18,12 +18,21 @@
 .model-header {
     height:35px;
     padding: 1px;
-    width: 100%;
-    background: linear-gradient(135deg, #3b8686 0%, #79bd9a 100%);
+    /* width: 100%;
+    /* background: linear-gradient(135deg, #3b8686 0%, #79bd9a 100%); */
+    /* background: linear-gradient(135deg, #7e57c2 0%, #7e57c2 100%); */
+}
+
+.new-entry{
+    text-align: center;
 }
 
 .model-header-title {
     font-size: 2em;
+    color:white;
+    width: 100%;
+    text-align: center;
+
 }
 
 .model-body {
@@ -49,9 +58,31 @@
 
 .button {
     margin-bottom: 1em;
-    background-color:#3b8686;
+    background-color:#7e57c2;
 }
 
-body{
-    color:grey;
+.login-box{
+    background-color:#424242;
+
+}
+.container{
+    width: 30%;
+    height:880px;
+    margin-top: 50px;
+}
+
+input.validate{
+    color: black;
+    text-align: center;
+}
+
+.save-btn{
+    margin-bottom:12px;
+}
+
+.addmore-btn{
+    margin-bottom:20px;
+}
+.input-field{
+    color: white;
 }

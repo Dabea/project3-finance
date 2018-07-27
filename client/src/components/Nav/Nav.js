@@ -19,7 +19,7 @@ const links = [
 class Nav extends Component {
   render() {
     return (
-      <nav className="nav-extended">
+      <nav className="nav-extended grey darken-3">
         <div className="nav-wrapper black">
           <a href="#" className="brand-logo">
             iFinance

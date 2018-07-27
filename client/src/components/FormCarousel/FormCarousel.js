@@ -1,6 +1,5 @@
 import React from "react"
 import axios from 'axios'; 
-// import Form from "./Form"
 import "./style.css"
 
 import ItemInfo from "./Forms/itemInfo"
@@ -14,8 +13,8 @@ class FormCarousel extends React.Component {
     
         state =  {
             name:'', 
-            date:'', 
-            quantity:'', 
+            date: Date.now(), 
+            quantity:'1', 
             cost:'', 
             category:'', 
             store:'', 
@@ -59,9 +58,11 @@ class FormCarousel extends React.Component {
             total: this.state.total,
         };
 
-
+        console.log(newEntry)
         axios
-            .post('/' , {newEntry})
+            .post("/api" , 
+                newEntry
+            )
             .then(response => {
                 console.log(response);
                 console.log(response.data)
@@ -86,19 +87,40 @@ class FormCarousel extends React.Component {
         // get data from state, not from props
         const data = this.state.data;
         return (
-        <div className="container">
-                <div className="form-carousel">
-                    {this.state.forms.map((newEntry, index) => (
-                        <ItemInfo key={newEntry}  saveItemInfo={this.saveItemInfo} index={index}/>
-                    ))}
-                    <button className="button" onClick={this.addMore}>add more items</button>
-                        <TransactionInfo />
-                </div>
+        // <div className="container">
+        //         <div className="form-carousel">
+        //             {this.state.forms.map((newEntry, index) => (
+        //                 <ItemInfo key={newEntry}  saveItemInfo={this.saveItemInfo} index={index}/>
+        //             ))}
+        //             <button className="button" onClick={this.addMore}>add more items</button>
+        //                 <TransactionInfo />
+        //         </div>
             
-                <div >
-                    <button className="button" onClick={this.onSubmit } >Submit </button>
-                </div >
-        </div>
+        //         <div >
+        //             <button className="button" onClick={this.onSubmit } >Submit </button>
+        //         </div >
+        // </div>
+
+            <div className="valign-wrapper row login-box">
+                <div className="grey darken-1 col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+                    <form>
+                        <div className="card-content">
+                        <div className="form-carousel">
+                            {this.state.forms.map((newEntry, index) => (
+                                <ItemInfo key={newEntry} saveItemInfo={this.saveItemInfo} index={index} />
+                            ))}
+                                <button type="button" class="addmore-btn btn deep-purple lighten-1 waves-effect waves-light btn" onClick={this.addMore}>add more items</button>
+                            <TransactionInfo />
+                        </div>
+
+                        <div >
+                            <button  type="button" class="btn deep-purple lighten-1
+                             waves-effect waves-light btn" onClick={this.onSubmit} >Submit </button>
+                        </div >
+                        </div>
+                    </form>
+                </div>
+            </div>
 
         
     ) 
