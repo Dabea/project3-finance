@@ -1,15 +1,10 @@
-        import React, { Component } from 'react'
-
+import React, { Component } from 'react'
 import './trends.css'
-
 import axios from 'axios';
-
 import moment from 'moment';
-
 
 const API_URL = 'http://localhost:3001/api/store';
 const ITEMS_PER_PAGE = 8
-
 
 class MonthlyTrendsTable extends Component {
     
@@ -59,27 +54,16 @@ componentWillMount() {
 render() {
   const { page, items } = this.state
   return (        
-    <div className="row">
-
-    <div className="row"> 
-
-   <ul className="pagination">
-               <li className="waves-effect"><a href="/trends/daily"><i className="material-icons">chevron_left</i></a></li>
-                 <li className="waves-effect"><a href="/trends">Overview</a></li>
-                 <li className="waves-effec"><a href="/trends/daily">Date</a></li>
-                 <li className="active"><a href="#!">Store</a></li>
-                 <li className="waves-effect"><a href="/trends/quarter">Total</a></li>
-                 <li className="waves-effect"><a href="/trends/quarter"><i className="material-icons">chevron_right</i></a></li>
-             </ul>
-
-    </div>
-      <div className="row">
-               
-               <h3> Transactions by Store </h3>
-         
-        
-      </div>
-      <div>
+    <div>
+      <ul className="btn-container">
+        <li className="btn"><a href="/trends">Overview</a></li>
+        <li className="btn"><a href="/trends/daily">Date</a></li>
+        <li className="btn"><a href="#!">Store</a></li>
+        {/* <li className="btn"><a href="/trends/quarter">Total</a></li> */}
+      </ul>   
+      <div> 
+      <h3> Transactions by Store </h3>   
+      </div>  
         <table>
           <thead>
             <tr>
@@ -90,23 +74,21 @@ render() {
               <th>Store</th>
             </tr>
           </thead>
-          <tbody>
-            {items.slice((page - 1) * ITEMS_PER_PAGE, (page - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE).map(item => (
-              <tr key={item._id}>
-                <td>{item.item}</td>
-                <td>{item.quantity}</td>
-                <td>{item.price}</td>
-                <td>{moment(item.date).format("L")}</td>
-                <td>{item.store}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+        <tbody>
+          {items.slice((page - 1) * ITEMS_PER_PAGE, (page - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE).map(item => (
+            <tr key={item._id}>
+              <td>{item.item}</td>
+              <td>{item.quantity}</td>
+              <td>{item.price}</td>
+              <td>{moment(item.date).format("L")}</td>
+              <td>{item.store}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 }
-
 
 export default MonthlyTrendsTable;
