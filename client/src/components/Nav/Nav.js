@@ -19,7 +19,7 @@ const links = [
 class Nav extends Component {
   render() {
     return (
-      <nav className="nav-extended">
+      <nav className="nav-extended grey darken-3">
         <div className="nav-wrapper black">
           <a href="#" className="brand-logo">
             iFinance
@@ -33,7 +33,7 @@ class Nav extends Component {
             </li>
           </ul>
         </div>
-        <div className="clearfix">
+        <div className="clearfix black">
           <ul>
             {links.map(link => (
               <li
