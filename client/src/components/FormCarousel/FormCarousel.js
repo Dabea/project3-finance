@@ -89,12 +89,12 @@ class FormCarousel extends React.Component {
                     {this.state.forms.map((newEntry, index) => (
                         <ItemInfo key={newEntry}  saveItemInfo={this.saveItemInfo} index={index}/>
                     ))}
-                        <button onClick={this.addMore}>add more items</button>
+                    <button className="button" onClick={this.addMore}>add more items</button>
                         <TransactionInfo />
                 </div>
             
                 <div >
-                    <button onClick={this.onSubmit } >Submit </button>
+                    <button className="button" onClick={this.onSubmit } >Submit </button>
                 </div >
         </div>
 
