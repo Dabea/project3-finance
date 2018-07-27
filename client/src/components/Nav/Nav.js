@@ -33,7 +33,7 @@ class Nav extends Component {
             </li>
           </ul>
         </div>
-        <div className="clearfix black">
+        <div className="clearfix">
           <ul>
             {links.map(link => (
               <li
