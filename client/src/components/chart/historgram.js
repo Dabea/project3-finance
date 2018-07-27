@@ -1,6 +1,6 @@
 import React,  { Component }  from 'react';
 import axios from 'axios';
-import {XYPlot, XAxis,Hint,AreaSeries, makeWidthFlexible, RadialChart, ArcSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
+import {FlexibleWidthXYPlot,   VerticalRectSeries, VerticalBarSeries, XAxis,Hint,AreaSeries, makeWidthFlexible, RadialChart, ArcSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, MarkSeries} from 'react-vis';
 import cloneDeep from 'clone-deep';
 import moment from 'moment';
 
@@ -12,7 +12,8 @@ class Historgram extends Component {
         data: [],
         historgramCurrent: [],
         historgramPrevious: [],
-        itemList:[]
+        itemList:[],
+        activePlot: {'x':0, 'y':0, 'Total': 0}
     }
     
 
@@ -23,6 +24,7 @@ class Historgram extends Component {
             data: response.data
             });
 
+            this.getItemList()
             this.setDataGroups()
             
 
@@ -30,12 +32,27 @@ class Historgram extends Component {
         .catch((err)=> {console.log(err)})
     }
 
+          /**
+       * Gets the Time stamp of the first day of the Month
+       * 
+       * @param date Date
+       * @returns UTC-Time Stamp
+       */
+      getFirstdayOfTheMonth = (date) => {
+        let dt = new Date(date);
+        let month = dt.getMonth(),
+            year = dt.getFullYear();
+
+        return new Date(year, month, 1).getTime();
+      }
+
     getItemList = () => {
         let itemList = [];
         let data = cloneDeep(this.state.data);
+        console.log(data)
         data.forEach(receipt => {
-            receipt.forEach(item => 
-                itemList.push({ x: receipt.date.getTime(), y: item.cost, label: item.name })
+            receipt.items.forEach(item => 
+                itemList.push({ x: receipt.date, y: item.cost, label: item.name })
             )
         });
 
@@ -46,7 +63,7 @@ class Historgram extends Component {
         let costByMonth = [];
         const basedata = cloneDeep(this.state.itemList)
         var totalPriceMap = {};
-        console.log(basedata)
+        console.log("base", basedata)
         basedata.forEach(item => {
             const FirstDay = this.getFirstdayOfTheMonth(item.x)
              if(totalPriceMap[FirstDay]) {
@@ -57,10 +74,10 @@ class Historgram extends Component {
         });
         let i = 0;
         for(let item in totalPriceMap) {
-            costByMonth.push({x: item , x0:item - (86400000 * 15),   y: totalPriceMap[item]}, 'style':{'color': 'white'} )
+            costByMonth.push({ label:moment(parseInt(item)).format('YYYY'), x: parseInt(item) ,  y: totalPriceMap[item], style:{fill:'white'}}  )
             i++
         } 
-
+        console.log("cost", costByMonth)
         return costByMonth
     }
 
@@ -72,21 +89,78 @@ class Historgram extends Component {
         const thisYear = moment();
        
         itemList.forEach(item => {
-             if(moment(item.date).isSame(thisYear, 'year')){
+
+             if(moment(item.x).isSame(thisYear, 'year')){
+                item.x= parseInt(moment(item.x).format('MM'));
+                item.x0= parseInt(moment(item.x0).format('MM'))-.5;
                 thisYearItems.push(item)
-            }else if(moment(item.date).isSame(lastYear, 'year')){
+            }else if(moment(item.x).isSame(lastYear, 'year')){
+                item.x= parseInt(moment(item.x).format('MM'));
+                item.x0= parseInt(moment(item.x0).format('MM'))-.5 ;
                 lastYearItems.push(item)
             }
-        })
-        
+        })      
 
-        
+        this.setState({ historgramPrevious: lastYearItems, historgramCurrent:thisYearItems })
     }
 
+    onHover = (datapoint) => {
+        let displayInfo = {};
+        console.log(datapoint)
+        displayInfo.TotalSpent = datapoint.y.toFixed(2)
+
+        this.setState({ activePlot: displayInfo })
+    }
+
+
     render(){
+        const axisStyle = {
+            line: {
+                stroke: '#555555'
+            },
+            ticks: {
+              fontSize: '1.2em',
+              fill: 'white'
+            },
+            title: {
+                stoke:'green',
+              fontSize: '33px',
+              
+            }
+          };
+
+
+
         return(
             <div>
-                Hello Historgram
+               <FlexibleWidthXYPlot   xType="ordinal" height={600}>
+                    <HorizontalGridLines />
+                    <VerticalGridLines />
+                    <GradientDefs>
+                        <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
+                            <stop offset="0%" stopColor="red" stopOpacity={0.6}/>
+                            <stop offset="100%" stopColor="#0e6bf7" stopOpacity={0.6} />
+                        </linearGradient>
+                        <linearGradient id="PastGradient" x1="0" x2="0" y1="0" y2="1">
+                            <stop offset="0%" stopColor="#7E57c2" stopOpacity={0.6}/>
+                            <stop offset="30%" stopColor="#7E57c2" stopOpacity={0.5} />
+                            <stop offset="100%" stopColor="#0e6bf7" stopOpacity={0.5} />
+                        </linearGradient>
+                    </GradientDefs>
+                    <YAxis title="Y Axis" />
+                    <VerticalBarSeries onValueMouseOver={ (datapoint) => this.onHover(datapoint) }  color={'url(#PastGradient)'}   data={this.state.historgramCurrent}/>
+                    <VerticalBarSeries onValueMouseOver={ (datapoint) => this.onHover(datapoint) }   color={'url(#CoolGradient)'}  data={this.state.historgramPrevious}/>
+                    <LabelSeries
+                         animation
+                         allowOffsetToBeReversed
+                         data={this.state.historgramPrevious} />
+                           <LabelSeries
+                         animation
+                         allowOffsetToBeReversed
+                         data={this.state.historgramCurrent} />
+                    <XAxis style={axisStyle}  tickLabelAngle={90}  tickSizeOuter={6}    tickFormat={function tickFormat(d){return  moment(d).format('MMMM')}} />
+                    <Hint  x={40} y={40} value={this.state.activePlot} />
+               </FlexibleWidthXYPlot>    
             </div>
         )
     }

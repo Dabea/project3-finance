@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { XAxis,Hint,FlexibleWidthXYPlot, VerticalRectSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient} from 'react-vis';
+import { XAxis,Hint,FlexibleWidthXYPlot,VerticalBarSeries, VerticalRectSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient} from 'react-vis';
 import axios from 'axios';
 import moment from 'moment';
 import './chart.css';
@@ -49,8 +49,9 @@ class Chart extends Component {
             })
            this.setState({data: receipts})
            this.formatForChart()
+           
  
-           console.log("new data" ,this.state.formatedData);
+           
         })
         
     }
@@ -151,14 +152,14 @@ class Chart extends Component {
 
      noDataToDisplay = () => {
             if(this.state.testValue.length === 0){
-                return <div> There is no infomation to display for this date range </div>
+                return <div className="no-data" > There is no infomation to display for this date range </div>
             }  
     }
 
 
 
     render() {
-       
+       console.log("Test values" ,this.state.testValue)
 
 
          
@@ -168,12 +169,13 @@ class Chart extends Component {
                 <div className="btn-container" >
                    
                     <button className="btn" onClick={this.costyByItem} > Costy By Item </button>
-                    <button className="btn" onClick={() => this.getThisdataByTime('year')} > Year </button>
+                    <button className="btn" onClick={() => this.getThisdataByTime('year') } > Year </button>
                     <button className="btn" onClick={() => this.getThisdataByTime('month')} > Month </button>
                     <button className="btn" onClick={() => this.getThisdataByTime('week')} > Week </button>
                     <button className="btn" onClick={() => this.getThisdataByTime('day')} > day </button>
                    
                 </div>     
+                {this.noDataToDisplay()}
               
               <FlexibleWidthXYPlot height={600}   >
               
@@ -192,11 +194,12 @@ class Chart extends Component {
                         <stop offset="100%" stopColor="#0e6bf7" stopOpacity={0.7} />
                     </linearGradient>
                 </GradientDefs>
-                <VerticalRectSeries onValueMouseOver={(datapoint, event)=>{
+                <VerticalBarSeries onValueMouseOver={(datapoint, event)=>{
                     console.log(datapoint)
                     const test = {Item:datapoint.label, Total:this.getToalMoneySpent()}
                     // datapoint.Total = this.getToalMoneySpent();
                     this.setState({activePlot :test})
+                    
                 }}  color={'url(#CoolGradient)'} data={this.state.testValue} />
                 <Hint  x={30} y={40} value={this.state.activePlot} />
               
