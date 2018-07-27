@@ -51,18 +51,18 @@ class TrendsTable extends Component {
     const { page, items } = this.state;
     return (
       <div>
-        {/* <ul className="btn-container">
+        <ul className="btn-container">
           <li className="btn"><a href="#!">Overview</a></li>
           <li className="btn">
-            <a href="/trends/daily">Date</a>
+            <a href="/trends/date">Date</a>
           </li>
           <li className="btn">
-            <a href="/trends/monthly">Store</a>
+            <a href="/trends/store">Store</a>
           </li>
-          {/* <li className="btn">
-            <a href="/trends/quarter">Total</a>
+           <li className="btn">
+            <a href="/trends/total">Total</a>
           </li>
-        </ul> */}
+        </ul>
         <div>
           <h3> Transactions by product quantity </h3>
         </div>
