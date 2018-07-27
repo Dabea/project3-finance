@@ -4,7 +4,7 @@
     padding:0;
     width:40%;
     height:620px;
-    /* background: linear-gradient(135deg, #3b8686 0%, #79bd9a 100%); */
+    background: linear-gradient(135deg, #3b8686 0%, #79bd9a 100%);
     background: white;
     border:1px solid black;
     
@@ -45,9 +45,14 @@
     left: 0;
     right: 0;
     background-color: rgba(0,0,0,0.8);
- 
 }
 
-.save-button {
-    margin-bottom: 1em
+.button {
+    margin-bottom: 1em;
+    background-color:#3b8686;
+}
+
+.container{
+    background-color: white;
+
 }

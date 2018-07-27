@@ -56,7 +56,7 @@ class itemInfo extends Component {
                     </div>
                 </div>
 
-                <button className="save-button" onClick={()=>this.props.saveItemInfo(this.state, this.props.index)}> save</button>
+                <button className="button" onClick={()=>this.props.saveItemInfo(this.state, this.props.index)}> save</button>
 
         </div>
      )
