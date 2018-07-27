@@ -6,7 +6,7 @@ import moment from 'moment';
 const API_URL = 'http://localhost:3001/api/store';
 const ITEMS_PER_PAGE = 8
 
-class MonthlyTrendsTable extends Component {
+class StoreTrendsTable extends Component {
     
        
         
@@ -56,11 +56,17 @@ render() {
   return (        
     <div>
       <ul className="btn-container">
-        <li className="btn"><a href="/trends">Overview</a></li>
-        <li className="btn"><a href="/trends/daily">Date</a></li>
-        <li className="btn"><a href="#!">Store</a></li>
-        {/* <li className="btn"><a href="/trends/quarter">Total</a></li> */}
-      </ul>   
+          <li className="btn "><a href="/trends">Overview</a></li>
+          <li className="btn">
+            <a href="/trends/date">Date</a>
+          </li>
+          <li className="btn">
+            <a href="#!">Store</a>
+          </li>
+           <li className="btn">
+            <a href="/trends/total">Total</a>
+          </li>
+        </ul> 
       <div> 
       <h3> Transactions by Store </h3>   
       </div>  
@@ -91,4 +97,4 @@ render() {
 }
 }
 
-export default MonthlyTrendsTable;
+export default StoreTrendsTable;

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Redirect, Route, Switch, Link} from 'react-router-dom';
 import TrendsTable from './trends-table';
-import DailyTrendsTable from './trends-table/daily-trends/dailyTrendsTable';
-import WeeklyTrendsTable from './trends-table/weekly-trends/WeeklyTrendsTable';
-import MonthlyTrendsTable from './trends-table/monthly-trends/monthlyTrendsTable';
-import QuarterTrendsTable from './trends-table/quarter-trends/QuarterTrendsTable';
+import DateTrendsTable from './trends-table/DateTrendsTable/DateTrendsTable';
+import StoreTrendsTable from './trends-table/StoreTrendsTable/StoreTrendsTable';
+import TotalTrendsTable from './trends-table/TotalTrendsTable/TotalTrendsTable';
 import Nav from "./Nav/Nav";
 import TransactionTable from './transaction-table/transactionTable';
 import '../../node_modules/react-vis/dist/style.css';
@@ -196,10 +195,9 @@ class Router extends Component {
           <Route exact path="/chart-date" component={ChartByDate} />
           <Switch>  
           <Route exact path="/trends" component={TrendsTable} />
-          <Route exact path="/trends/daily" component={ DailyTrendsTable} />
-          <Route exact path="/trends/weekly" component={ WeeklyTrendsTable} />
-          <Route exact path="/trends/monthly" component={ MonthlyTrendsTable} />
-          <Route exact path="/trends/quarter" component={ QuarterTrendsTable} />
+          <Route exact path="/trends/date" component={ DateTrendsTable} />
+          <Route exact path="/trends/store" component={ StoreTrendsTable} />
+          <Route exact path="/trends/total" component={ TotalTrendsTable} />
         </Switch>
       </div>
     </BrowserRouter>
