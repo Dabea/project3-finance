@@ -1,6 +1,4 @@
 import React, {Component} from "react"
-import '../style.css';
-
 
 
 class itemInfo extends Component {
@@ -23,7 +21,7 @@ class itemInfo extends Component {
 
                 {/* FORM HEADER */}
 
-                <div className="model-header">
+                <div className="new-entry">
                     <span className="model-header-title" >New Entry</span>
                 </div>
                 <br />
@@ -36,27 +34,27 @@ class itemInfo extends Component {
                 <div className="model-body">
 
                     <div className="input-field" >
-                        <input className="validate" type="text" name="product" value={this.state.name} onChange={this.handleNameChange} />
+                        <input style={{"background": "white"}} className="validate" type="text" name="product" value={this.state.name} onChange={this.handleNameChange} />
                         <label htmlFor="products"  >Product Name </label>
                     </div>
 
                     <div className="input-field" >
-                        <input className="validate" type="text" name="quantity" value={this.props.quantity} onChange={this.props.onChange} />
+                    <input style={{ "background": "white" }} className="validate" type="text" name="quantity" value={this.props.quantity} onChange={this.props.onChange} />
                         <label htmlFor="quantity"  >Quantity </label>
                     </div>
 
                     <div className="input-field" >
-                        <input className="validate" type="text" name="cost" value={this.props.cost} onChange={this.props.onChange} />
+                    <input style={{ "background": "white" }} className="validate" type="text" name="cost" value={this.props.cost} onChange={this.props.onChange} />
                         <label htmlFor="cost"  >Cost </label>
                     </div>
 
                     <div className="input-field" >
-                        <input className="validate" type="text" name="category" value={this.props.category} onChange={this.props.onChange} />
+                    <input style={{ "background": "white" }} className="validate" type="text" name="category" value={this.props.category} onChange={this.props.onChange} />
                         <label htmlFor="category"  >Category </label>
                     </div>
                 </div>
 
-                <button className="button" onClick={()=>this.props.saveItemInfo(this.state, this.props.index)}> save</button>
+            <button type="button" className="save-btn btn deep-purple lighten-1 waves-effect waves-light btn" onClick={()=>this.props.saveItemInfo(this.state, this.props.index)}> save</button>
 
         </div>
      )
