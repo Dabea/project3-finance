@@ -14,6 +14,7 @@ import ChartByDate from "./chart/chartByDate";
 import Forms from "./forms/forms";
 import FormCarousel from "./FormCarousel/FormCarousel";
 import Login from './login/login'
+import historgram from './chart/historgram';
 
 const Router = () => (
   <BrowserRouter>
@@ -27,6 +28,7 @@ const Router = () => (
         <Route exact path="/chart" component={Chart} />
         <Route exact path="/pichart" component={PiChart} />
         <Route exact path="/chart-date" component={ChartByDate} />
+        <Route exact path="/historgram" component={historgram} />
         <Switch>  
         <Route exact path="/trends" component={TrendsTable} />
         <Route exact path="/trends/daily" component={ DailyTrendsTable} />
