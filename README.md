@@ -1,20 +1,21 @@
-# Finance Project 3
-A Finace Budgeting app
+# iFinace
+Personal spening insignts at the item level.
 
-## *__Project Definition and Value__*
+iFinance enables users to track day-to-day spending at an item rather than merchant level.  We unlock the value of this data so that users can model their furure spending based on historic trends, can gain insight into the best places for them to shop, and identify the specific items they should stop purchasing in order to meet savings goals.  This tool augments other budgeting apps by providing the final level of detain and specificity necessary for users to truly manage their spening. 
 
-### Our team aims to create a web application for budgeting, tracking/forecasting spending, and money management for personal use. The user will be able to input spending through app or upload a picture of a receipt displaying spending. We want to create data visuals as well -- for this, uber's visualization library will be used. 
+## *__Team__*
 
-1. Upload data csv into app to log spending; otherwise use pictures of receipt to log data. 
-2. This data will be categorized based on purchases, purchase habits, different locations and so on. 
-2. Provide data visuals for both spending over a certain period and data visuals. 
-3. Facilitate data by forecasting how their spending will potentially look in a given period in the future.  
+* ```Abe Anderson - Data visualization, development lead```
+* ```Esteban Armendariz - Data model, trend analysis ```
+* ```Salah Osman - User Authentication, data modal```
+* ```Abdissa  - Authentication```
+* ```Landon - Project Management, UX, Front-end development```
+* ```Femi - Front-end development```
 
-## *__Team Roles__*
-
-* ```Abe - Web Development & Production, Image Recognition/Processing```
-* ```Esteban - Web Development & Data Visualization```
-* ```Salah - Web Development & Data Visualization```
-* ```Abdissa  - Web Development & Production, SEO```
-* ```Landon - Project Management, UX, Interface Experience/Design```
-* ```Femi - Front-End, UX , PM```
+## *_Technology_*
+* Node.js
+* Mongo DB
+* Express
+* React
+* Materialize
+* React-vis
