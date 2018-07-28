@@ -4,7 +4,6 @@ import TrendsTable from './trends-table';
 import DateTrendsTable from './trends-table/DateTrendsTable/DateTrendsTable';
 import StoreTrendsTable from './trends-table/StoreTrendsTable/StoreTrendsTable';
 import TotalTrendsTable from './trends-table/TotalTrendsTable/TotalTrendsTable';
-import Nav from "./Nav/Nav";
 import TransactionTable from './transaction-table/transactionTable';
 import '../../node_modules/react-vis/dist/style.css';
 import Chart from "./chart/chart";
@@ -183,7 +182,7 @@ class Router extends Component {
                 />}
           />
           <Route exact path="/signup" component={SignupForm} />
-          <Route exact path="/" component={home} />
+          <Route exact path="/" component={LoginForm} />
 
         
           {/* <Route exact path='/' component={Login}/> */}

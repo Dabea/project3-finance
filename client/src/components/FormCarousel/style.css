@@ -63,7 +63,6 @@
 
 .login-box{
     background-color:#424242;
-
 }
 .container{
     width: 30%;
@@ -84,5 +83,15 @@ input.validate{
     margin-bottom:20px;
 }
 .input-field{
-    color: white;
+    color: #eceff1;
 }
+
+/* label focus color */
+.input-field input:focus + label {
+    color: white !important;
+  }
+  /* label underline focus color */
+  .row .input-field input:focus {
+    border-bottom: 1px solid #7e57c2 !important;
+    box-shadow: 0 1px 0 0 #7e57c2 !important
+  }

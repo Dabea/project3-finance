@@ -40,7 +40,7 @@ class LoginForm extends Component {
 					<div class="grey darken-1 col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
 						<form>
 							<div class="card-content">
-							<span class="card-title">Enter credentials</span>
+							<span class="card-title ">Enter credentials</span>
 							<div class="row">
 								<div class="input-field col s12">
 								{/* Username */}
@@ -68,7 +68,7 @@ class LoginForm extends Component {
 							</div>
 							</div>
 							<div class="card-action right-align">
-							<input onClick={this.handleSubmit} type="submit" class="btn teal waves-effect waves-light btn" value="Login"/>
+							<input onClick={this.handleSubmit} type="submit" class="btn deep-purple accent-1 waves-effect waves-light btn" value="Login"/>
 							</div>
 						</form>
 					</div>

@@ -24,7 +24,8 @@ body,
 }
 
 .card-title{
-    color: teal;
+    color: #b388ff;
+    font-weight: bold;
 }
 
 .card-content{
@@ -37,9 +38,14 @@ body,
 
 .input-box{
     color: black;
-    background-color:white;
 }
 
-.username{
-    color:white;
-}
+.input-field input:focus + label {
+    color: white !important;
+  }
+  
+  /* label underline focus color */
+  .row .input-field input:focus {
+    border-bottom: 1px solid #b388ff !important;
+    box-shadow: 0 1px 0 0 #b388ff !important
+  }
