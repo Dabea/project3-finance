@@ -1,24 +1,17 @@
-import React from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import React, { Component } from 'react';
+import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 import TrendsTable from './trends-table';
-<<<<<<< HEAD
 import DateTrendsTable from './trends-table/DateTrendsTable/DateTrendsTable';
 import StoreTrendsTable from './trends-table/StoreTrendsTable/StoreTrendsTable';
 import TotalTrendsTable from './trends-table/TotalTrendsTable/TotalTrendsTable';
-=======
-// import DateTrendsTable from './trends-table/DateTrendsTable/DateTrendsTable';
-// import StoreTrendsTable from './trends-table/StoreTrendsTable/StoreTrendsTable';
-// import TotalTrendsTable from './trends-table/TotalTrendsTable/TotalTrendsTable';
-import Nav from "./Nav/Nav";
->>>>>>> 9fb20f94ff7ac0d6c769a6818c775dc9d1caa111
 import TransactionTable from './transaction-table/transactionTable';
 import '../../node_modules/react-vis/dist/style.css';
 import Chart from "./chart/chart";
 import PiChart from "./chart/piChartByCat";
 import ChartByDate from "./chart/chartByDate";
+import Historgram from "./chart/historgram";
 import Forms from "./forms/forms";
 import FormCarousel from "./FormCarousel/FormCarousel";
-<<<<<<< HEAD
 import LoginForm from './login/login';
 import SignupForm from './login/signup';
 import home from './home/home';
@@ -200,6 +193,7 @@ class Router extends Component {
           <Route exact path="/chart" component={Chart} />
           <Route exact path="/pichart" component={PiChart} />
           <Route exact path="/chart-date" component={ChartByDate} />
+					<Route exact path="/historgram" component={Historgram} />
           <Switch>  
           <Route exact path="/trends" component={TrendsTable} />
           <Route exact path="/trends/date" component={ DateTrendsTable} />
@@ -211,33 +205,5 @@ class Router extends Component {
   )
 }
 }
-=======
-import Login from './login/login'
-import historgram from './chart/historgram';
-
-const Router = () => (
-  <BrowserRouter>
-    <div>
-        <Nav />
-      
-        <Route exact path='/' component={Login}/>
-        <Route exact path="/FormCarousel" component={FormCarousel} />
-        <Route exact path="/forms" component={Forms} /> 
-        <Route exact path="/transactions" component={TransactionTable} /> 
-        <Route exact path="/chart" component={Chart} />
-        <Route exact path="/pichart" component={PiChart} />
-        <Route exact path="/chart-date" component={ChartByDate} />
-        <Route exact path="/historgram" component={historgram} />
-        <Switch>  
-        <Route exact path="/trends" component={TrendsTable} />
-        {/* <Route exact path="/trends/daily" component={ DailyTrendsTable} />
-        <Route exact path="/trends/weekly" component={ WeeklyTrendsTable} />
-        <Route exact path="/trends/monthly" component={ MonthlyTrendsTable} />
-        <Route exact path="/trends/quarter" component={ QuarterTrendsTable} /> */}
-      </Switch>
-    </div>
-  </BrowserRouter>
-)
->>>>>>> 9fb20f94ff7ac0d6c769a6818c775dc9d1caa111
 
 export default Router;

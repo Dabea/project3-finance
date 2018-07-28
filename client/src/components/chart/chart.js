@@ -42,7 +42,10 @@ class Chart extends Component {
         .then(response => {
             let receipts = [];
             response.data.forEach(receipt => {
-                if(moment(receipt.date).isSame(new Date(), timeInterval)){
+                if(timeInterval === 'all' ){
+                    receipts.push(receipt)
+                }
+                else if(moment(receipt.date).isSame(new Date(), timeInterval)){
                     receipts.push(receipt)
                     console.log('found');
                 }
@@ -50,7 +53,7 @@ class Chart extends Component {
            this.setState({data: receipts})
            this.formatForChart()
            
- 
+           this.costyByItem()
            
         })
         
@@ -68,7 +71,7 @@ class Chart extends Component {
         dataCopy.forEach(value =>{
             value.items.forEach(
                 (item , index) => {
-                    formattedData.push({label: item.name, x:parseFloat(index) , y: parseFloat(item.cost) } )
+                    formattedData.push({label: item.name, x:parseFloat(index) , y: parseFloat(item.cost), labelAnchorX:"start" } )
                 })},
             this.setState({formatedData : formattedData},   console.log("FORMATED" , formattedData)) ); 
     }
@@ -169,6 +172,7 @@ class Chart extends Component {
                 <div className="btn-container" >
                    
                     <button className="btn" onClick={this.costyByItem} > Costy By Item </button>
+                    <button className="btn" onClick={() => this.getThisdataByTime('all') } > All </button>
                     <button className="btn" onClick={() => this.getThisdataByTime('year') } > Year </button>
                     <button className="btn" onClick={() => this.getThisdataByTime('month')} > Month </button>
                     <button className="btn" onClick={() => this.getThisdataByTime('week')} > Week </button>
@@ -183,11 +187,7 @@ class Chart extends Component {
                 <YAxis title="Y Axis" />
                 <HorizontalGridLines />
                 <VerticalGridLines />
-                <LabelSeries
-                   
-                    animation
-                    allowOffsetToBeReversed
-                    data={this.state.testValue} />
+              
                 <GradientDefs>
                     <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
                         <stop offset="0%" stopColor="red" stopOpacity={0.8}/>
@@ -201,13 +201,18 @@ class Chart extends Component {
                     this.setState({activePlot :test})
                     
                 }}  color={'url(#CoolGradient)'} data={this.state.testValue} />
+                  <LabelSeries
+                   
+                   animation
+                   
+                   data={this.state.testValue} />
                 <Hint  x={30} y={40} value={this.state.activePlot} />
-              
+                
               </FlexibleWidthXYPlot >
               <div className="padding" >
                  {this.state.testValue.map(item => <div  key={item.label} className="pill"  onClick={ () => this.removeItem(item.label)}> {item.label}</div>) }
               </div>
-              <div>
+              <div className="padding">
               {this.state.removedItems.map(item => <div  key={item.label} className="pill" onClick={ () => this.addItemBackToList(item.label)} > {item.label}  </div>) }
               </div>    
                
