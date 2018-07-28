@@ -21,7 +21,7 @@ class Nav extends Component {
     return (
       <nav className="nav-extended grey darken-3">
         <div className="nav-wrapper black">
-          <a href="#" className="brand-logo">
+          <a href="" className="brand-logo">
             iFinance
           </a>
           <ul id="nav-mobile" className="right">

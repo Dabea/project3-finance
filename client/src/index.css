@@ -7,3 +7,6 @@ body {
 .tab-active {
   background-color: grey;
 }
+ .nav {
+   background: green;
+ }
