@@ -100,7 +100,7 @@ class FormCarousel extends React.Component {
         // </div>
 
             <div className="valign-wrapper row login-box">
-                <div className="grey darken-1 col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+                <div className="grey col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
                     <form>
                         <div className="card-content">
                         <div className="form-carousel">
