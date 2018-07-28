@@ -170,8 +170,6 @@ class Chart extends Component {
             <div>
                
                 <div className="btn-container" >
-                   
-                    <button className="btn" onClick={this.costyByItem} > Costy By Item </button>
                     <button className="btn" onClick={() => this.getThisdataByTime('all') } > All </button>
                     <button className="btn" onClick={() => this.getThisdataByTime('year') } > Year </button>
                     <button className="btn" onClick={() => this.getThisdataByTime('month')} > Month </button>

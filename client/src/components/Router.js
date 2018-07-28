@@ -14,7 +14,7 @@ import Forms from "./forms/forms";
 import FormCarousel from "./FormCarousel/FormCarousel";
 import LoginForm from './login/login';
 import SignupForm from './login/signup';
-import home from './home/home';
+import Home from './home/home';
 import axios from 'axios';
 
 
@@ -33,7 +33,19 @@ const links = [
   },
   {
     path: '/chart',
-    text: 'Analysis'
+    text: 'Cost By Item'
+  },
+  {
+    path: '/chart-date',
+    text: 'Chart By Date'
+  },
+  {
+    path: '/chart',
+    text: 'Cost By Item'
+  },
+  {
+    path: '/pichart',
+    text: 'Category Chart'
   }
 ]
 
@@ -82,9 +94,9 @@ const DisplayLinks = props => {
 				</a>
 				<ul className="right hide-on-med-and-down">
 					<li className="nav-item">
-						{/* <Link to="/" className="nav-link">
+						<Link to="/" className="nav-link">
 							Home
-						</Link> */}
+						</Link>
 					</li>
 					<li className="nav-item">
 						<Link to="/login" className="nav-link">
@@ -186,7 +198,8 @@ class Router extends Component {
           <Route exact path="/" component={LoginForm} />
 
         
-          {/* <Route exact path='/' component={Login}/> */}
+					{/* <Route exact path='/' component={Login}/> */}
+					<Route exact path="/home" component={Home} />
           <Route exact path="/FormCarousel" component={FormCarousel} />
           <Route exact path="/forms" component={Forms} /> 
           <Route exact path="/transactions" component={TransactionTable} /> 
