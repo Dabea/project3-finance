@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var itemSchema = mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        // required: true,
         },
 
     quantity: {
@@ -13,12 +13,12 @@ var itemSchema = mongoose.Schema({
 
     cost: {
         type: String,
-        required: true
+        // required: true
         },
 
     category: {
         type: String,
-        required: true
+        // required: true
         }
 });
 
@@ -37,7 +37,6 @@ var productSchema = mongoose.Schema({
 
     total: {
         type: String,
-        required: true
         }, 
 });
 
