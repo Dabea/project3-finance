@@ -9,7 +9,9 @@ import TransactionInfo from "./Forms/transactionInfo"
 class FormCarousel extends React.Component {
 
         // save data in state
-    state =  {
+
+    
+        state =  {
             name:'', 
             date: Date.now(), 
             quantity:'1', 
@@ -20,9 +22,9 @@ class FormCarousel extends React.Component {
             count:0, 
             forms: [0],
             items: [],
-
-
         }; 
+    
+    
 
 
     addMore = () =>  {
@@ -107,12 +109,12 @@ class FormCarousel extends React.Component {
                             {this.state.forms.map((newEntry, index) => (
                                 <ItemInfo key={newEntry} saveItemInfo={this.saveItemInfo} index={index} />
                             ))}
-                                <button type="button" class="addmore-btn btn deep-purple lighten-1 waves-effect waves-light btn" onClick={this.addMore}>add more items</button>
+                                <button type="button" className="addmore-btn btn deep-purple lighten-1 waves-effect waves-light btn" onClick={this.addMore}>add more items</button>
                             <TransactionInfo />
                         </div>
 
                         <div >
-                            <button  type="button" class="btn deep-purple lighten-1
+                            <button  type="button" className="btn deep-purple lighten-1
                              waves-effect waves-light btn" onClick={this.onSubmit} >Submit </button>
                         </div >
                         </div>

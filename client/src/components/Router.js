@@ -16,6 +16,7 @@ import LoginForm from './login/login';
 import SignupForm from './login/signup';
 import Home from './home/home';
 import axios from 'axios';
+import Header from './login/header'
 
 
 function buildTabClassNames(currentPath, destinationPath) {
@@ -55,7 +56,7 @@ const DisplayLinks = props => {
 		return (
 			<nav className="nav-extended grey darken-3">
 			<div className="nav-wrapper black">
-				<a href="#" className="brand-logo">
+				<a href="/" className="brand-logo">
 					iFinance
 				</a>
 				<ul id="nav-mobile" className="right">
@@ -89,7 +90,7 @@ const DisplayLinks = props => {
 			<nav className="nav-extended">
 			<div className="nav-wrapper black">
 
-				<a href="#" className="brand-logo">
+				<a href="/" className="brand-logo">
 					iFinance
 				</a>
 				<ul className="right hide-on-med-and-down">
@@ -185,6 +186,7 @@ class Router extends Component {
       <div>
           {/* <Nav /> */}
           <DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
+					<Header user={this.state.user} />
           <Route
               exact
               path="/login"
@@ -195,13 +197,12 @@ class Router extends Component {
                 />}
           />
           <Route exact path="/signup" component={SignupForm} />
-          <Route exact path="/" component={LoginForm} />
-
+					{/* <Route exact path="/login" component={LoginForm} /> */}
         
 					{/* <Route exact path='/' component={Login}/> */}
 					<Route exact path="/home" component={Home} />
           <Route exact path="/FormCarousel" component={FormCarousel} />
-          <Route exact path="/forms" component={Forms} /> 
+          {/* <Route exact path="/forms" component={Forms} />  */}
           <Route exact path="/transactions" component={TransactionTable} /> 
           <Route exact path="/chart" component={Chart} />
           <Route exact path="/pichart" component={PiChart} />

@@ -5,7 +5,7 @@ class itemInfo extends Component {
 
     state = {
         name: '',
-        quantity: '1',
+        quantity: '',
         cost: '',
         category: '',
     }

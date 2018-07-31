@@ -36,17 +36,17 @@ class LoginForm extends Component {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
 		} else {
 			return (
-				<div class="valign-wrapper row login-box">
-					<div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+				<div className="valign-wrapper row login-box">
+					<div className="grey darken-1 col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
 						<form>
-							<div class="card-content">
-							<span class="card-title ">Enter credentials</span>
-							<div class="row">
-								<div class="input-field col s12">
+							<div className="card-content">
+							<span className="card-title ">Enter credentials</span>
+							<div className="row">
+								<div className="input-field col s12">
 								{/* Username */}
 								<label htmlFor="email">Username: </label>
 								<input
-									class="input-box"
+									className="input-box"
 									type="email"
 									id="email"
 									name="username"
@@ -54,11 +54,11 @@ class LoginForm extends Component {
 									onChange={this.handleChange}
 								/>
 								</div>
-								<div class="input-field col s12">
+								<div className="input-field col s12">
 								{/* Password */}
 								<label htmlFor="password">Password: </label>
 								<input
-									class="input-box"
+									className="input-box"
 									type="password"
 									name="password"
 									value={this.state.password}
@@ -67,8 +67,8 @@ class LoginForm extends Component {
 								</div>
 							</div>
 							</div>
-							<div class="card-action right-align">
-							<input onClick={this.handleSubmit} type="submit" class="btn deep-purple accent-1 waves-effect waves-light btn" value="Login"/>
+							<div className="card-action right-align">
+							<input onClick={this.handleSubmit} type="submit" className="btn deep-purple accent-1 waves-effect waves-light btn" value="Login"/>
 							</div>
 						</form>
 					</div>

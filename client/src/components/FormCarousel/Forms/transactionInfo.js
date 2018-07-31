@@ -8,7 +8,7 @@ const transactionInfo = (props) => (
 
     <div className="model-body">
 
-        <form>
+        <div>
                 <span className="model-header-title" >Transaction Info </span>
             
                 <div className="input-field"> 
@@ -27,7 +27,7 @@ const transactionInfo = (props) => (
                 </div>
             
 
-        </form>
+        </div>
                 
     </div >
 )
