@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {XYPlot, XAxis,Hint,AreaSeries, makeWidthFlexible, RadialChart, ArcSeries, LabelSeries,  YAxis,VerticalGridLines, HorizontalGridLines, GradientDefs, linearGradient , LineSeries, VerticalBarSeries, MarkSeries} from 'react-vis';
+import { makeWidthFlexible, RadialChart} from 'react-vis';
 import axios from 'axios';
 import cloneDeep from 'clone-deep'
 
@@ -34,7 +34,6 @@ class PiChart extends Component {
         dataCopy.forEach(receipt =>{
             receipt.items.forEach(
                 (item , i) => {
-                    const date = new Date(receipt.date).getTime();
                     formattedDataSet.push({ category:item.category , y: item.cost } )
                 })})
         this.setState({formatedByCategory:formattedDataSet})
@@ -54,14 +53,14 @@ class PiChart extends Component {
         })
         let TotalSpent = this.getTotalPriceFromList(itemList)
         
-        let i = 0;
+
         for(let item in categoryPriceMap){
             const angle = ((categoryPriceMap[item]/ TotalSpent) * 100)
             categoryTotals.push({label:item, angle:parseFloat(angle), style:{stroke:'black', strokeWidth: '0'}})
         }
-       this.setState({
+        this.setState({
              piChartData: categoryTotals
-       })
+        })
     }
 
     
@@ -82,7 +81,7 @@ class PiChart extends Component {
         const displayedData = cloneDeep(this.state.piChartData);
         displayedData.forEach((category) =>{
             if(category.label === dataPoint.label){
-                category.style = {stroke:'black', strokeWidth: '15px'}
+                category.style = {stroke:'black', strokeWidth: '10px'}
             }else{
                 category.style = {stroke:'black', strokeWidth: '0px'}
             }

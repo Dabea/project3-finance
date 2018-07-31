@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Redirect, Route, Switch, Link} from 'react-router-dom';
+import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 import TrendsTable from './trends-table';
 import DateTrendsTable from './trends-table/DateTrendsTable/DateTrendsTable';
 import StoreTrendsTable from './trends-table/StoreTrendsTable/StoreTrendsTable';
@@ -9,11 +9,12 @@ import '../../node_modules/react-vis/dist/style.css';
 import Chart from "./chart/chart";
 import PiChart from "./chart/piChartByCat";
 import ChartByDate from "./chart/chartByDate";
+import Historgram from "./chart/historgram";
 import Forms from "./forms/forms";
 import FormCarousel from "./FormCarousel/FormCarousel";
 import LoginForm from './login/login';
 import SignupForm from './login/signup';
-import home from './home/home';
+import Home from './home/home';
 import axios from 'axios';
 
 
@@ -32,7 +33,19 @@ const links = [
   },
   {
     path: '/chart',
-    text: 'Analysis'
+    text: 'Cost By Item'
+  },
+  {
+    path: '/chart-date',
+    text: 'Chart By Date'
+  },
+  {
+    path: '/chart',
+    text: 'Cost By Item'
+  },
+  {
+    path: '/pichart',
+    text: 'Category Chart'
   }
 ]
 
@@ -81,9 +94,9 @@ const DisplayLinks = props => {
 				</a>
 				<ul className="right hide-on-med-and-down">
 					<li className="nav-item">
-						{/* <Link to="/" className="nav-link">
+						<Link to="/" className="nav-link">
 							Home
-						</Link> */}
+						</Link>
 					</li>
 					<li className="nav-item">
 						<Link to="/login" className="nav-link">
@@ -185,13 +198,15 @@ class Router extends Component {
           <Route exact path="/" component={LoginForm} />
 
         
-          {/* <Route exact path='/' component={Login}/> */}
+					{/* <Route exact path='/' component={Login}/> */}
+					<Route exact path="/home" component={Home} />
           <Route exact path="/FormCarousel" component={FormCarousel} />
           {/* <Route exact path="/forms" component={Forms} />  */}
           <Route exact path="/transactions" component={TransactionTable} /> 
           <Route exact path="/chart" component={Chart} />
           <Route exact path="/pichart" component={PiChart} />
           <Route exact path="/chart-date" component={ChartByDate} />
+					<Route exact path="/historgram" component={Historgram} />
           <Switch>  
           <Route exact path="/trends" component={TrendsTable} />
           <Route exact path="/trends/date" component={ DateTrendsTable} />

@@ -5,7 +5,7 @@ import "./style.css"
 import ItemInfo from "./Forms/itemInfo"
 import TransactionInfo from "./Forms/transactionInfo"
 
-const API_URL = 'http://localhost:3001/api';
+
 class FormCarousel extends React.Component {
 
         // save data in state
@@ -85,7 +85,7 @@ class FormCarousel extends React.Component {
 
     render = () => {
         // get data from state, not from props
-        const data = this.state.data;
+
         return (
         // <div className="container">
         //         <div className="form-carousel">

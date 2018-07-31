@@ -12,7 +12,19 @@ const links = [
   },
   {
     path: '/chart',
-    text: 'Analysis'
+    text: 'Cost By Item'
+  },
+  {
+    path: '/chart-date',
+    text: 'Chart By Date'
+  },
+  {
+    path: '/chart',
+    text: 'Cost By Item'
+  },
+  {
+    path: '/pichart',
+    text: 'Category Chart'
   }
 ]
 
@@ -21,8 +33,8 @@ class Nav extends Component {
     return (
       <nav className="nav-extended grey darken-3">
         <div className="nav-wrapper black">
-          <a href="#" className="brand-logo">
-            iFinance
+          <a href="" className="brand-logo">
+            iFinance2
           </a>
           <ul id="nav-mobile" className="right">
             <li>
