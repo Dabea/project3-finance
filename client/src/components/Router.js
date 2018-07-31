@@ -16,6 +16,7 @@ import LoginForm from './login/login';
 import SignupForm from './login/signup';
 import Home from './home/home';
 import axios from 'axios';
+import Header from './login/header'
 
 
 function buildTabClassNames(currentPath, destinationPath) {
@@ -185,6 +186,7 @@ class Router extends Component {
       <div>
           {/* <Nav /> */}
           <DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
+					<Header user={this.state.user} />
           <Route
               exact
               path="/login"
@@ -195,8 +197,7 @@ class Router extends Component {
                 />}
           />
           <Route exact path="/signup" component={SignupForm} />
-          <Route exact path="/" component={LoginForm} />
-
+					{/* <Route exact path="/login" component={LoginForm} /> */}
         
 					{/* <Route exact path='/' component={Login}/> */}
 					<Route exact path="/home" component={Home} />
