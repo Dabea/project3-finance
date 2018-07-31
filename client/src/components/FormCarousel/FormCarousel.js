@@ -3,7 +3,7 @@ import axios from 'axios';
 import "./style.css"
 
 import ItemInfo from "./Forms/itemInfo"
-import TransactionInfo from "./Forms/transactionInfo"
+// import TransactionInfo from "./Forms/transactionInfo"
 
 
 class FormCarousel extends React.Component {
@@ -11,10 +11,12 @@ class FormCarousel extends React.Component {
         // save data in state
 
     
-        state =  {
+    constructor() {
+        super();
+        this.state =  {
             name:'', 
             date: Date.now(), 
-            quantity:'1', 
+            quantity:'', 
             cost:'', 
             category:'', 
             store:'', 
@@ -23,7 +25,7 @@ class FormCarousel extends React.Component {
             forms: [0],
             items: [],
         }; 
-    
+    }
     
 
 
@@ -41,11 +43,10 @@ class FormCarousel extends React.Component {
     }
 
     onChange = (e) =>  {
-        // Because we named the inputs to match their corresponding values in state, it's super easy to update the state
-        this.setState({ name: e.target.value });
-        this.setState({ quantity: e.target.value });
-        this.setState({ cost: e.target.value });
-        this.setState({ category: e.target.value });
+        this.setState({ [e.target.name]: e.target.value });
+        // this.setState({ quantity: e.target.value });
+        // this.setState({ cost: e.target.value });
+        // this.setState({ category: e.target.value });
     }
 
     onSubmit = (e) => {
@@ -110,7 +111,33 @@ class FormCarousel extends React.Component {
                                 <ItemInfo key={newEntry} saveItemInfo={this.saveItemInfo} index={index} />
                             ))}
                                 <button type="button" className="addmore-btn btn deep-purple lighten-1 waves-effect waves-light btn" onClick={this.addMore}>add more items</button>
-                            <TransactionInfo />
+                            
+                            <div className="model-body">
+
+                                <div>
+                                        <span className="model-header-title" >Transaction Info </span>
+                                    
+                                        <div className="input-field"> 
+                                            <input style={{ "background": "white" }} className="validate" onChange={this.onChange} value={this.state.date} name="date" type="date" />
+                                        <label htmlFor="date"  >Date </label>
+                                        </div>
+
+                                        <div className="input-field" >
+                                            <input style={{ "background": "white" }} className="validate" type="text" name="store" value={this.state.store} onChange={this.onChange} />
+                                            <label htmlFor="store"  >Store </label>
+                                        </div>
+
+                                        <div className="input-field" >
+                                            <input style={{ "background": "white" }} className="validate" type="text" name="total" value={this.state.total} onChange={this.onChange} />
+                                            <label htmlFor="total"  >Total </label>
+                                        </div>
+                                    
+
+                                </div>
+                                    
+                            </div >
+
+
                         </div>
 
                         <div >
