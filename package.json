@@ -31,6 +31,7 @@
     "express-fileupload": "^0.4.0",
     "express-session": "^1.15.6",
     "fast-csv": "^2.4.1",
+    "js-beautify": "^1.7.5",
     "json2csv": "^4.1.5",
     "materialize-css": "^0.100.2",
     "moment": "^2.22.2",
