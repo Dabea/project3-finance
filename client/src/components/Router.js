@@ -41,8 +41,8 @@ const links = [
     text: 'Chart By Date'
   },
   {
-    path: '/chart',
-    text: 'Cost By Item'
+    path: '/historgram',
+    text: 'Histogram'
   },
   {
     path: '/pichart',
